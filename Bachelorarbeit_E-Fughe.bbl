@@ -1,0 +1,211 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{bertschinger:2018}{article}{}
+      \name{author}{3}{}{%
+        {{hash=7507150bbb6ebe80da9fb78b0e4f39e0}{%
+           family={Bertschinger},
+           familyi={B\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=0e4c783a95a97ed74a0a22f3ba43dadc}{%
+           family={Mozzhorin},
+           familyi={M\bibinitperiod},
+           given={I.},
+           giveni={I\bibinitperiod}}}%
+        {{hash=d09c49cb24214d31880837040cd30414}{%
+           family={Sinha},
+           familyi={S\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{13dc84779e441d8d54fce5d383d69787}
+      \strng{fullhash}{169089ba6d8807599d9ab089a2c11831}
+      \strng{bibnamehash}{169089ba6d8807599d9ab089a2c11831}
+      \strng{authorbibnamehash}{169089ba6d8807599d9ab089a2c11831}
+      \strng{authornamehash}{13dc84779e441d8d54fce5d383d69787}
+      \strng{authorfullhash}{169089ba6d8807599d9ab089a2c11831}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{CoRR}
+      \field{month}{03}
+      \field{title}{Reality-check for Econophysics: Likelihood-based fitting of physics-inspired market models to empirical data}
+      \field{volume}{abs/1803.03861}
+      \field{year}{2018}
+      \verb{eprint}
+      \verb 1803.03861
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1803.03861
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1803.03861
+      \endverb
+    \endentry
+    \entry{stan:2017}{article}{}
+      \name{author}{10}{}{%
+        {{hash=fb62923439b93fa6e3173a27f24f0621}{%
+           family={Carpenter},
+           familyi={C\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=ba82e2f52cafc6076f0de4ae6be66db0}{%
+           family={Gelman},
+           familyi={G\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7cf5720ddb5329f482323cd388cede1c}{%
+           family={Hoffman},
+           familyi={H\bibinitperiod},
+           given={M.\bibnamedelimi D.},
+           giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=98056d9ddecda0076a31a183e3e69326}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=09f22d184d0bfba10f232ed14e09c289}{%
+           family={Goodrich},
+           familyi={G\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=e0725c87ba248a29e435e398c119bdb9}{%
+           family={Betancourt},
+           familyi={B\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=91578266033681e54f319280416916ec}{%
+           family={Brubaker},
+           familyi={B\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=28f6068ba57e60c5e27fc2490a8e1ffd}{%
+           family={Guo},
+           familyi={G\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a494467233dc99d0be6a30678b7aca5a}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=bf62360afb8e6c9f8afa940da856c0c1}{%
+           family={Riddell},
+           familyi={R\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{1893385f8bd738fc5722ca830ff1f0d0}
+      \strng{fullhash}{cfd2c817af5fac06e83488717061b204}
+      \strng{bibnamehash}{1893385f8bd738fc5722ca830ff1f0d0}
+      \strng{authorbibnamehash}{1893385f8bd738fc5722ca830ff1f0d0}
+      \strng{authornamehash}{1893385f8bd738fc5722ca830ff1f0d0}
+      \strng{authorfullhash}{cfd2c817af5fac06e83488717061b204}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Statistical Software}
+      \field{month}{1}
+      \field{number}{1}
+      \field{title}{Stan : A Probabilistic Programming Language}
+      \field{volume}{76}
+      \field{year}{2017}
+      \verb{doi}
+      \verb 10.18637/jss.v076.i01
+      \endverb
+    \endentry
+    \entry{hanson:2001}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=efd0a76b091ba5847f7f8ce37b31924d}{%
+           family={Hanson},
+           familyi={H\bibinitperiod},
+           given={K.\bibnamedelimi M.},
+           giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{efd0a76b091ba5847f7f8ce37b31924d}
+      \strng{fullhash}{efd0a76b091ba5847f7f8ce37b31924d}
+      \strng{bibnamehash}{efd0a76b091ba5847f7f8ce37b31924d}
+      \strng{authorbibnamehash}{efd0a76b091ba5847f7f8ce37b31924d}
+      \strng{authornamehash}{efd0a76b091ba5847f7f8ce37b31924d}
+      \strng{authorfullhash}{efd0a76b091ba5847f7f8ce37b31924d}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proc.SPIE}
+      \field{title}{Markov chain Monte Carlo posterior sampling with the Hamiltonian method}
+      \field{volume}{4322}
+      \field{year}{2001}
+      \field{pages}{4322 - 4322 \bibrangedash  12}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1117/12.431119
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1117/12.431119
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1117/12.431119
+      \endverb
+    \endentry
+    \entry{kendall:2005}{book}{}
+      \name{author}{3}{}{%
+        {{hash=7ebe31064a32eb544a05224607c85454}{%
+           family={Kendall},
+           familyi={K\bibinitperiod},
+           given={W.S.},
+           giveni={W\bibinitperiod}}}%
+        {{hash=a93171e6e9a0fbae5b527ed4a0413318}{%
+           family={Liang},
+           familyi={L\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+        {{hash=42ea6051c626bea1bc8f67ba011abc32}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={J.S.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {World Scientific Publishing Co Pte Ltd}%
+      }
+      \strng{namehash}{8fd9a03051e3ad800fe66ecd7db036bc}
+      \strng{fullhash}{98b73b1e55896f2876181043b6f8b102}
+      \strng{bibnamehash}{98b73b1e55896f2876181043b6f8b102}
+      \strng{authorbibnamehash}{98b73b1e55896f2876181043b6f8b102}
+      \strng{authornamehash}{8fd9a03051e3ad800fe66ecd7db036bc}
+      \strng{authorfullhash}{98b73b1e55896f2876181043b6f8b102}
+      \field{sortinit}{K}
+      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Markov chain Monte Carlo: Innovations and Applications}
+      \field{volume}{7}
+      \field{year}{2005}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

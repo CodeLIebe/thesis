@@ -1,0 +1,183 @@
+% arara: xelatex: { shell: yes }
+% arara: biber
+% arara: nomencl
+% arara: xelatex: { shell: yes }
+% arara: xelatex: { shell: yes }
+\documentclass[ngerman]{ttlab-qualify}
+% m�gliche Optionen:
+% - ngerman
+% - english
+% - minted
+% - algorithm
+% - nomencl
+% - nolibertine
+
+%to export equation as png
+%\usepackage[active,tightpage]{preview}
+%\PreviewEnvironment{equation}
+
+\usepackage{multirow}
+
+\usepackage{ amssymb }
+%\usepackage[captions=tableheadings]{booktabs}
+
+\addbibresource{bib/bayes.bib}
+\usepackage{float} %use [H]with figure to place figures right in the text
+ 
+\usepackage[colorlinks=false,
+pdfpagelabels,
+pdfstartview = FitH,
+bookmarksopen = true,
+bookmarksnumbered = true,
+%urlcolor = blue,   %externe URLs
+%linkcolor = black, %interne Verweise
+%citecolor = blue,  %interne Zitate
+urlbordercolor={0.5 0.5 0.5},
+linkbordercolor={0.5 0.5 0.5},
+citebordercolor={0.5 0.5 0.5},
+plainpages = false,
+hypertexnames = true]{hyperref}
+%insert links from title back to toc
+\makeatletter
+\let\hyperchapter\chapter
+\def\chapter{\@ifstar\starchapter\mychapter}
+\def\starchapter{\hyperchapter*}
+\newcommand{\mychapter}[2][\@empty]% #1=optional (toc and top of page), #2=title
+{\ifx#1\@empty \hyperchapter[#2]{\hyperlink{toc.chapter.\thechapter}{#2}}
+ \else \hyperchapter[#1]{\hyperlink{toc.chapter.\thechapter}{#2}}
+ \fi}
+
+\let\hypersection\section
+\def\section{\@ifstar\starsection\mysection}
+\def\starsection{\hypersection*}
+\newcommand{\mysection}[2][\@empty]% #1=optional (toc), #2=title
+{\ifx#1\@empty \hypersection[#2]{\hyperlink{toc.section.\thesection}{#2}}
+ \else \hypersecton[#1]{\hyperlink{toc.section.\thesection}{#2}}
+ \fi}
+ 
+ \let\hypersubsection\subsection
+\def\subsection{\@ifstar\starsubsection\mysubsection}
+\def\starsubsection{\hypersubsection*}
+\newcommand{\mysubsection}[2][\@empty]% #1=optional (toc), #2=title
+{\ifx#1\@empty \hypersubsection[#2]{\hyperlink{toc.subsection.\thesubsection}{#2}}
+ \else \hypersubsecton[#1]{\hyperlink{toc.subsection.\thesubsection}{#2}}
+ \fi}
+\makeatother
+%change u.a. to et.al. - edit E. Fughe 4.7.18
+\DefineBibliographyStrings{ngerman}{
+   andothers = {{et\,al\adddot}},
+}
+
+\begin{document}
+\let\hypercontentsline=\contentsline
+\renewcommand{\contentsline}[4]{\hypertarget{toc.#4}{}\hypercontentsline{#1}{#2}{#3}{#4}}
+
+\titlehead{
+  Elisabeth Fughe\\
+  Matrikelnummer: 5263769\\
+  s3499227@stud.uni-frankfurt.de
+}
+\subject{Bachelorarbeit (B.Sc. - Informatik)}
+\author{Elisabeth Fughe}
+\title{tbd}
+%\subtitle{Ggf. Untertitel}
+\date{Abgabedatum: tbd 2019}
+\publishers{FIAS - Frankfurt Institute for Advanced Studies\\Prof. Dr. Nils Bertschinger}
+%\\Ggf. Name des Zweitbetreuers}
+
+\maketitle
+
+\chapter*{Zusammenfassung}
+
+Abschließend wird in Kapitel~\ref{chap:summary} ...
+
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+\chapter{Einleitung}
+\label{chap:summary}
+tbd
+
+\chapter{Verwendete Methoden}
+\label{chap:methoden}
+tbd
+\section{Bayessche Modellierung}
+Die Bayessche Statistik untersucht mittels bayesscher Wahrscheinlichkeiten und dem Satz von Bayes Fragestellungen der Stochastik. Anders als in der klassischen Statistik, die unendlich oft wiederholbare Zufallsexperimente voraussetzt, steht die Verwendung und Modellierung von Wahrscheinlichkeitsverteilungen im Vordergrund. 
+
+Es gilt, das beobachtete Daten \[x=(x_1,...,x_n)\] mittels bedingter Wahrscheinlichkeiten in Beziehung zu unbekannten Parametern \[\theta = (\theta_1,...,\theta_m)\] stehen. Sodass die gemeinsame Wahrscheinlichkeitsdichte 
+\[p(x,\theta) = p(x|\theta)\cdot p(\theta)\]
+durch die a-prori-Verteilung unbekannter Parameter $p(\theta)$ und den Erkenntnissen aus dem Datensatz $p(x|\theta)$ berechnet werden kann.
+Durch den Satz von Bayes kann dann die a-posteriori-Verteilung unbekannter Parameter \[p(\theta|x) =\dfrac{p(x|\theta)\cdot p(\theta)}{p(x)}\] ermittelt werden \parencite{bertschinger:2018}.
+
+Die a-posteriori-Verteilung enthält somit Informationen über die unbekannten Parameter durch die Kombination der a-prior Verteilung mit den Informationen, die aus den beobachteten Daten gewonnen wurden.Sie wird zur Punktschätzung und Schätzung von Konfidenzintervallen genutzt.
+
+So sind bayessche Modelle, im Gegensatz zur klassischen Statistik, auf kleineren Datensätzen anwendbar, dort ergibt sich jedoch eine breite Wahrscheinlichkeitsverteilung, die somit unter Umständen eine geringe Genauigkeit aufweist.
+
+\section{Markov Chain Monte Carlo (MCMC)}
+\label{chap:MCMC}
+In der bayesschen Statistik beschreibt die a-posteriori-Verteilung die Unsicherheit der unbekannten Parameter, die anhand beobachteter Daten geschätzt wurden. Mit der Markov Chain Monte Carlo (MCMC) Methode kann die a-posteriori-Verteilung und somit die unbekannten Parameter  untersucht werden \parencite{hanson:2001}. Dazu wird eine Markov-Kette entworfen, deren langfristiges Gleichgewicht der Wahrscheinlichkeitsverteilung(Ziel Wahrscheinlichkeitsdichte - target density - a-posteriori-Verteilung) entspricht. Anschließend wird diese Markov-Kette solang simuliert bis sie mit einer entsprechenden Sicherheit, das Gleichgewicht erreicht hat. Dann wird der finale Zustand der Markov-Kette als Teil der Zufallsstichprobe/des Samples notiert \parencite{kendall:2005}. Die Markov-Kette generiert so eine Reihe von Modell-Realisierungen, die zufällig aus der a-posteriori-Verteilung gezogen werden \parencite{hanson:2001}.
+
+Ein weit verbreitetes MCMC-Verfahren ist der Metropolis-Hastings-Algorithmus. Der Algorithmus startet an einem zufälligen Punkt im zu untersuchenden Vektorraum/ in der zu untersuchenden Verteilung (a-posteriori-Verteilung).
+Dann wird eine Schrittweite zufällig mit Hilfe einer symmetrischen Wahrscheinlichkeitsverteilung gewählt.
+Der Schritt wird abgelehnt oder akzeptiert auf Grundlage der Wahrscheinlichkeit der neuen Position im Verhältnis zur alten Position \parencite{hanson:2001}.
+So wird sicher gestellt, dass die Markov-Kette, von jedem Punkt aus gegen das langfristige Gleichgewicht, der Ziel-Wahrscheinlichkeitsdichte, konvergiert \parencite{bertschinger:2018}.
+Der Metropolis-Hastings-Algorithmus ist sehr einfach zu implementieren und liefert gute Ergebnisse insbesondere bei stark korrelierten Parametern \parencite{hanson:2001}.
+
+%old from here:
+%Die Markov Chain Monte Carlo (MCMC) Methode beschreibt einen weit verbreiteten Ansatz, um zufällige Stichproben einer Ziel-Wahrscheinlichkeitsdichte (a-posteriori) zu erhalten\parencite{hanson:2001}.
+
+%Die Markov Chain Monte Carlo Methode wird genutzt, um akkurate Vorhersagen auf Basis einer Datenmenge treffen zu können, die sehr vielen Einflussfaktoren unterliegt. Mittels Markov-Kette können die entscheidenden Parameter identifiziert werden, die eine Verteilung beeinflussen \parencite{betancourt:2017}.
+
+%Dazu wird eine Markov-Kette entworfen, deren langfristiges Gleichgewicht der Wahrscheinlichkeitsverteilung(Ziel Wahrscheinlichkeitsdichte - target density ) entspricht. Anschließend wird diese Markov-Kette solang simuliert bis sie mit einer entsprechenden Sicherheit, das Gleichgewicht erreicht hat. Dann wird der finale Zustand der Markov-Kette als Teil der Zufallsstichprobe/des Samples notiert \parencite{kendall:2005}.
+
+\section{Hamiltonian Monte Carlo Sampling (HMC)}
+\label{chap:HMC}
+tbd
+
+\section{Stan und R}
+\label{chap:stan}
+Stan ist eine Open-Source Plattform für statistische Modellierung und high-performance Berechnungen. 
+Stan ist für alle in der Datenanalyse weit verbreiteten Sprachen (R, Python, shell MATLAB, Julia, Stata) verfügbar und läuft auf den gängigen Betriebssystem (Linux, Mac, Windows) \parencite{stan:2017}.
+
+
+\chapter{Die Modelle}
+\label{chap:models}
+tbd
+\section{GARCH}
+\label{chap:garch}
+tbd
+
+\section{Vikram \& Sinha (VS)}
+tbd maybe
+
+\section{Franke \& Westerhoff (FW)}
+\label{chap:FW}
+tbd
+
+\section{AL herd walk (AL)}
+\label{chap:AL}
+tbd
+
+\chapter{Simulationen}
+\label{chap:sim}
+tbd
+
+\section{Daten \& Vorhersagen}
+\label{chap:data}
+S\&P 500 data in USD from finance.yahhoo: \\ 
+-daily prices - calculated into return and finally into log return as models expect log return as inputs\\
+-exporting data with dates like Jan 1 2000 to Jan 1 2008 yahoo automatically uses last working day at stock exchange\\
+- always used 30 Predictions - inaccurate as days per month change\\
+=> this all leads to inaccurancy which is ok as the goal is to see the tendency in which way predictions are shifting \\\\
+monthly prediction during a year in which a major crisis happend: bank crisis 2008 \& dotcom 2000?\\
+used 8 years to predict the year 2008 on a monthly basis: e.g. data from Jan 1 2000 to Jan 1 2008 used to predict Jan 2008
+
+\section{Ergebnisse}
+\label{chap:results}
+tbd
+
+\appendix
+\printbibliography
+\end{document}
+
