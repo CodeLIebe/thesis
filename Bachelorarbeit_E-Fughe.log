@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  29 JAN 2019 18:53
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  29 JAN 2019 21:06
 entering extended mode
 **./Bachelorarbeit_E-Fughe.tex
 (Bachelorarbeit_E-Fughe.tex
@@ -1398,7 +1398,7 @@ chapter 3.
 ]
 chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--174
+Underfull \hbox (badness 10000) in paragraph at lines 177--184
 
  []
 
@@ -1407,22 +1407,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 167--174
 ]
 chapter without number
 LaTeX Font Info:    Font shape `TU/DejaVuSansMono(0)/m/n' will be
-(Font)              scaled to size 9.41345pt on input line 180.
+(Font)              scaled to size 9.41345pt on input line 190.
 
-Overfull \hbox (7.81203pt too wide) in paragraph at lines 181--181
+Overfull \hbox (7.81203pt too wide) in paragraph at lines 191--191
 \TU/LinuxLibertineO(0)/m/n/12 based fitting of physics-inspired market models t
 o empirical data“. In: \TU/LinuxLibertineO(0)/m/it/12 CoRR \TU/LinuxLibertineO(
 0)/m/n/12 abs/1803.03861
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 181.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
 [10
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 181.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
  (Bachelorarbeit_E-Fughe.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 181.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 181.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 191.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
 Package rerunfilecheck Info: File `Bachelorarbeit_E-Fughe.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
@@ -1433,7 +1433,7 @@ Package logreq Info: Writing requests to 'Bachelorarbeit_E-Fughe.run.xml'.
 Here is how much of TeX's memory you used:
  31703 strings out of 427748
  596595 string characters out of 3145877
- 1214755 words of memory out of 3000000
+ 1214765 words of memory out of 3000000
  35439 multiletter control sequences out of 15000+200000
  541205 words of font info for 102 fonts, out of 3000000 for 9000
  1330 hyphenation exceptions out of 8191

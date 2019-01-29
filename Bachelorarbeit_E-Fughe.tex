@@ -139,6 +139,15 @@ tbd
 \label{chap:stan}
 Stan ist eine Open-Source Plattform für statistische Modellierung und high-performance Berechnungen. 
 Stan ist für alle in der Datenanalyse weit verbreiteten Sprachen (R, Python, shell MATLAB, Julia, Stata) verfügbar und läuft auf den gängigen Betriebssystem (Linux, Mac, Windows) \parencite{stan:2017}.
+Jedes Stan Programm startet mit dem Data-Block, der definiert welche Daten-Inputs benötigt werden um das Modell zu fitten . Die Variablen in diesem Block entsprechen also den tatsächlichen Beobachtungen.
+Daran anschließend kommt der Parameter-Block, der die unbekannten Parameter definiert.
+Zum Schluss kommt der Modell-Block, der Berechnungsvorschrift der Wahrscheinlichkeitsdichte des Modells \parencite{stan:2017}.
+Der Stan-Code der Modelle, die in dieser Arbeit genutzt wurden befindet sich im Anhang und wird in Kapitel~\ref{chap:models} näher erläutert.
+
+Die Modelle wurden mittels \textit{rstan} in R gefittet. \textit{Rstan} ermöglicht es Stan-Modelle in R zu kompilieren, zu testen, und zu analysieren. 
+%not sure from here:
+Außerdem wurden die Pakete \textit{tidybayes} und \textit{tidyverse} genutzt, um die Plots zu generieren. Die tidy* Pakete zeichnen sich dadurch aus, dass sie der komplexen Datenstruktur des berechneten Fits, Informationen leicht entnehmen kann und in einer Datenstruktur zu Verfügung stellt, die anschließend z.B. mittels \textit{ggplot} leicht visualisiert werden kann.
+
 
 
 \chapter{Die Modelle}

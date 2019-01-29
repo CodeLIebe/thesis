@@ -2003,6 +2003,7 @@
     <bcf:citekey order="6">bertschinger:2018</bcf:citekey>
     <bcf:citekey order="7">hanson:2001</bcf:citekey>
     <bcf:citekey order="8">stan:2017</bcf:citekey>
+    <bcf:citekey order="9">stan:2017</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
