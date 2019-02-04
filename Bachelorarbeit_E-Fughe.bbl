@@ -63,6 +63,29 @@
       \verb http://arxiv.org/abs/1803.03861
       \endverb
     \endentry
+    \entry{betancourt:2017}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e0725c87ba248a29e435e398c119bdb9}{%
+           family={Betancourt},
+           familyi={B\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{e0725c87ba248a29e435e398c119bdb9}
+      \strng{fullhash}{e0725c87ba248a29e435e398c119bdb9}
+      \strng{bibnamehash}{e0725c87ba248a29e435e398c119bdb9}
+      \strng{authorbibnamehash}{e0725c87ba248a29e435e398c119bdb9}
+      \strng{authornamehash}{e0725c87ba248a29e435e398c119bdb9}
+      \strng{authorfullhash}{e0725c87ba248a29e435e398c119bdb9}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1701.02434}
+      \field{month}{01}
+      \field{title}{A conceptual introduction to Hamiltonian Monte Carlo}
+      \field{year}{2017}
+    \endentry
     \entry{stan:2017}{article}{}
       \name{author}{10}{}{%
         {{hash=fb62923439b93fa6e3173a27f24f0621}{%
@@ -118,8 +141,8 @@
       }
       \strng{namehash}{1893385f8bd738fc5722ca830ff1f0d0}
       \strng{fullhash}{cfd2c817af5fac06e83488717061b204}
-      \strng{bibnamehash}{1893385f8bd738fc5722ca830ff1f0d0}
-      \strng{authorbibnamehash}{1893385f8bd738fc5722ca830ff1f0d0}
+      \strng{bibnamehash}{cfd2c817af5fac06e83488717061b204}
+      \strng{authorbibnamehash}{cfd2c817af5fac06e83488717061b204}
       \strng{authornamehash}{1893385f8bd738fc5722ca830ff1f0d0}
       \strng{authorfullhash}{cfd2c817af5fac06e83488717061b204}
       \field{sortinit}{C}

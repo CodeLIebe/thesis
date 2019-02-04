@@ -1,15 +1,15 @@
 [0] Config.pm:304> INFO - This is Biber 2.12
 [1] Config.pm:307> INFO - Logfile is 'Bachelorarbeit_E-Fughe.blg'
-[85] biber-MSWIN64:315> INFO - === 
-[147] Biber.pm:371> INFO - Reading 'Bachelorarbeit_E-Fughe.bcf'
-[382] Biber.pm:889> INFO - Found 4 citekeys in bib section 0
-[414] Biber.pm:4093> INFO - Processing section 0
-[447] Biber.pm:4254> INFO - Looking for bibtex format file 'bib/bayes.bib' for section 0
-[453] bibtex.pm:1523> INFO - LaTeX decoding ...
-[473] bibtex.pm:1340> INFO - Found BibTeX data source 'bib/bayes.bib'
-[553] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[553] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
-[553] Biber.pm:3921> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'de-DE'
-[554] Biber.pm:3927> INFO - No sort tailoring available for locale 'de-DE'
-[581] bbl.pm:636> INFO - Writing 'Bachelorarbeit_E-Fughe.bbl' with encoding 'UTF-8'
-[585] bbl.pm:739> INFO - Output to Bachelorarbeit_E-Fughe.bbl
+[74] biber-MSWIN64:315> INFO - === 
+[137] Biber.pm:371> INFO - Reading 'Bachelorarbeit_E-Fughe.bcf'
+[359] Biber.pm:889> INFO - Found 5 citekeys in bib section 0
+[397] Biber.pm:4093> INFO - Processing section 0
+[432] Biber.pm:4254> INFO - Looking for bibtex format file 'bib/bayes.bib' for section 0
+[438] bibtex.pm:1523> INFO - LaTeX decoding ...
+[458] bibtex.pm:1340> INFO - Found BibTeX data source 'bib/bayes.bib'
+[572] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[573] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[573] Biber.pm:3921> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'de-DE'
+[573] Biber.pm:3927> INFO - No sort tailoring available for locale 'de-DE'
+[603] bbl.pm:636> INFO - Writing 'Bachelorarbeit_E-Fughe.bbl' with encoding 'UTF-8'
+[608] bbl.pm:739> INFO - Output to Bachelorarbeit_E-Fughe.bbl

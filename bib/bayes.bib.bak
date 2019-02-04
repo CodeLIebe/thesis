@@ -1,0 +1,56 @@
+@book{kendall:2005,
+  title={Markov chain Monte Carlo: Innovations and Applications},
+  author={Kendall, W.S. and Liang, F. and Wang, J.S.},
+  volume={7},
+  year={2005},
+  publisher={World Scientific Publishing Co Pte Ltd}
+}
+@article{betancourt:2017,
+  title={A conceptual introduction to Hamiltonian Monte Carlo},
+  author={Betancourt, M.},
+  journal={arXiv preprint arXiv:1701.02434},
+  year={2017},
+  month={01}
+}
+@article{bertschinger:2018,
+  author    = {Bertschinger, N. and
+               Mozzhorin, I. and
+               Sinha,S.},
+  title     = {Reality-check for Econophysics: Likelihood-based fitting of physics-inspired
+               market models to empirical data},
+  journal   = {CoRR},
+  volume    = {abs/1803.03861},
+  year      = {2018},
+  month	    = {03},
+  url       = {http://arxiv.org/abs/1803.03861},
+  archivePrefix = {arXiv},
+  eprint    = {1803.03861},
+  timestamp = {Mon, 13 Aug 2018 16:46:22 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/corr/abs-1803-03861},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{hanson:2001,
+author = {Hanson, K. M.},
+title = {Markov chain Monte Carlo posterior sampling with the Hamiltonian method},
+journal = {Proc.SPIE},
+volume = {4322},
+number = {},
+pages = {4322 - 4322 - 12},
+year = {2001},
+doi = {10.1117/12.431119},
+URL = {https://doi.org/10.1117/12.431119},
+eprint = {}
+}
+
+@article{stan:2017,
+title = {Stan : A Probabilistic Programming Language},
+author = {Carpenter, B. and Gelman, A. and Hoffman, M. D. and Lee, D. and Goodrich, B. and Betancourt, M. and Brubaker, M. and Guo, J. and Li, P. and Riddell, A.},
+doi = {10.18637/jss.v076.i01},
+journal = {Journal of Statistical Software},
+number = 1,
+volume = 76,
+place = {United States},
+year = {2017},
+month = {1}
+}
