@@ -54,3 +54,11 @@ place = {United States},
 year = {2017},
 month = {1}
 }
+
+@misc{simulated_annealing, 
+title={Simulated Annealing}, 
+url={https://de.wikipedia.org/wiki/Simulated_Annealing},
+journal={Wikipedia}, 
+publisher={Wikimedia Foundation}, 
+year={2019}, month={Jan}
+}

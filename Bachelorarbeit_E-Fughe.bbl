@@ -228,6 +228,24 @@
       \field{volume}{7}
       \field{year}{2005}
     \endentry
+    \entry{simulated_annealing}{misc}{}
+      \list{publisher}{1}{%
+        {Wikimedia Foundation}%
+      }
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Wikipedia}
+      \field{month}{1}
+      \field{title}{Simulated Annealing}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://de.wikipedia.org/wiki/Simulated_Annealing
+      \endverb
+      \verb{url}
+      \verb https://de.wikipedia.org/wiki/Simulated_Annealing
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput
