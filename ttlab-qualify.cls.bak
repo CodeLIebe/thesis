@@ -77,20 +77,6 @@
 \ifbool{nomencl}{\RequirePackage[intoc]{nomencl}\makenomenclature}{}
 \ifbool{algorithm}{\RequirePackage[linesnumbered]{algorithm2e}}{}
 
-% predefined "Erklärung" from Prüfungsamt
-\dedication{\textbf{\sffamily Erklärung}\\\small{gemäß Bachelor-Ordnung Informatik 2011 §25 Abs. 11}\par\bigskip
-\begin{minipage}{\linewidth}\large\par\vskip2cm
-Hiermit erkläre ich Frau \par\vskip1cm
-\rule{13cm}{0.6pt}\par
-\vskip1cm
-Die vorliegende Arbeit habe ich selbständig und ohne Benutzung anderer als der angegebenen Quellen und Hilfsmittel verfasst.\par\vskip3cm
-Frankfurt am Main, den \rule{6cm}{0.6pt}\par
-\vskip3cm
-\rule{8cm}{0.6pt}\\
-Unterschrift
-\end{minipage}
-}
-
 % reduce fontsize in quotation environments:
 \expandafter\def\expandafter\quote\expandafter{\quote\footnotesize}
 \expandafter\def\expandafter\quotation\expandafter{\quote\footnotesize}

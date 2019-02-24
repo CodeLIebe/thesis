@@ -55,10 +55,58 @@ year = {2017},
 month = {1}
 }
 
+@article{engle:1982,
+  title={Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation},
+  author={Engle, Robert F},
+  journal={Econometrica: Journal of the Econometric Society},
+  pages={987--1007},
+  year={1982},
+  publisher={JSTOR}
+}
+
+@article{bollerslev:1986,
+  title={Generalized autoregressive conditional heteroskedasticity},
+  author={Bollerslev, Tim},
+  journal={Journal of econometrics},
+  volume={31},
+  number={3},
+  pages={307--327},
+  year={1986},
+  publisher={Elsevier}
+}
+
+@article{FW:2011,
+  title={Estimation of a structural stochastic volatility model of asset pricing},
+  author={Franke, Reiner and Westerhoff, Frank},
+  journal={Computational Economics},
+  volume={38},
+  number={1},
+  pages={53--83},
+  year={2011},
+  publisher={Springer}
+}
+
 @misc{simulated_annealing, 
 title={Simulated Annealing}, 
 url={https://de.wikipedia.org/wiki/Simulated_Annealing},
 journal={Wikipedia}, 
 publisher={Wikimedia Foundation}, 
 year={2019}, month={Jan}
+}
+
+@misc{typical_set, 
+title={Typical set}, 
+url={https://en.wikipedia.org/wiki/Typical_set}, 
+journal={Wikipedia}, 
+publisher={Wikimedia Foundation}, 
+year={2018}, 
+month={Nov}
+}
+
+@misc{modus, 
+title={Modus}, 
+url={https://de.wikipedia.org/wiki/Modus_(Statistik)}, journal={Wikipedia}, 
+publisher={Wikimedia Foundation}, 
+year={2018},
+month={Jul}
 }

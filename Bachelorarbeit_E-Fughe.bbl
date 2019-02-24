@@ -86,6 +86,35 @@
       \field{title}{A conceptual introduction to Hamiltonian Monte Carlo}
       \field{year}{2017}
     \endentry
+    \entry{bollerslev:1986}{article}{}
+      \name{author}{1}{}{%
+        {{hash=39f8f5a428abd62057a0152546172106}{%
+           family={Bollerslev},
+           familyi={B\bibinitperiod},
+           given={Tim},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{39f8f5a428abd62057a0152546172106}
+      \strng{fullhash}{39f8f5a428abd62057a0152546172106}
+      \strng{bibnamehash}{39f8f5a428abd62057a0152546172106}
+      \strng{authorbibnamehash}{39f8f5a428abd62057a0152546172106}
+      \strng{authornamehash}{39f8f5a428abd62057a0152546172106}
+      \strng{authorfullhash}{39f8f5a428abd62057a0152546172106}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of econometrics}
+      \field{number}{3}
+      \field{title}{Generalized autoregressive conditional heteroskedasticity}
+      \field{volume}{31}
+      \field{year}{1986}
+      \field{pages}{307\bibrangedash 327}
+      \range{pages}{21}
+    \endentry
     \entry{stan:2017}{article}{}
       \name{author}{10}{}{%
         {{hash=fb62923439b93fa6e3173a27f24f0621}{%
@@ -159,6 +188,67 @@
       \verb 10.18637/jss.v076.i01
       \endverb
     \endentry
+    \entry{engle:1982}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d491df6781389ebb4ef255c1ec0ca7ed}{%
+           family={Engle},
+           familyi={E\bibinitperiod},
+           given={Robert\bibnamedelima F},
+           giveni={R\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{d491df6781389ebb4ef255c1ec0ca7ed}
+      \strng{fullhash}{d491df6781389ebb4ef255c1ec0ca7ed}
+      \strng{bibnamehash}{d491df6781389ebb4ef255c1ec0ca7ed}
+      \strng{authorbibnamehash}{d491df6781389ebb4ef255c1ec0ca7ed}
+      \strng{authornamehash}{d491df6781389ebb4ef255c1ec0ca7ed}
+      \strng{authorfullhash}{d491df6781389ebb4ef255c1ec0ca7ed}
+      \field{sortinit}{E}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Econometrica: Journal of the Econometric Society}
+      \field{title}{Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation}
+      \field{year}{1982}
+      \field{pages}{987\bibrangedash 1007}
+      \range{pages}{21}
+    \endentry
+    \entry{FW:2011}{article}{}
+      \name{author}{2}{}{%
+        {{hash=0fb85f8f85af2b08c2d6970e25edb4a0}{%
+           family={Franke},
+           familyi={F\bibinitperiod},
+           given={Reiner},
+           giveni={R\bibinitperiod}}}%
+        {{hash=be948659ecb06ec5aba4a34b04db9dec}{%
+           family={Westerhoff},
+           familyi={W\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{087296e5e7fc12093db6c8b11a9e2ea7}
+      \strng{fullhash}{087296e5e7fc12093db6c8b11a9e2ea7}
+      \strng{bibnamehash}{087296e5e7fc12093db6c8b11a9e2ea7}
+      \strng{authorbibnamehash}{087296e5e7fc12093db6c8b11a9e2ea7}
+      \strng{authornamehash}{087296e5e7fc12093db6c8b11a9e2ea7}
+      \strng{authorfullhash}{087296e5e7fc12093db6c8b11a9e2ea7}
+      \field{sortinit}{F}
+      \field{sortinithash}{669c706c6f1fbf3b5a83d26f1d9e9e72}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Computational Economics}
+      \field{number}{1}
+      \field{title}{Estimation of a structural stochastic volatility model of asset pricing}
+      \field{volume}{38}
+      \field{year}{2011}
+      \field{pages}{53\bibrangedash 83}
+      \range{pages}{31}
+    \endentry
     \entry{hanson:2001}{inproceedings}{}
       \name{author}{1}{}{%
         {{hash=efd0a76b091ba5847f7f8ce37b31924d}{%
@@ -193,40 +283,23 @@
       \verb https://doi.org/10.1117/12.431119
       \endverb
     \endentry
-    \entry{kendall:2005}{book}{}
-      \name{author}{3}{}{%
-        {{hash=7ebe31064a32eb544a05224607c85454}{%
-           family={Kendall},
-           familyi={K\bibinitperiod},
-           given={W.S.},
-           giveni={W\bibinitperiod}}}%
-        {{hash=a93171e6e9a0fbae5b527ed4a0413318}{%
-           family={Liang},
-           familyi={L\bibinitperiod},
-           given={F.},
-           giveni={F\bibinitperiod}}}%
-        {{hash=42ea6051c626bea1bc8f67ba011abc32}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={J.S.},
-           giveni={J\bibinitperiod}}}%
-      }
+    \entry{modus}{misc}{}
       \list{publisher}{1}{%
-        {World Scientific Publishing Co Pte Ltd}%
+        {Wikimedia Foundation}%
       }
-      \strng{namehash}{8fd9a03051e3ad800fe66ecd7db036bc}
-      \strng{fullhash}{98b73b1e55896f2876181043b6f8b102}
-      \strng{bibnamehash}{98b73b1e55896f2876181043b6f8b102}
-      \strng{authorbibnamehash}{98b73b1e55896f2876181043b6f8b102}
-      \strng{authornamehash}{8fd9a03051e3ad800fe66ecd7db036bc}
-      \strng{authorfullhash}{98b73b1e55896f2876181043b6f8b102}
-      \field{sortinit}{K}
-      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
-      \field{labelnamesource}{author}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
       \field{labeltitlesource}{title}
-      \field{title}{Markov chain Monte Carlo: Innovations and Applications}
-      \field{volume}{7}
-      \field{year}{2005}
+      \field{journaltitle}{Wikipedia}
+      \field{month}{7}
+      \field{title}{Modus}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://de.wikipedia.org/wiki/Modus_(Statistik)
+      \endverb
+      \verb{url}
+      \verb https://de.wikipedia.org/wiki/Modus_(Statistik)
+      \endverb
     \endentry
     \entry{simulated_annealing}{misc}{}
       \list{publisher}{1}{%
@@ -244,6 +317,24 @@
       \endverb
       \verb{url}
       \verb https://de.wikipedia.org/wiki/Simulated_Annealing
+      \endverb
+    \endentry
+    \entry{typical_set}{misc}{}
+      \list{publisher}{1}{%
+        {Wikimedia Foundation}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{6f7aff9db9dcfeb7f95fd5bbd2f78df9}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Wikipedia}
+      \field{month}{11}
+      \field{title}{Typical set}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://en.wikipedia.org/wiki/Typical_set
+      \endverb
+      \verb{url}
+      \verb https://en.wikipedia.org/wiki/Typical_set
       \endverb
     \endentry
   \enddatalist
