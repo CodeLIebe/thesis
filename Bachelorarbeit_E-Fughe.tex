@@ -280,7 +280,7 @@ Ein Beispiel dafür ist der \textit{Stan}-Code des in dieser Arbeit verwendeten 
 Im \verb|data|-Block wird definiert, welche Daten benötigt werden, um das Modell zu fitten. Die Variablen in diesem Block entsprechen also den tatsächlichen Beobachtungen und der Block definiert, in welchem Format diese Daten vorliegen.\\
 Hier werden zum Beispiel ein Vektor mit Zeitpunkten \verb|T|, ein Vektor mit Angabe, ob es sich um eine tatsächliche Beobachtung oder um einen zu vorhersagenden Wert handelt, sowie einen Vektor der beobachteten Returns in jedem Zeitpunkt.\\
 
-Im \verb|transformed data| Block können berechnete Daten/Variablen definiert werden. Hier zum Beispiel wird über die Daten iteriert und festgestellt, wie viele Einträge als \textit{}Missing Value} markiert wurden. So werden Beobachtungen und zu vorhersagende Daten unterschieden.
+Im \verb|transformed data| Block können berechnete Daten/Variablen definiert werden. Hier zum Beispiel wird über die Daten iteriert und festgestellt, wie viele Einträge als \textit{Missing Value} markiert wurden. So werden Beobachtungen und zu vorhersagende Daten unterschieden.
 
 \begin{lstlisting}[language=Stan]
 data {
