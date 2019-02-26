@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  24 FEB 2019 19:23
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  26 FEB 2019 20:55
 entering extended mode
 **./Bachelorarbeit_E-Fughe.tex
 (Bachelorarbeit_E-Fughe.tex
@@ -1937,64 +1937,90 @@ Underfull \hbox (badness 3375) in paragraph at lines 517--517
 ationen wie z.B. Jahresabschlüsse, Inflation, politi-
  []
 
-[20] [21]
+[20]
+
+LaTeX Warning: Reference `eq:FW-update' on page 21 undefined on input line 556.
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 554--557
+
+ []
+
+
+Overfull \hbox (1.28654pt too wide) in paragraph at lines 558--561
+[]\TU/LinuxLibertineO(0)/m/n/12 Sei $\OML/cmm/m/it/12 a[]$ \TU/LinuxLibertineO(
+0)/m/n/12 die relative Attraktivität der Fundamental-Strategie gegenüber der Ch
+artist-Strategie.
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 587--588
+
+ []
+
+[22] [23]
 chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 547--554
+Underfull \hbox (badness 10000) in paragraph at lines 608--615
 
  []
 
 File: ../plots/bank-crisis/AL_walk/01_AL_walk_Jan_low_info_depth-13_delta_9.png
  Graphic file (type bmp)
 <../plots/bank-crisis/AL_walk/01_AL_walk_Jan_low_info_depth-13_delta_9.png>
-[22
+[24
 
-] [23] [24
+] [25] [26
 
-] [25] [26] [27] [28] [29]
+] [27] [28] [29] [30] [31]
 chapter without number
 
-Overfull \hbox (4.66902pt too wide) in paragraph at lines 877--877
+Overfull \hbox (4.66902pt too wide) in paragraph at lines 938--938
 []\TU/LinuxLibertineO(0)/m/n/12 N. Bertschinger, I. Mozzhorin und S. Sinha. „  
 Reality-check for Econophysics: Likelihood-
  []
 
 
-Overfull \hbox (13.09203pt too wide) in paragraph at lines 877--877
+Overfull \hbox (13.09203pt too wide) in paragraph at lines 938--938
 \TU/LinuxLibertineO(0)/m/n/12 based fitting of physics-inspired market models t
 o empirical data“. In: \TU/LinuxLibertineO(0)/m/it/12 CoRR \TU/LinuxLibertineO(
 0)/m/n/12 abs/1803.03861
  []
 
-[30
+[32
 
 ]
-Overfull \hbox (12.0pt too wide) in paragraph at lines 885--895
+Overfull \hbox (12.0pt too wide) in paragraph at lines 946--956
 []$[]$ 
  []
 
-[31
+[33
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 896.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 896.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 957.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 957.
  (Bachelorarbeit_E-Fughe.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 896.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 896.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 957.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 957.
 Package rerunfilecheck Info: File `Bachelorarbeit_E-Fughe.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
+
+
+LaTeX Warning: There were undefined references.
+
 Package logreq Info: Writing requests to 'Bachelorarbeit_E-Fughe.run.xml'.
 \openout1 = `Bachelorarbeit_E-Fughe.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43173 strings out of 427748
- 833178 string characters out of 3145877
- 1588469 words of memory out of 3000000
- 46649 multiletter control sequences out of 15000+200000
+ 43180 strings out of 427748
+ 833339 string characters out of 3145877
+ 1589454 words of memory out of 3000000
+ 46656 multiletter control sequences out of 15000+200000
  542568 words of font info for 117 fonts, out of 3000000 for 9000
  1330 hyphenation exceptions out of 8191
- 64i,10n,118p,9104b,6427s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 64i,11n,118p,9104b,6427s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Bachelorarbeit_E-Fughe.pdf (31 pages).
+Output written on Bachelorarbeit_E-Fughe.pdf (33 pages).

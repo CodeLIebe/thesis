@@ -526,12 +526,75 @@ Der logarithmierte Preis $p_t$ im Zeitpunkt $t$ hängt vom vorherigen Preis sowi
 p_t = p_{t-1} + \mu (n_{t-1}^f\cdot d_{t-1}^f + n_{t-1}^c\cdot d_{t-1}^c)
 \end{align}
 Fundamental-Trader reagieren auf fehlerhafte Preise z.B. wenn der Marktpreis vom (bekannten) Fundamentalpreis\footnote{Der \textbf{Fundamentalpreis} ist der Preis, der rein auf Basis vorhandener Informationen berechnet wurde} $p^*$ des Vermögenswertes abweicht. Chartist-Trader reagieren im Gegensatz dazu auf Preisbewegungen der Vergangenheit z.B. $p_t-p_{t-1}$.
-Die Nachfrage am Markt wird von \parencite{bertschinger:2018,FW:2011} mittels folgender Dynamiken definiert:
+Die Nachfrage selbst ist keine beobachtbare Größe und nur ihre gewichtete Summe beeinflusst die Preise. Sie wird von \parencite{bertschinger:2018,FW:2011} mittels folgender Dynamiken definiert:
 \begin{align}
 d_t^f &= f(p^*-p_t)+\epsilon_t^f & &\text{mit }\epsilon_t^f\sim \mathcal{N}(0,\sigma^2_f)\nonumber \\
 d_t^c &= c(p_t-p_{t-1})+\epsilon_t^c & &\text{mit }\epsilon_t^c\sim \mathcal{N}(0,\sigma^2_c)\nonumber 
 \end{align}
+Allgemein gilt für zwei unabhängige Zufallsvariablen $X$, $Y$, dass die Verteilung ihrer Summe der Faltung der Verteilung der beiden Zufallsvariablen entspricht.\\
+Sei
+\begin{align}
+X&\sim \mathcal{N}(\mu_X, \sigma_X^2)\nonumber \\
+Y&\sim \mathcal{N}(\mu_Y,\sigma_Y^2)\nonumber
+\end{align}
+dann gilt
+\[X+Y\sim\mathcal{N}(\mu_X+\mu_Y,\sigma_X^2+\sigma_Y^2)\]
+So ist es möglich, dass die Nachfrage nicht tatsächlich berechnet bzw. geschätzt werden muss, sondern indirekt durch die Verteilung der kombinierte Nachfrage der existierenden Trader-Gruppen Einfluss auf die logarithmierten Preise $r_t = p_t-p_{t-1}$ nimmt.
+Für das stochastische Modell der logarithmierten Preise 
+\[r_t\sim\mathcal{N}(\mu_t,\sigma_t^2)\]
+gelten dann die Verteilungsparamter
+\begin{align}
+\mu_t&= E[n_{t-1}^f\; d_{t-1}^f + n_{t-1}^c\; d_{t-1}^c]\nonumber\\
+&=\mu (n_{t-1}^f\; f(p^*-p_{t-1}) +n_{t-1}^c\; c(p_{t-1}+p_{t-2}))
+\end{align}
+und
+\begin{align}
+\label{eq:FW-vol}
+\sigma_t^2 &= \mu^2((n_{t-1}^f)^2\sigma_f^2 + (n_{t-1}^c)^2\sigma_c^2)
+\end{align}
+Die Volatilität $\sigma_t$ hängt somit von der Größe der einzelnen Trader-Gruppen ab und ändert sich mit der Zeitreihe. Um den Wechsel der Händler von einer Gruppe zur Anderen zu beschreiben, wird zu jedem Zeitpunkt $t$ deren Anteil am Gesamtmarkt  $n_t^f$ bzw. $n_t^c$ neu berechnet.
+Der Aktualisierungs-Quotient entspricht der DCA\footnote{\textbf{Discrete Choice Approach}(DCA) nach Formel~\ref{eq:FW-update} \parencite{bertschinger:2018}}-HPM\footnote{\textbf{Herding, Predisposition, Missalignment}(HPM) Spezifikation für Attraktivität der Fundamental-Strategie gegenüber der Chartist-Strategie\parencite{bertschinger:2018}.} Spezifikation nach \parencite{bertschinger:2018, FW:2011}.\\
 
+Sei $a_t$ die relative Attraktivität der Fundamental-Strategie gegenüber der Chartist-Strategie. Nach \parencite{bertschinger:2018, FW:2011} wird die Attraktivtät mittels drei beeinflussender Faktoren modelliert (vgl. Formel~\ref{eq:FW-att}). 
+Zum einen wird eine allgemeine Veranlagung (General Predisposition) $\alpha_0$ und zum anderen Herdenverhalten (Herding) $\alpha_n$ und fehlerhafte Preise $\alpha_p$ modelliert (HPM).
+Da nur eine diskrete Anzahl an Wahlmöglichkeiten bestehen (DCA), ist die Wahrscheinlichkeitsdichte des Modells leicht differenzierbar. Das hat zur Folge, dass ein HMC-Algorithmus leichter Stichproben aus der a-posterior-Verteilung ziehen kann.\\
+Wie bereits erwähnt gilt \[n_t^c = 1-n_t^f\]
+wobei die Veränderung der Anzahl der Händler zu jedem Zeitpunkt $t$ durch folgenden Quotienten berechnet wird
+\begin{align}
+n_t^f =\dfrac{1}{1+e^{-\beta\cdot a_{t-1}}} && \beta = 1\text{ nach \parencite{bertschinger:2018}}\nonumber
+\end{align}
+mit
+\begin{align}
+\label{eq:FW-att}
+a_t= \alpha_0+\alpha_n(n_t^f-n_t^c)+\alpha_p(p^*-p_t)^2 &&a_n, a_p >0
+\end{align}
+Die Parameter $\beta$ und $\mu$ sind redundante Parameter werden konstant gehalten, da sie nur die Größenordnung der Parameter $\alpha_0,\alpha_n,\alpha_p, f, g, \sigma_f$ und $\sigma_c$ beeinflussen. \\
+Es gilt
+\[\beta = 1\]
+\[\mu = 0.01\]
+Außerdem wird angenommen, dass der Fundamentalpreis unbekannt und nicht beobachtbar ist, das wird durch den logarithmierte Fundamentalpreis $p^*=0$ modelliert \parencite{bertschinger:2018, FW:2011}. Bei der Simulation des Modells auf realen Aktienmarktpreisen bzw. -erträgen, wird aufgrund des unbekannten Fundamentalpreises angenommen, dass dieser sich im Zeitverlauf der geometrischen Brownschen Bewegung\footnote{Die \textbf{Brownsche Bewegung} ermöglicht die Simulation multiplikativer unabhängiger Zuwächse des Fundamentalpreises \parencite{BrownianMotion}} folgt.
+\begin{align}
+\label{eq:FW-p_star}
+p^*\sim \mathcal{N}(p_{t-1}^*,\sigma_*^2)
+\end{align}
+
+
+Die Volatilität $\sigma_t$ in Formel~\ref{eq:FW-vol} hängt über den Marktanteil der Fundamental-Trader $n_{t-1}^f$ von der Attraktivität $a_{t-2}$ in Formel~\ref{eq:FW-att}, die wiederum vom logarithmierten Fundamentalpreis $p_{t-2}^*$ beeinflusst wird. In der vorliegenden Arbeit wurden zwei verschiedene Varianten des Modells nach \parencite{bertschinger:2018} auf Marktpreisen simuliert. Die Varianten unterscheiden sich in der Berechnung des logarithmierten Fundamentalpreises $p_t^*$:
+\begin{enumerate}
+\item Modellierung von $p_t^*$ durch die Brownsche Bewegung bzw. eine Re-Parametrierung und die Berechnung mittels zufälliger Irrfahrt (Random Walk)
+\item Modellierung von $p_t^*$ durch einen gleitenden Durchschnitt (Moving Average)
+\end{enumerate}
+In der ersten Variante enthält $p_t^*$ durch die Brownsche Bewegung nun eine stochastische Komponente. Es handelt sich also um ein stochastisches Volatilitätsmodell \parencite{bertschinger:2018, FW:2011}. Der vollständige \textit{Stan}-Code befindet sich im Anhang~\ref{stan:FWwalk}.\\
+
+Durch eine nicht zentrierte Umparametrierung nach \parencite{bertschinger:2018} kann die Performance des HCM-Sampler verbessert werden. Dazu wird $p_t^*$ mittels $\epsilon_t^*$ als transformierter Parameter innerhalb einer zufälligen Irrfahrt (Random Walk) berechnet.
+\begin{align}
+\label{eq:FW-P_star-new}
+p_t^* = p_{t-1}^*+\sigma_*\cdot\epsilon_t^* &&\text{ wobei }\epsilon_t^*\sim \mathcal{N}(0,1)
+\end{align}
+Das Modell wird bleibt dadurch unverändert, denn Formel~\ref{eq:FW-p_star} und~\ref{eq:FW-P_star-new} sind äquivalent \parencite{bertschinger:2018}.\\
+
+In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch hier gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}.
+%tbd
 random walk - treedepth 128 ?!
 
 \section{AL herd walk (AL)}
