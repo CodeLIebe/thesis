@@ -594,7 +594,7 @@ p_t^* = p_{t-1}^*+\sigma_*\cdot\epsilon_t^* &&\text{ wobei }\epsilon_t^*\sim \ma
 Das Modell wird bleibt dadurch unverändert, denn Formel~\ref{eq:FW-p_star} und~\ref{eq:FW-P_star-new} sind äquivalent \parencite{bertschinger:2018}.\\
 
 In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch hier gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}.
-
+%tbd
 random walk - treedepth 128 ?!
 
 \section{AL herd walk (AL)}
