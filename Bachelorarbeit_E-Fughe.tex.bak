@@ -27,6 +27,10 @@
 \usepackage{tikz}
 \usepackage{subfigure}
 
+%define Listing name Listing -> Code
+\renewcommand\lstlistingname{\textit{Stan}-Code}
+\renewcommand\lstlistlistingname{\textit{Stan}-Code}
+
 \definecolor{comment}{gray}{0.50}
 
 % lst style custom from Bertschinger, Mozzhorin, Sinha 2018
@@ -448,7 +452,7 @@ Entsprechend kann das GARCH(1,1)-Modell zur Modellierung der Volatilität in For
 \sigma_t^2 &=a_1(\sigma_{t-1}\cdot \epsilon_{t-1} +\mu -\mu)^2 +b_1\sigma_{t-1}^2 \nonumber \\
 \sigma_t^2 &= a_0+a_1(r_{t-1}-\mu)^2 +b_1\sigma_{t-1}^2
 \end{align} 
-Die Berechnung wird entsprechend im \textit{Stan}-Code als Parameter implementiert.
+Die Berechnung wird entsprechend im \textit{Stan}-Code als  transformierter Parameter implementiert.
 \begin{lstlisting}[style=custom]
 
 parameters {
@@ -487,7 +491,7 @@ transformed parameters {
 }
 
 \end{lstlisting}
-Der Erwartungswert $\mu$ sowie die Standardabweichung $\sigma$ sind standardnormalverteilt. Die Erträge folgen einer Normalverteilung mit den Parametern $\mu$ und $\sigma$. Außerdem muss die Ziel-Dichte die Jacobi-Korrektur (\textit{engl. Jacobian Corrector}) für alle Vorhersagen berücksichtigen.
+Der Erwartungswert $\mu$ sowie die Standardabweichung $\sigma$ sind standardnormalverteilt. Die Erträge folgen einer Normalverteilung mit den Parametern $\mu$ und $\sigma$. Außerdem muss die Ziel-Dichte die Jacobi-Korrektur (\textit{engl. Jacobian Correction}) für alle Vorhersagen berücksichtigen.
 Schließlich wird im \verb|model|-block des \textit{Stan}-Codes, die a-posteriori-Dichte als normalisierte bedingte Verteilung der Erträge \verb|ret_obs| von $\mu$ und $\sigma$ definiert.
 
 \begin{lstlisting}[style=custom]
@@ -515,7 +519,7 @@ Der vollständige \textit{Stan}-Code des GARCH(1,1)-Modells befindet sich im Anh
 \section{Franke \& Westerhoff (FW)}
 \label{chap:FW}
 R. Franke und F. Westerhoff haben ein Modell entwickelt, dass den Markt durch zwei Agentengruppen bzw. Handelsstrategien beschreibt: Fundamental\footnote{\textbf{Fundamental-Trader} treffen Kauf bzw. Verkaufsentscheidung auf Basis vorhandener betriebswirtschaftlicher- und Kapitalmarktinformationen wie z.B. Jahresabschlüsse, Inflation, politische Informationen etc.. Für Fundamental-Trader gilt die Annahme, dass Märkte vorhersagbar sind und auf bestimmte Vorfälle vorhersagbares Verhalten zeigen. Durch Informationen über eben diese Vorfälle, kann der Händler informierte Vorhersagen über die Preise am Finanzmarkt treffen.}- und Chartist\footnote{\textbf{Chartist-Trader} treffen Handelsentscheidungen auf Basis historischer Preise und Volumen des Marktes. Chartist-Trader analysieren graphische Repräsentationen der historischen Daten und mathematische Indikatoren, um ihre Handelsstrategie zu optimieren.}-Trader. Händler können täglich die Strategie ändern, da im Modell ein Mechanismus modelliert wurde, der Herdenverhalten abbildet \parencite{FW:2011}\\
-Der Marktanteil der Fundamental-Trader zum Zeitpunkt $t$ sei \[
+Der Anteil der Fundamental-Trader zum Zeitpunkt $t$ sei \[
 n_t^f\in [0,1] \]
 Dann gilt für den Anteil der Chartist-Trader entsprechend
 \[n_t^c = 1-n_t^f\]
@@ -528,8 +532,8 @@ p_t = p_{t-1} + \mu (n_{t-1}^f\cdot d_{t-1}^f + n_{t-1}^c\cdot d_{t-1}^c)
 Fundamental-Trader reagieren auf fehlerhafte Preise z.B. wenn der Marktpreis vom (bekannten) Fundamentalpreis\footnote{Der \textbf{Fundamentalpreis} ist der Preis, der rein auf Basis vorhandener Informationen berechnet wurde} $p^*$ des Vermögenswertes abweicht. Chartist-Trader reagieren im Gegensatz dazu auf Preisbewegungen der Vergangenheit z.B. $p_t-p_{t-1}$.
 Die Nachfrage selbst ist keine beobachtbare Größe und nur ihre gewichtete Summe beeinflusst die Preise. Sie wird von \parencite{bertschinger:2018,FW:2011} mittels folgender Dynamiken definiert:
 \begin{align}
-d_t^f &= f(p^*-p_t)+\epsilon_t^f & &\text{mit }\epsilon_t^f\sim \mathcal{N}(0,\sigma^2_f)\nonumber \\
-d_t^c &= c(p_t-p_{t-1})+\epsilon_t^c & &\text{mit }\epsilon_t^c\sim \mathcal{N}(0,\sigma^2_c)\nonumber 
+d_t^f &= \phi (p^*-p_t)+\epsilon_t^f & &\text{mit }\epsilon_t^f\sim \mathcal{N}(0,\sigma^2_f)\nonumber \\
+d_t^c &= \xi (p_t-p_{t-1})+\epsilon_t^c & &\text{mit }\epsilon_t^c\sim \mathcal{N}(0,\sigma^2_c)\nonumber 
 \end{align}
 Allgemein gilt für zwei unabhängige Zufallsvariablen $X$, $Y$, dass die Verteilung ihrer Summe der Faltung der Verteilung der beiden Zufallsvariablen entspricht.\\
 Sei
@@ -545,7 +549,7 @@ Für das stochastische Modell der logarithmierten Preise
 gelten dann die Verteilungsparamter
 \begin{align}
 \mu_t&= E[n_{t-1}^f\; d_{t-1}^f + n_{t-1}^c\; d_{t-1}^c]\nonumber\\
-&=\mu (n_{t-1}^f\; f(p^*-p_{t-1}) +n_{t-1}^c\; c(p_{t-1}+p_{t-2}))
+&=\mu (n_{t-1}^f\; \phi(p^*-p_{t-1}) +n_{t-1}^c\; \xi (p_{t-1}+p_{t-2}))
 \end{align}
 und
 \begin{align}
@@ -553,78 +557,209 @@ und
 \sigma_t^2 &= \mu^2((n_{t-1}^f)^2\sigma_f^2 + (n_{t-1}^c)^2\sigma_c^2)
 \end{align}
 Die Volatilität $\sigma_t$ hängt somit von der Größe der einzelnen Trader-Gruppen ab und ändert sich mit der Zeitreihe. Um den Wechsel der Händler von einer Gruppe zur Anderen zu beschreiben, wird zu jedem Zeitpunkt $t$ deren Anteil am Gesamtmarkt  $n_t^f$ bzw. $n_t^c$ neu berechnet.
-Der Aktualisierungs-Quotient entspricht der DCA\footnote{\textbf{Discrete Choice Approach}(DCA) nach Formel~\ref{eq:FW-update} \parencite{bertschinger:2018}}-HPM\footnote{\textbf{Herding, Predisposition, Missalignment}(HPM) Spezifikation für Attraktivität der Fundamental-Strategie gegenüber der Chartist-Strategie\parencite{bertschinger:2018}.} Spezifikation nach \parencite{bertschinger:2018, FW:2011}.\\
+Der Aktualisierungs-Quotient in Formel~\ref{eq:FW-update} entspricht der DCA\footnote{\textbf{Discrete Choice Approach}(DCA) nach Formel~\ref{eq:FW-update} \parencite{bertschinger:2018}}-HPM\footnote{\textbf{Herding, Predisposition, Missalignment}(HPM) Spezifikation für Attraktivität der Fundamental-Strategie gegenüber der Chartist-Strategie\parencite{bertschinger:2018}.} Spezifikation nach \parencite{bertschinger:2018, FW:2011}.\\
 
 Sei $a_t$ die relative Attraktivität der Fundamental-Strategie gegenüber der Chartist-Strategie. Nach \parencite{bertschinger:2018, FW:2011} wird die Attraktivtät mittels drei beeinflussender Faktoren modelliert (vgl. Formel~\ref{eq:FW-att}). 
 Zum einen wird eine allgemeine Veranlagung (General Predisposition) $\alpha_0$ und zum anderen Herdenverhalten (Herding) $\alpha_n$ und fehlerhafte Preise $\alpha_p$ modelliert (HPM).
 Da nur eine diskrete Anzahl an Wahlmöglichkeiten bestehen (DCA), ist die Wahrscheinlichkeitsdichte des Modells leicht differenzierbar. Das hat zur Folge, dass ein HMC-Algorithmus leichter Stichproben aus der a-posterior-Verteilung ziehen kann.\\
 Wie bereits erwähnt gilt \[n_t^c = 1-n_t^f\]
-wobei die Veränderung der Anzahl der Händler zu jedem Zeitpunkt $t$ durch folgenden Quotienten berechnet wird
+wobei die Veränderung der Anzahl der Händler zu jedem Zeitpunkt $t$ durch den inversen Logit\footnote{Der \textbf{Logit} entspricht dem natürlichen Logarithmus der Wahrscheinlichkeit einer Chance (Quotient der Wahrscheinlichkeit $p$ zur Gegenwahrscheinlichkeit $1-p$). Für die Inverse gilt $p=\frac{e^X}{1+e^X}=\frac{1}{1+e^{-X}}$ \parencite{logit}} berechnet wird (vgl. Code~\ref{stan:FW-param} Zeile~\ref{stan:FW-param:logit})
 \begin{align}
-n_t^f =\dfrac{1}{1+e^{-\beta\cdot a_{t-1}}} && \beta = 1\text{ nach \parencite{bertschinger:2018}}\nonumber
+\label{eq:FW-update}
+n_t^f =\dfrac{1}{1+e^{-\beta\cdot a_{t-1}}} && \beta = 1\text{ nach \parencite{bertschinger:2018}}
 \end{align}
 mit
 \begin{align}
 \label{eq:FW-att}
 a_t= \alpha_0+\alpha_n(n_t^f-n_t^c)+\alpha_p(p^*-p_t)^2 &&a_n, a_p >0
 \end{align}
+Im \textit{Stan}-Code werden die Paramter entsprechend im \verb|parameter|- bzw. \verb|transformed parameter|-Block definiert.
+\begin{lstlisting}[style=custom, escapechar=|,caption={Teil-Modell nach \parencite{bertschinger:2018, FW:2011}},label={stan:FW-param}]
+parameters {
+  real<lower=0> phi;
+  real<lower=0> xi;
+  real alpha_0;
+  real<lower=0> alpha_n;
+  real<lower=0> alpha_p;
+  real<lower=0> sigma_f;
+  real<lower=sigma_f> sigma_c;
+  real<lower=0, upper=1> n_f_1;
+  ...
+  vector[N] eps_miss; // missing normalized return innovations
+}
+transformed parameters {
+  vector[T] n_f;
+  vector[T] demand;
+  vector[T] sigma;
+  // Note: All prices are actually log prices!
+  vector[T] p_star;
+  vector[T] p;
+  real ret[T];
+  ...
+  
+  p[1] = 0; // wlog log p_1 = 0
+  p_star[1] = ...
+  
+  n_f[1] = n_f_1;
+  demand[1] = 0;
+  
+  sigma[1] = mu * sqrt( square(n_f[1] * sigma_f)
+			+ square((1 - n_f[1]) * sigma_c));
+  {
+    int idx = 1;
+    
+    if (miss_mask[1] == 1) {
+      ret[1] = sigma[1] * eps_miss[idx];
+      idx = idx + 1;
+    } else
+      ret[1] = ret_obs[1];
+
+    for (t in 2:T) {
+      // Note: index shift between prices and returns
+      p[t] = p[t - 1] + ret[t - 1];
+      p_star[t] = ...
+
+      {
+	
+    // equation (HPM)
+	real a = alpha_n * (n_f[t-1] - (1 - n_f[t-1]))
+	  + alpha_0
+	  + alpha_p * square(p[t-1] - p_star[t-1]);
+	
+    // equation (DCA)
+	n_f[t] = inv_logit(beta * a); |\label{stan:FW-param:logit}|
+	
+    demand[t] = mu * (n_f[t] * phi * (p_star[t] - p[t])
+			  + (1 - n_f[t]) * xi * (p[t] - p[t-1]));
+	
+    // structured stochastic volatility
+	sigma[t] = mu * sqrt( square(n_f[t] * sigma_f)
+			      + square((1 - n_f[t]) * sigma_c));
+      }
+      
+      if (miss_mask[t] == 1) {
+        ret[t] = sigma[t] * eps_miss[idx];
+        idx = idx + 1;
+      } else
+        ret[t] = ret_obs[t];
+    }
+  }
+}
+\end{lstlisting}
+
 Die Parameter $\beta$ und $\mu$ sind redundante Parameter werden konstant gehalten, da sie nur die Größenordnung der Parameter $\alpha_0,\alpha_n,\alpha_p, f, g, \sigma_f$ und $\sigma_c$ beeinflussen. \\
 Es gilt
 \[\beta = 1\]
 \[\mu = 0.01\]
-Außerdem wird angenommen, dass der Fundamentalpreis unbekannt und nicht beobachtbar ist, das wird durch den logarithmierte Fundamentalpreis $p^*=0$ modelliert \parencite{bertschinger:2018, FW:2011}. Bei der Simulation des Modells auf realen Aktienmarktpreisen bzw. -erträgen, wird aufgrund des unbekannten Fundamentalpreises angenommen, dass dieser sich im Zeitverlauf der geometrischen Brownschen Bewegung\footnote{Die \textbf{Brownsche Bewegung} ermöglicht die Simulation multiplikativer unabhängiger Zuwächse des Fundamentalpreises \parencite{BrownianMotion}} folgt.
+Die Definition der Parameter wird im \textit{Stan}-Code im \verb|transformed data|-Block angelegt. Also enthält dieser neben der Berechnungsvorschrift der \textit{Missing Values} auch die Vorschrift für $\sigma_t$, $\mu$ und $\beta$.
+\begin{lstlisting}[style=custom]
+transformed data {
+  int N = 0; // number of missing values
+  real ret_sd  = sqrt(variance(ret_obs));
+  // mu and beta fixed ... redundant anyways
+  real mu = 0.01;
+  real beta = 1.0;
+
+  for (t in 1:T)
+    if (miss_mask[t] == 1) N = N + 1;
+}
+\end{lstlisting}
+Das Model wird anschließend im \verb|model| bzw. \verb|generated quantities|-Block mit finalisiert. Da wenig Wissen über die korrekte Wahl der a-priori-Verteilung für alle Parameter vorliegt, werden diese mit wenig informativen Verteilungen initialisiert, die die Skala der Parameter bestimmt. Dazu wurde die Studentsche t-Verteilung (vgl. Abbildung~\ref{fig:student-t}) gewählt, da diese schwere Ränder hat. So werden Werte, die um ein Vielfaches größer als die Standardabweichung sind, dennoch akzeptiert. Lediglich die Standardabweichungen folgen stärker informierte a-prori-Verteilungen auf Basis der Daten. Wie bereits in Kapitel~\ref{chap:garch} beschrieben wird auch hier die Jacobi-Korrektur modelliert. 
+%img student-t
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.6]{images/student_t}
+\caption{Die Studentsche t-Verteilung mit 5 Freiheitsgraden, dem Erwartungswert 0 skaliert um den Faktor 1 (Eigene Darstellung).}
+\label{fig:student-t}
+\end{center}
+\end{figure}
+
+\begin{lstlisting}[style=custom]
+model {
+  phi ~ student_t(5, 0, 1);
+  xi ~ student_t(5, 0, 1);
+  alpha_0 ~ student_t(5, 0, 1);
+  alpha_n ~ student_t(5, 0, 1);
+  alpha_p ~ student_t(5, 0, 1);
+  sigma_f ~ normal(0, ret_sd / mu);
+  sigma_c ~ normal(0, 2.0 * ret_sd / mu);
+  ...
+
+  // Price likelihood
+  ret ~ normal(demand, sigma);
+  // Jacobian correction for transformed innovations
+  for (t in 1:T) {
+    if (miss_mask[t] == 1)
+      target += log(sigma[t]);
+  }
+}
+generated quantities {
+  vector[T] log_lik;
+
+  for (t in 1:T)
+    log_lik[t] = normal_lpdf(ret_obs[t] | 0, sigma[t]);
+}
+\end{lstlisting}
+
+Außerdem wird angenommen, dass der Fundamentalpreis unbekannt und nicht beobachtbar ist, das wird durch den logarithmierte Fundamentalpreis $p^*=0$ modelliert \parencite{bertschinger:2018, FW:2011}. Bei der Simulation des Modells auf realen Aktienmarktpreisen bzw. -erträgen, wird angenommen, dass sich der Fundamentalpreis im Zeitverlauf ändert.
+
+Des Weiteren gilt, dass die Volatilität $\sigma_t$ in Formel~\ref{eq:FW-vol} über den Marktanteil der Fundamental-Trader $n_{t-1}^f$ von der Attraktivität $a_{t-2}$ in Formel~\ref{eq:FW-att} abhängt. Die Attraktivität wiederum wird vom logarithmierten Fundamentalpreis $p_{t-2}^*$ beeinflusst. \\ 
+
+In der vorliegenden Arbeit wurden zwei verschiedene Varianten des Modells nach \parencite{bertschinger:2018} auf Marktpreisen simuliert. Die Varianten unterscheiden sich in der Berechnung der Änderungen des logarithmierten Fundamentalpreises $p_t^*$:
+\begin{enumerate}
+\item Modellierung von $p_t^*$ durch die Brownsche Bewegung bzw. eine Re-Parametrierung und die Berechnung mittels zufälliger Irrfahrt (Random Walk)
+\item Modellierung von $p_t^*$ durch einen gleitenden Durchschnitt (Moving Average)
+\end{enumerate}
+In der ersten Variante wird angenommen, dass $p_t^*$ im Zeitverlauf der geometrischen Brownschen Bewegung\footnote{Die \textbf{Brownsche Bewegung} ermöglicht die Simulation multiplikativer unabhängiger Zuwächse des Fundamentalpreises \parencite{BrownianMotion}} folgt.
 \begin{align}
 \label{eq:FW-p_star}
 p^*\sim \mathcal{N}(p_{t-1}^*,\sigma_*^2)
 \end{align}
 
-
-Die Volatilität $\sigma_t$ in Formel~\ref{eq:FW-vol} hängt über den Marktanteil der Fundamental-Trader $n_{t-1}^f$ von der Attraktivität $a_{t-2}$ in Formel~\ref{eq:FW-att}, die wiederum vom logarithmierten Fundamentalpreis $p_{t-2}^*$ beeinflusst wird. In der vorliegenden Arbeit wurden zwei verschiedene Varianten des Modells nach \parencite{bertschinger:2018} auf Marktpreisen simuliert. Die Varianten unterscheiden sich in der Berechnung des logarithmierten Fundamentalpreises $p_t^*$:
-\begin{enumerate}
-\item Modellierung von $p_t^*$ durch die Brownsche Bewegung bzw. eine Re-Parametrierung und die Berechnung mittels zufälliger Irrfahrt (Random Walk)
-\item Modellierung von $p_t^*$ durch einen gleitenden Durchschnitt (Moving Average)
-\end{enumerate}
-In der ersten Variante enthält $p_t^*$ durch die Brownsche Bewegung nun eine stochastische Komponente. Es handelt sich also um ein stochastisches Volatilitätsmodell \parencite{bertschinger:2018, FW:2011}. Der vollständige \textit{Stan}-Code befindet sich im Anhang~\ref{stan:FWwalk}.\\
+So enthält $p_t^*$ durch die Brownsche Bewegung nun eine stochastische Komponente. Da $p_t^*$ die Volatilität $\sigma_t$ beeinflusst, handelt sich also um ein stochastisches Volatilitätsmodell \parencite{bertschinger:2018, FW:2011}.\\ 
 
 Durch eine nicht zentrierte Umparametrierung nach \parencite{bertschinger:2018} kann die Performance des HCM-Sampler verbessert werden. Dazu wird $p_t^*$ mittels $\epsilon_t^*$ als transformierter Parameter innerhalb einer zufälligen Irrfahrt (Random Walk) berechnet.
 \begin{align}
 \label{eq:FW-P_star-new}
 p_t^* = p_{t-1}^*+\sigma_*\cdot\epsilon_t^* &&\text{ wobei }\epsilon_t^*\sim \mathcal{N}(0,1)
 \end{align}
-Das Modell wird bleibt dadurch unverändert, denn Formel~\ref{eq:FW-p_star} und~\ref{eq:FW-P_star-new} sind äquivalent \parencite{bertschinger:2018}.\\
+Das Modell bleibt dadurch unverändert, denn Formel~\ref{eq:FW-p_star} und~\ref{eq:FW-P_star-new} sind äquivalent \parencite{bertschinger:2018}.\\
 
-In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch hier gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}.
-<<<<<<< HEAD
-%tbd
-=======
+Die erste Variante des Modells $\Theta_{FWwalk}$ wird also durch die Parameter $\epsilon_t^*$ und $\sigma_*$ ergänzt. Im \textit{Stan}-Code~\ref{stan:FWwalk-param} ist diese Variante entsprechend im \verb|parameter|- und \verb|transformed parameter|-Block in Zeile~\ref{stan:FWwalk-pstar} umgesetzt.
 
-Allgemein gilt für zwei unabhängige Zufallsvariablen $X$, $Y$, dass deren Summe der Faltung der Verteilung der einzelnen Zufallsvariablen entspricht. Also gilt, dass die Summe zweier unabhängiger normaliverteilter Zufallsvariablen, ist ebenfalls normaliverteilt zu den Parametern in Formel~\ref{eq:fold}.
-\begin{align}
-\label{eq:fold}
-X&\sim \mathcal{N}(\mu_x,\sigma_x^2)\nonumber \\
-Y&\sim \mathcal{N}(\mu_y,\sigma_y^2)\nonumber \\
-X+Y&\sim \mathcal{N}(\mu_x+\mu_y, \sigma_x^2+\sigma_y^2)
-\end{align}
+\begin{lstlisting}[style=custom, escapechar=|,caption={Teil-Modell(Random Walk) nach \parencite{bertschinger:2018, FW:2011}},label={stan:FWwalk-param}]
+parameters {
+  ...
+  // p_star random walk in non-centered parameterization
+  vector[T] epsilon_star;
+  real<lower=0> sigma_p_star;
+  ...
+}
+transformed parameters {
+  ...
+  vector[T] p_star;
+  vector[T] p;
+  ...
 
-Die Nachfrage ist keine direkt beobachtbare Größe und nur ihre gewichtete Summe beeinflusst den Preis, daher ist es nicht notwendig die Nachfrage tatsächlich zu berechnen bzw. zu schätzen. Mittels kombinierte Nachfrage beider Trader-Gruppen können die Verteilungsparameter der logarithmierten Erträge $r_t = p_t-p_{t-1}$ ermittelt werden (vgl. Formel~\ref{eq:FW-mu} und~\ref{eq:FW-var}).
-\[r_t&\sim \mathcal{N}(\mu_t,\sigma_t)\]
-mit 
-\begin{align}
-\label{eq:FW-mu}
-\mu_t& = E[n_{t-1}^f d_{t-1}^f + n_{t-1}^c d_{t-1}^c] \nonumber \\
-& = \mu (n_{t-1}^f\; f(p^*-p_{t-1}) +n_{t-1}^c\; g(p_{t-1}-p_{t-2})) \nonumber \\
-\end{align}
-und
-\begin{align}
-\label{eq:FW-var}
-\sigma^2_t& = \mu^2((n_{t-1}^f)^2 \sigma_f^2 + (n_{t-1}^c)^2 \sigma_c^2)  
-\end{align}
-Für die Volatilität $\sigma_t$ 
-\[\sigma_t = \mu \sqrt{(n_{t-1}^f)^2 \sigma_f^2 + (n_{t-1}^c)^2 \sigma_c^2} \]
-gilt somit, dass sie vom Anteil der Fundamental- und Chartist-Trader abhängt und sich mit der Zeitreihe verändert. 
-%tbd
+  p[1] = 0; 
+  p_star[1] = p[1] + epsilon_star[1]; 
 
->>>>>>> 6716c53bcffba73fa9585b46c5b60475861ebb83
+      ...
+
+    for (t in 2:T) {
+      // Note: index shift between prices and returns
+      p[t] = p[t - 1] + ret[t - 1];
+      p_star[t] = p_star[t-1] + sigma_p_star * epsilon_star[t]; |\label{stan:FWwalk-pstar}|     
+
+      {
+	...
+  }
+\end{lstlisting}
+
+Der vollständige \textit{Stan}-Code der ersten Variante befindet sich im Anhang~\ref{stan:FWwalk}.\\
+
+In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch für diese Variante gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}. Der vollständige \text{Stan}-Code befindet sich im Anhang~\ref{stan:FWma}.\\
+
 random walk - treedepth 128 ?!
 
 \section{AL herd walk (AL)}
@@ -655,12 +790,16 @@ tbd
 %\listoffigures
 
 \appendix
+
 \chapter*{Anhang}
 \addcontentsline{toc}{chapter}{Anhang}
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}} %don't display subsections in toc
+
 \renewcommand{\thesection}{\Alph{section}}
 
 \section{\textit{Stan} Code}
-\subsection*{GARCH-Modell}
+\subsection{GARCH-Modell}
 \label{stan:GARCH}
 \begin{lstlisting}[style=custom]
 data {
@@ -722,12 +861,12 @@ generated quantities {
   real log_lik[T];
 
   for (t in 1:T)
-    log_lik[t] = normal_lpdf(ret_obs[t] | mu, sigma[t]);
+    log_lik[t] = normal_lpd\phi (ret_obs[t] | mu, sigma[t]);
 }
 
 
 \end{lstlisting}
-\subsection*{Modell von Franke \& Westerhoff (Random Walk)}
+\subsection{Modell von Franke \& Westerhoff (Random Walk)}
 \label{stan:FWwalk}
 \begin{lstlisting}[style=custom]
 data {
@@ -834,12 +973,12 @@ generated quantities {
   vector[T] log_lik;
 
   for (t in 1:T)
-    log_lik[t] = normal_lpdf(ret_obs[t] | 0, sigma[t]);
+    log_lik[t] = normal_lpd\phi (ret_obs[t] | 0, sigma[t]);
 }
 
 \end{lstlisting}
 
-\subsection*{Modell von Franke \& Westerhoff (Moving Average)}
+\subsection{Modell von Franke \& Westerhoff (Moving Average)}
 \label{stan:FWma}
 \begin{lstlisting}[style=custom]
 data {

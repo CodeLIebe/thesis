@@ -57,7 +57,7 @@ month = {1}
 
 @article{engle:1982,
   title={Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation},
-  author={Engle, Robert F},
+  author={Engle, R. F.},
   journal={Econometrica: Journal of the Econometric Society},
   pages={987--1007},
   year={1982},
@@ -66,7 +66,7 @@ month = {1}
 
 @article{bollerslev:1986,
   title={Generalized autoregressive conditional heteroskedasticity},
-  author={Bollerslev, Tim},
+  author={Bollerslev, T.},
   journal={Journal of econometrics},
   volume={31},
   number={3},
@@ -77,7 +77,7 @@ month = {1}
 
 @article{FW:2011,
   title={Estimation of a structural stochastic volatility model of asset pricing},
-  author={Franke, Reiner and Westerhoff, Frank},
+  author={Franke, R. and Westerhoff, F.},
   journal={Computational Economics},
   volume={38},
   number={1},
@@ -117,4 +117,12 @@ journal={Wikipedia},
 publisher={Wikimedia Foundation}, 
 year={2018}, 
 month={Jan}
+}
+@misc{logit, 
+title={Logit}, 
+url={https://de.wikipedia.org/wiki/Logit}, 
+journal={Wikipedia}, 
+publisher={Wikimedia Foundation}, 
+year={2018}, 
+month={Nov}
 }
