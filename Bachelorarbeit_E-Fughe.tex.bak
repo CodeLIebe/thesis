@@ -515,7 +515,7 @@ Der vollständige \textit{Stan}-Code des GARCH(1,1)-Modells befindet sich im Anh
 \section{Franke \& Westerhoff (FW)}
 \label{chap:FW}
 R. Franke und F. Westerhoff haben ein Modell entwickelt, dass den Markt durch zwei Agentengruppen bzw. Handelsstrategien beschreibt: Fundamental\footnote{\textbf{Fundamental-Trader} treffen Kauf bzw. Verkaufsentscheidung auf Basis vorhandener betriebswirtschaftlicher- und Kapitalmarktinformationen wie z.B. Jahresabschlüsse, Inflation, politische Informationen etc.. Für Fundamental-Trader gilt die Annahme, dass Märkte vorhersagbar sind und auf bestimmte Vorfälle vorhersagbares Verhalten zeigen. Durch Informationen über eben diese Vorfälle, kann der Händler informierte Vorhersagen über die Preise am Finanzmarkt treffen.}- und Chartist\footnote{\textbf{Chartist-Trader} treffen Handelsentscheidungen auf Basis historischer Preise und Volumen des Marktes. Chartist-Trader analysieren graphische Repräsentationen der historischen Daten und mathematische Indikatoren, um ihre Handelsstrategie zu optimieren.}-Trader. Händler können täglich die Strategie ändern, da im Modell ein Mechanismus modelliert wurde, der Herdenverhalten abbildet \parencite{FW:2011}\\
-Der Anteil der Fundamental-Trader zum Zeitpunkt $t$ sei \[
+Der Marktanteil der Fundamental-Trader zum Zeitpunkt $t$ sei \[
 n_t^f\in [0,1] \]
 Dann gilt für den Anteil der Chartist-Trader entsprechend
 \[n_t^c = 1-n_t^f\]
@@ -594,7 +594,37 @@ p_t^* = p_{t-1}^*+\sigma_*\cdot\epsilon_t^* &&\text{ wobei }\epsilon_t^*\sim \ma
 Das Modell wird bleibt dadurch unverändert, denn Formel~\ref{eq:FW-p_star} und~\ref{eq:FW-P_star-new} sind äquivalent \parencite{bertschinger:2018}.\\
 
 In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch hier gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}.
+<<<<<<< HEAD
 %tbd
+=======
+
+Allgemein gilt für zwei unabhängige Zufallsvariablen $X$, $Y$, dass deren Summe der Faltung der Verteilung der einzelnen Zufallsvariablen entspricht. Also gilt, dass die Summe zweier unabhängiger normaliverteilter Zufallsvariablen, ist ebenfalls normaliverteilt zu den Parametern in Formel~\ref{eq:fold}.
+\begin{align}
+\label{eq:fold}
+X&\sim \mathcal{N}(\mu_x,\sigma_x^2)\nonumber \\
+Y&\sim \mathcal{N}(\mu_y,\sigma_y^2)\nonumber \\
+X+Y&\sim \mathcal{N}(\mu_x+\mu_y, \sigma_x^2+\sigma_y^2)
+\end{align}
+
+Die Nachfrage ist keine direkt beobachtbare Größe und nur ihre gewichtete Summe beeinflusst den Preis, daher ist es nicht notwendig die Nachfrage tatsächlich zu berechnen bzw. zu schätzen. Mittels kombinierte Nachfrage beider Trader-Gruppen können die Verteilungsparameter der logarithmierten Erträge $r_t = p_t-p_{t-1}$ ermittelt werden (vgl. Formel~\ref{eq:FW-mu} und~\ref{eq:FW-var}).
+\[r_t&\sim \mathcal{N}(\mu_t,\sigma_t)\]
+mit 
+\begin{align}
+\label{eq:FW-mu}
+\mu_t& = E[n_{t-1}^f d_{t-1}^f + n_{t-1}^c d_{t-1}^c] \nonumber \\
+& = \mu (n_{t-1}^f\; f(p^*-p_{t-1}) +n_{t-1}^c\; g(p_{t-1}-p_{t-2})) \nonumber \\
+\end{align}
+und
+\begin{align}
+\label{eq:FW-var}
+\sigma^2_t& = \mu^2((n_{t-1}^f)^2 \sigma_f^2 + (n_{t-1}^c)^2 \sigma_c^2)  
+\end{align}
+Für die Volatilität $\sigma_t$ 
+\[\sigma_t = \mu \sqrt{(n_{t-1}^f)^2 \sigma_f^2 + (n_{t-1}^c)^2 \sigma_c^2} \]
+gilt somit, dass sie vom Anteil der Fundamental- und Chartist-Trader abhängt und sich mit der Zeitreihe verändert. 
+%tbd
+
+>>>>>>> 6716c53bcffba73fa9585b46c5b60475861ebb83
 random walk - treedepth 128 ?!
 
 \section{AL herd walk (AL)}
