@@ -533,8 +533,10 @@ Fundamental-Trader reagieren auf fehlerhafte Preise z.B. wenn der Marktpreis vom
 Die Nachfrage selbst ist keine beobachtbare Größe und nur ihre gewichtete Summe beeinflusst die Preise. Sie wird von \parencite{bertschinger:2018,FW:2011} mittels folgender Dynamiken definiert:
 \begin{align}
 d_t^f &= \phi (p^*-p_t)+\epsilon_t^f & &\text{mit }\epsilon_t^f\sim \mathcal{N}(0,\sigma^2_f)\nonumber \\
-d_t^c &= \xi (p_t-p_{t-1})+\epsilon_t^c & &\text{mit }\epsilon_t^c\sim \mathcal{N}(0,\sigma^2_c)\nonumber 
+d_t^c &= \xi (p_t-p_{t-1})+\epsilon_t^c & &\text{mit }\epsilon_t^c\sim \mathcal{N}(0,\sigma^2_c)\nonumber \\
+&=\xi \; r_t +\epsilon_t^c \nonumber
 \end{align}
+%Wobei $\sigma_f\sim\mathcal{N}\left(0, \frac{\sigma_t}{\mu}\right)$ und $\sigma_c\sim\mathcal{N}\left(0, 2\cdot \frac{\sigma_t}{\mu}\right)$ gilt.\\
 Allgemein gilt für zwei unabhängige Zufallsvariablen $X$, $Y$, dass die Verteilung ihrer Summe der Faltung der Verteilung der beiden Zufallsvariablen entspricht.\\
 Sei
 \begin{align}
@@ -664,8 +666,8 @@ transformed data {
     if (miss_mask[t] == 1) N = N + 1;
 }
 \end{lstlisting}
-Das Model wird anschließend im \verb|model| bzw. \verb|generated quantities|-Block mit finalisiert. Da wenig Wissen über die korrekte Wahl der a-priori-Verteilung für alle Parameter vorliegt, werden diese mit wenig informativen Verteilungen initialisiert, die die Skala der Parameter bestimmt. Dazu wurde die Studentsche t-Verteilung (vgl. Abbildung~\ref{fig:student-t}) gewählt, da diese schwere Ränder hat. So werden Werte, die um ein Vielfaches größer als die Standardabweichung sind, dennoch akzeptiert. Lediglich die Standardabweichungen folgen stärker informierte a-prori-Verteilungen auf Basis der Daten. Wie bereits in Kapitel~\ref{chap:garch} beschrieben wird auch hier die Jacobi-Korrektur modelliert. 
-%img student-t
+Das Model wird anschließend im \verb|model| bzw. \verb|generated quantities|-Block mit finalisiert. Da wenig Wissen über die korrekte Wahl der a-priori-Verteilung für alle Parameter vorliegt, werden diese mit wenig informativen Verteilungen initialisiert, die die Skala der Parameter bestimmt. Dazu wurde die Studentsche t-Verteilung (vgl. Abbildung~\ref{fig:student-t}) gewählt, da diese schwere Ränder hat. So werden Werte, die um ein Vielfaches größer als die Standardabweichung sind, dennoch akzeptiert. Lediglich die Standardabweichungen folgen stärker informierte a-prori-Verteilungen auf Basis der Daten. Wie bereits in Kapitel~\ref{chap:garch} beschrieben wird auch hier die Jacobi-Korrektur und die a-posteriori-Verteilung modelliert. 
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=.5]{images/student_t}
@@ -754,17 +756,119 @@ transformed parameters {
       {
 	...
   }
+  model {
+  ...
+  epsilon_star ~ normal(0, 1);
+  sigma_p_star ~ normal(0, ret_sd / 2.0);
+  ...
+}
 \end{lstlisting}
 
 Der vollständige \textit{Stan}-Code der ersten Variante befindet sich im Anhang~\ref{stan:FWwalk}.\\
 
-In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch für diese Variante gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}. Der vollständige \text{Stan}-Code befindet sich im Anhang~\ref{stan:FWma}.\\
+In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch für diese Variante gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}. 
 
-random walk - treedepth 128 ?!
+Umgesetzt wird die Variante indem $p^*$ einer Mischverteilung folgt. Mischverteilungen repräsentieren die Wahrscheinlichkeitsverteilung der Beobachtungen einer Gesamtpopulation die aus mehreren Sub-Populationen besteht. Der Vorteil der Mischverteilung ist, dass ein Datensatz einzelne Beobachtungen nicht tatsächlich einer Gruppe innerhalb der Gesamtpopulation zuordnen muss.
+Der Fundamentalpreis wird wie folgt modelliert:
+\[p_t^* = P(p_t^*|\tau,p_{t-1}^*,p_t)\]
+also gilt
+\begin{align}
+p_t^*\sim\text{mix}(\tau,p_{t-1}^*,p_t)\nonumber
+\end{align}
+Dabei folgt der Skalierungsfaktor $s$ einer inversen Gammaverteilung\footnote{In der Bayesschen Statistik wird die inverse Gammaverteilung häufig als marginale a-posteriori-Verteilung der unbekannten Varianz einer Normalverteilung genutzt \parencite{inversgamma}.}.
+\[s\sim \gamma^{-1}(2,1)\]
+\[\tau =e^{-\frac{1}{1000 s}}\]
+Im \textit{Stan}-Code~\ref{stan:FWma-param} werden die benötigten Paramter entsprechend definiert.
 
-\section{AL herd walk (AL)}
+\begin{lstlisting}[style=custom, caption={Teil-Modell(Moving Average) nach \parencite{bertschinger:2018,FW:2011}},label={stan:FWma-param}]
+parameters {
+  ...
+  real<lower=0> lenscale_raw;  
+  real p_star_0;
+  ...
+}
+transformed parameters {
+  ...
+  vector[T] p_star;
+  vector[T] p;
+  ...
+  real<lower=0> lenscale = 1000 * lenscale_raw;
+  real<lower=0, upper=1> tau = exp( - 1 / lenscale);
+  ...
+  p[1] = 0; // wlog log p_1 = 0
+  p_star[1] = log_mix(tau, p_star_0, p[1]);
+  ...
+    for (t in 2:T) {
+      // Note: index shift between prices and returns
+      p[t] = p[t - 1] + ret[t - 1];
+      p_star[t] = log_mix(tau, p_star[t-1], p[t]);
+     ...
+  }
+ }
+ model {
+  ...
+  p_star_0 ~ normal(0, 0.2);
+  lenscale_raw ~ inv_gamma(2, 1); // avoid lower boundary ... lenscale ~ inv_gamma(2, 1000)
+  ...
+}
+\end{lstlisting}
+
+Der vollständige \text{Stan}-Code befindet sich im Anhang~\ref{stan:FWma}.\\
+%random walk - treedepth 128 ?!
+
+\section{Alfarano, Lux \& Wagner (AL)}
 \label{chap:AL}
-tbd
+Simulationen von  Modellen, die komplexe Annahmen voraussetzten, weisen häufig stilisierte Fakten von Finanzmärkten, wie schwere Ränder der Verteilung der Erträge oder Volatilitätscluster auf.  Allerdings können die Simulationen oft nicht mathematisch analysiert werden, da die Annahmen über die Marktdynamiken zu streng sind \parencite{AL:2008}. Das Modell nach Alfarano, Lux und Wagner \parencite{AL:2008} versucht Herdenverhalten in ein einfaches Gleichgewichtspreis-Modell zu integrieren, um strenge Annahmen bzgl. des Verhaltens der Händler oder der Handelsstrategie zu vermeiden und so beobachtete Muster auch für eine große Anzahl heterogener Agenten analytisch erklären zu können. Das Herdenverhalten wird in Form einer einfachen Variante des Herding-Modells nach Kirman~\parencite{kirman:1993} integriert.\\
+
+Kirman hat 1993 auf Basis makroskopischer Muster aus entomologischen Experimenten mit Ameisenkolonien ein Modell für Informationsaustausch stochastisch formalisiert \parencite{AL:2008}. Das Experiment beobachtet eine Ameisenkolonie, der in der Nähe ihres Nests zwei identische Nahrungsquellen zur Verfügung stehen. Es zeigt sich, dass einzelne Ameisen sind in der Regel auf eine Nahrungsquelle konzentrieren, aber dennoch gelegentlich zur anderen Nahrungsquelle wechseln.
+Betrachtet man den Mittelwert im Zeitverlauf ergibt sich eine bimodale\footnote{Eine Wahrscheinlichkeitsverteilung heißt \textbf{bimodale}, wenn ihre Dichte zwei Modi aufweist.} Verteilung  der Häufigkeit der Ameisen, die die eine bzw. andere Nahrungsquelle aufsuchen \parencite{AL:2008}.\\
+
+Alfarano, Lux und Wagner nutzen diesen Mechanismus, um Veränderungen im Verhalten der Händler zu formalisieren. Die binäre Auswahlmöglichkeit der Nahrungsquellen der Ameisen, gilt analog zur Entscheidung von Agenten des Finanzmarktes bzgl. einer bestimmten Regel zur Bildung ihrer Erwartung \parencite{AL:2008}. Auch in diesem Modell können Agenten am Markt zwischen Fundamental- und Chartist-Strategie entscheiden. Der Herding-Mechanismus bestimmt die Verteilung der Agenten auf diese beiden Handelsstrategien, sodass sich Phasen abwechseln in denen die Fundamental- bzw. Chartist-Strategie dominant ist. Wobei vor allem ein Markt mit vielen Chartist-Tradern zu Spekulationsblasen neigt \parencite{AL:2008}.
+
+Das Gleichgewicht des Marktes wird durch ein Standard Währungskurs-Modell bestimmt. Allerdings wurde die Annahme der rationalen Erwartungen durch nicht-rationale Erwartungen ersetzt. Diese nicht-rationalen Erwartungen entsprechen dem gewichteten Mittelwert der Erwartungen der zwei Händlergruppen, wobei die Gewichte einem Erfolgsmaß der Vergangenheit der jeweiligen Gruppe entsprechen. \parencite{AL:2008}.\\
+
+Am Markt existieren $N$ Agenten, wobei $n$ Agenten der ersten Handelsstrategie zugeordnet sind und entsprechend $N-n$ Agenten der anderen Strategie folgen. Im Zeitverlauf existieren zwei Möglichkeiten zwischen den zwei Strategien. Zum einen  überzeugen zufällige Treffen manche Agenten die Strategie zu wechseln und zum anderen existieren autonome Wechsel, die z.B. durch unabhängige zufällige Zustandsänderungen modelliert werden können \parencite{AL:2008}. 
+
+Im ursprünglichen Modell werden mehrfache Treffen von Agenten nicht berücksichtigt und die Wahrscheinlichkeiten einem anderen Agenten in eine andere Strategie zu folgen bzw. einen Agenten für eine Strategie zu gewinnen hängt nicht von der Vergangenheit hat. Mit Hilfe einer Markov-Kette können diese Abhängigkeiten modelliert werden, um Erinnerungen der Agenten zu simulieren \parencite{AL:2008}. 
+Sei $x\in [-1,1]$ die Konzentration oder Intensität der Agenten in der ersten Strategie mit
+\[ x=\frac{2n}{N-1} \]
+Die Wechsel bzw. Übergänge der Agenten von einer zur anderen Handelsstrategie sind wie folgt definiert:
+\begin{align}
+\pi_x^{\pm} (x \rightarrow x \pm 2/N) = (1\pm x)(2a/N + b(1\pm x)) 
+\end{align}
+Diese Übergänge hängen nicht vom relativen Anteil der Agenten einer Strategie bezogen auf die Gesamtpopulation ab, sondern kleinere Nachbarschaften/Subpopulationen beeinflussen die Entscheidung einzelner Agenten ihre Strategie zu wechseln. So werden sowohl zufällige Wechsel als auch Wechsel aufgrund von Herdenverhalten wie z.B. Gruppenzwang berücksichtigt, da z.B. eine große Anzahl aller Agenten der Gesamtpopulation der anderen Strategie folgen.
+Die Gleichgewichtsverteilung der Konzentration der Agenten $\omega(x)$ weißt eine zentrale Tendenz auf, die z.B. durch den Mittelwert definiert sein kein kann.
+Somit können die Veränderungen des Systems vernachlässigt werden und die Dynamiken sind mittels deterministischer Differentialgleichung modellierbar.
+
+So zeigen \parencite{AL:2008}, dass $x$ der Fokker-Planck-Gleichung\footnote{Die \textbf{Fokker-Planck-Gleichung} beschreibt die zeitliche Entwicklung einer Wahrscheinlichkeitsdichte $P(x)$ unter der Wirkung von Drift $A(x,t)$ und Diffusion $B(x,t)$ \parencite{FokkerPlanck}.} mit Wahrscheinlichkeitsdichte $w_x(x,t)$ folgt. 
+\begin{align}
+\label{eq:AL-FP}
+\frac{\partial}{\partial t}w_x = -\frac{\partial}{\partial x} A(x)w_x +\frac{1}{2}\frac{\partial^2}{\partial x^2} D(x)w_x 
+\end{align}
+
+mit Drift $A(x)$
+\begin{align}
+A(x) &= \frac{N}{2}(\pi_x^+-\pi_x^-) \nonumber \\
+&= -2ax\nonumber
+\end{align}
+und Diffusion $D(x)$
+\begin{align}
+D(x)&= \pi_x^++\pi_x^- \nonumber \\
+&= 2b(1-x^2)+\frac{4q}{N}\nonumber
+\end{align}
+Die Dynamiken werden also durch eine lineare Drift mit Mean-Reversion\footnote{Der \textbf{Mean-Reversion-Effekt} beschreibt die Annahme in der Kapitalmarkttheorie, dass Märkte zu Übertreibungen neigen, die sich im Zeitverlauf nicht zufällig korrigieren, sondern dass mittels Gedächtnis vorherige Trends umkehrt werden. So folgt aus einem Anstieg der Preise fallende Kurse und umgekehrt \parencite{MeanReversion}.}-Effekt Richtung des unbedingten Erwartungswerts $E[x]=0)$.
+Außerdem besteht die Diffusion aus zwei Komponenten. 
+Die erste Komponente ist eine symmetrische, quadratische Funktion von $x$, die unabhängig von der Gesamtpopulationsgröße $N$ ist. Sie repräsentiert das Herdenverhalten aufgrund der Interaktion zwischen den Agenten. 
+Die zweite Komponente hängt von $N$ ab und repräsentiert die intrinsische Granularität des Modells. Sie wird für große $N$ gegen 0 streben und ist somit zu vernachlässigen \parencite{AL:2008}.
+
+Befindet sich man nicht nah an den Rändern $x\pm 1$ dominiert Herding-Mechanismus und die Veränderungen werden vom quadratischen Term repräsentiert, sodass der von $N$ abhängige Term vernachlässigt werden kann. 
+Befindet man sich allerdings an den Rändern, sind beide Effekte gleichgroß und -bedeutend \parencite{AL:2008}. 
+Es gilt, durch das kollektive Verhalten der Agenten und der nicht extensiv definierten Übergänge, dass die Größe der Schwankungen unabhängig von der Gesamtanzahl der Agenten $N$ am Markt ist \parencite{AL:2008}.\\
+
+%tbd
+
+Das Modell kann nun mittels Langevin-Gleichung simuliert werden. Die Langevin-Gleichung liefert eine Gaußsche Approximation an die stochastischen Dynamiken
+
 
 \chapter{Simulationen}
 \label{chap:sim}

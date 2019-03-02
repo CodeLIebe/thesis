@@ -2069,6 +2069,27 @@
     <bcf:citekey order="69">bertschinger:2018</bcf:citekey>
     <bcf:citekey order="69">FW:2011</bcf:citekey>
     <bcf:citekey order="70">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="71">inversgamma</bcf:citekey>
+    <bcf:citekey order="72">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="72">FW:2011</bcf:citekey>
+    <bcf:citekey order="73">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="73">FW:2011</bcf:citekey>
+    <bcf:citekey order="74">AL:2008</bcf:citekey>
+    <bcf:citekey order="75">AL:2008</bcf:citekey>
+    <bcf:citekey order="76">kirman:1993</bcf:citekey>
+    <bcf:citekey order="77">AL:2008</bcf:citekey>
+    <bcf:citekey order="78">AL:2008</bcf:citekey>
+    <bcf:citekey order="79">AL:2008</bcf:citekey>
+    <bcf:citekey order="80">AL:2008</bcf:citekey>
+    <bcf:citekey order="81">AL:2008</bcf:citekey>
+    <bcf:citekey order="82">AL:2008</bcf:citekey>
+    <bcf:citekey order="83">AL:2008</bcf:citekey>
+    <bcf:citekey order="84">AL:2008</bcf:citekey>
+    <bcf:citekey order="85">FokkerPlanck</bcf:citekey>
+    <bcf:citekey order="86">MeanReversion</bcf:citekey>
+    <bcf:citekey order="87">AL:2008</bcf:citekey>
+    <bcf:citekey order="88">AL:2008</bcf:citekey>
+    <bcf:citekey order="89">AL:2008</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

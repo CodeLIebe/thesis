@@ -85,6 +85,26 @@ month = {1}
   year={2011},
   publisher={Springer}
 }
+@article{AL:2008,
+  title={Time variation of higher moments in a financial market with heterogeneous agents: An analytical approach},
+  author={Alfarano, S. and Lux, T. and Wagner, F.},
+  journal={Journal of Economic Dynamics and Control},
+  volume={32},
+  number={1},
+  pages={101--136},
+  year={2008},
+  publisher={Elsevier}
+}
+@article{kirman:1993,
+  title={Ants, rationality, and recruitment},
+  author={Kirman, Alan},
+  journal={The Quarterly Journal of Economics},
+  volume={108},
+  number={1},
+  pages={137--156},
+  year={1993},
+  publisher={MIT Press}
+}
 
 @misc{simulated_annealing, 
 title={Simulated Annealing}, 
@@ -125,4 +145,29 @@ journal={Wikipedia},
 publisher={Wikimedia Foundation}, 
 year={2018}, 
 month={Nov}
+}
+
+@misc{inversgamma, 
+title={Inverse-gamma distribution}, 
+url={https://en.wikipedia.org/wiki/Inverse-gamma_distribution},
+journal={Wikipedia}, 
+publisher={Wikimedia Foundation}, 
+year={2019}, 
+month={Feb}
+}
+
+@misc{FokkerPlanck, 
+title={Fokker-Planck-Gleichung}, 
+url={https://de.wikipedia.org/wiki/Fokker-Planck-Gleichung}, 
+journal={Wikipedia}, publisher={Wikimedia Foundation}, 
+year={2018}, 
+month={Dec}
+}
+
+@misc{MeanReversion, 
+title={Mean-Reversion-Effekt}, 
+url={https://de.wikipedia.org/wiki/Mean-Reversion-Effekt}, 
+journal={Wikipedia}, publisher={Wikimedia Foundation}, 
+year={2017}, 
+month={Sep}
 }
