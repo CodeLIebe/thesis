@@ -401,7 +401,7 @@ Gemeinsamkeiten: readme.txt -> log returns, input, parameter, ....\\
 stan data und parameter block beschreiben - dann pro kapitel nur die abweichenden Code lines zeigen\\
 jacobian correction erklären\\
 agent-based + GARCH als Vergleich
-
+%tbd
 \section{Generalized Autoregressive Conditional Heteroscedasticity (GARCH)}
 \label{chap:garch}
 Generalisierte autoregressive bedingte Heteroskedastizitäts-Modelle sind stochastische Modelle zur Zeitreihenanalyse. 
@@ -848,27 +848,132 @@ So zeigen \parencite{AL:2008}, dass $x$ der Fokker-Planck-Gleichung\footnote{Die
 
 mit Drift $A(x)$
 \begin{align}
+\label{eq:AL-drift}
 A(x) &= \frac{N}{2}(\pi_x^+-\pi_x^-) \nonumber \\
-&= -2ax\nonumber
+&= -2ax
 \end{align}
 und Diffusion $D(x)$
 \begin{align}
+\label{eq:AL-diff}
 D(x)&= \pi_x^++\pi_x^- \nonumber \\
-&= 2b(1-x^2)+\frac{4q}{N}\nonumber
+&= 2b(1-x^2)+\frac{4q}{N}
 \end{align}
 Die Dynamiken werden also durch eine lineare Drift mit Mean-Reversion\footnote{Der \textbf{Mean-Reversion-Effekt} beschreibt die Annahme in der Kapitalmarkttheorie, dass Märkte zu Übertreibungen neigen, die sich im Zeitverlauf nicht zufällig korrigieren, sondern dass mittels Gedächtnis vorherige Trends umkehrt werden. So folgt aus einem Anstieg der Preise fallende Kurse und umgekehrt \parencite{MeanReversion}.}-Effekt Richtung des unbedingten Erwartungswerts $E[x]=0)$.
 Außerdem besteht die Diffusion aus zwei Komponenten. 
 Die erste Komponente ist eine symmetrische, quadratische Funktion von $x$, die unabhängig von der Gesamtpopulationsgröße $N$ ist. Sie repräsentiert das Herdenverhalten aufgrund der Interaktion zwischen den Agenten. 
 Die zweite Komponente hängt von $N$ ab und repräsentiert die intrinsische Granularität des Modells. Sie wird für große $N$ gegen 0 streben und ist somit zu vernachlässigen \parencite{AL:2008}.
 
-Befindet sich man nicht nah an den Rändern $x\pm 1$ dominiert Herding-Mechanismus und die Veränderungen werden vom quadratischen Term repräsentiert, sodass der von $N$ abhängige Term vernachlässigt werden kann. 
-Befindet man sich allerdings an den Rändern, sind beide Effekte gleichgroß und -bedeutend \parencite{AL:2008}. 
+Befindet sich man nicht nah an den Rändern $x\pm 1$ dominiert der Herding-Mechanismus und die Veränderungen werden vom quadratischen Term repräsentiert, sodass der von $N$ abhängige Term vernachlässigt werden kann. 
+Befindet man sich allerdings an den Rändern, sind beide Effekte gleichgroß und gleichbedeutend \parencite{AL:2008}. 
 Es gilt, durch das kollektive Verhalten der Agenten und der nicht extensiv definierten Übergänge, dass die Größe der Schwankungen unabhängig von der Gesamtanzahl der Agenten $N$ am Markt ist \parencite{AL:2008}.\\
 
-%tbd
+Die Fokker-Planck-Gleich kann, ohne den von $N$ abhängigen Term, in die Form einer klassischen stochastische Differentialgleichung $dX_t$ umformuliert werden.
+\[dX_t =\mu(X_t,t)dt +\sigma(X_t,t)dW_t\]
+Für die Fokker-Planck-Gleichung der Wahrscheinlichkeitsdichte $p(x,t)$ gilt dann
+\begin{align}
+\frac{\partial}{\partial t}p(x,t)=-\frac{\partial}{\partial x}[\mu(x,t)p(x,t)]+\frac{1}{2}\frac{\partial^2}{\partial x^2}[D(x,t)p(x,t)] 
+\end{align}
+wobei $D(x,t)=\sigma(x,t)$ gilt \parencite{bertschinger:2019}.\\
+Daraus ergibt sich mit Drift und Diffusion aus Formel~\ref{eq:AL-drift} und~\ref{eq:AL-diff}
+\[dX_t =-2aX_t dt+\sqrt{2b(1-X_t^2)}dW_t\]
+Die Gleichung entspricht der Langevin-Gleichung nach \parencite{AL:2008}, die mit Hilfe der Dynamiken der Konzentrationsvariable $x$ die Preisdynamiken beschreibt.
+Die Langevin-Gleichung liefert eine Gaußsche Approximation an die stochastischen Dynamiken und das Modell kann nun mit Hilfe der Langevin-Gleichung simuliert werden. 
+Betrachtet man die Dynamiken der relativen Preisänderungen
+\begin{align}
+r(t,\Delta t) &= x(t+\Delta t)-x(t)\nonumber \\
+&=-2a\Delta tx(t)+\sqrt{2b\Delta t(1-x^2)}\epsilon(t+\Delta t)\nonumber 
+\end{align}
+wobei 
+\begin{align}
+\label{eq:AL-langevin}
+x(t+\Delta t) = (1-2a\Delta t)x(t) + \sqrt{2b\Delta t(1-x^2)}\epsilon(t)
+\end{align}
+wobei der Zufallsfehler $\epsilon$ einer Normalverteilung mit Mittelwert 0 folgt.
 
-Das Modell kann nun mittels Langevin-Gleichung simuliert werden. Die Langevin-Gleichung liefert eine Gaußsche Approximation an die stochastischen Dynamiken
+Somit gilt, dass die Konzentration $x$ der Handelsstrategie im Zeitverlauf einer Normalverteilung folgt:
+\[x\sim\mathcal{N}(\mu, \sigma^2)\]
+Wobei
+\[\mu = ((1-2a)x(t+\Delta t)\]
+und 
+\[\sigma^2 = \sqrt{2b(1-x(t+\Delta t)^2)}\]
 
+Betrachtet man keine marginalen Zeitschritte, sondern wie in dieser Arbeit tägliche Änderungen der Preise und Zeitpunkte erhält man die Beschreibung der Erträge:
+\begin{align}
+r_t & = (x_{t+1}-x_t)+\sigma_f\epsilon \nonumber \\
+r(x,t) &\sim \mathcal{N}\left(\sum_{i=2}^{T+1} x_{t+1}-\sum_{i=1}^T x_t\right),\sigma_f)\nonumber 
+\end{align}
+Wobei $T$ der Anzahl der betrachteten Zeitpunkte entspricht.
+Außerdem gilt für $x\sim\mathcal{N}(\mu,\sigma^2)$
+\[\mu = x_{t-1}-2ax_{t-1}\]
+und 
+\[\sigma^2 = \sqrt{2b(1-x_{t-1}^2)}\]
+Das ist dann auch entsprechend in \textit{Stan}-Code~\ref{stan:AL-param} in Zeile~\ref{stan:AL-ret} im \verb|transformed parameter|-Block bzw. in Zeile~\ref{stan:AL-x} und \ref{stan:AL-ret-d} im \verb|model|-Block umgesetzt.
+
+\begin{lstlisting}[style=custom, escapechar=|,caption={Teil-Modell nach \parencite{bertschinger:2019, AL:2008}}, label= {stan:AL-param}]
+transformed data {
+  int N = 0; // number of missing values
+  real T_quot = 1; // wlog fixed at 1
+  
+  for (t in 1:T)
+    if (miss_mask[t] == 1) N = N + 1;
+}
+parameters {
+  vector<lower=0, upper=1>[T + 1] x; // sentiment over time
+  real<lower=0> sigma_f;
+  real<lower=0> alpha;
+  real<lower=0> beta;
+  vector[N] eps_miss; // missing normalized return innovations
+}
+transformed parameters {
+  vector[T] ret;
+  
+  {
+    int idx = 1;
+    
+    for (t in 1:T) {
+      if (miss_mask[t] == 1) {
+        ret[t] = T_quot * (x[t + 1] - x[t]) + sigma_f * eps_miss[idx]; |\label{stan:AL-ret}|
+        idx = idx + 1;
+      } else
+        ret[t] = ret_obs[t];
+    }
+  }
+}
+model {
+  sigma_f ~ normal(0, 1);
+  alpha ~ normal(0, 1);
+  beta ~ normal(0, 1);
+
+  // x[1] implicitly uniform
+  for (t in 2:(T+1))
+    x[t] ~ normal(x[t - 1] - 2.0 * alpha * x[t - 1],
+                  sqrt(2.0 * beta * (1 - square(x[t - 1])))); |\label{stan:AL-x}|
+                  
+  // Price likelihood
+  ret ~ normal(T_quot * (x[2:(T+1)] - x[1:T]), sigma_f); |\label{stan:AL-ret-d}|
+  // Jacobian correction for transformed innovations
+  for (t in 1:T) {
+    if (miss_mask[t] == 1)
+      target += log(sigma_f);
+  }
+}
+
+\end{lstlisting}
+
+Anschließend wird wie bei den anderen Modellen im \verb|generated quantities|-Block in \textit{Stan}-Code~\ref{stan:AL-gen} die a-posteriori-Verteilung in Zeile~\ref{stan:AL-post} und die Standardabweichung für jeden Zeitpunkt $\sigma_t$ in Zeile~\ref{stan:AL-sigma} modelliert.
+\begin{lstlisting}[style=custom, escapechar=/,caption={Teil-Modell nach \parencite{bertschinger:2019, AL:2008}}, label= {stan:AL-gen}]
+generated quantities {
+  vector[T] log_lik;
+  vector[T] sigma; 
+           
+  for (t in 1:T) {
+    log_lik[t] = normal_lpdf(ret_obs[t] | T_quot * (x[t + 1] - x[t]), sigma_f); /\label{stan:AL-post}/
+    sigma[t] = sqrt(square(T_quot * (x[t + 1] - x[t])) + square(sigma_f)); /\label{stan:AL-sigma}/
+    }
+  }
+\end{lstlisting}
+
+Der vollständige \textit{Stan}-Code befindet sich im Anhang~\ref{stan:AL}.
 
 \chapter{Simulationen}
 \label{chap:sim}
@@ -1191,6 +1296,72 @@ generated quantities {
 
   for (t in 1:T)
     log_lik[t] = normal_lpdf(ret_obs[t] | 0, sigma[t]);
+}
+\end{lstlisting}
+
+\subsection{Modell von Alfarano, Lux \& Wagner (AL)}
+\label{stan:AL}
+\begin{lstlisting}[style=custom]
+data {
+  int<lower=0> T; // time points (equally spaced)
+  int<lower=0, upper=1> miss_mask[T];
+  vector[T] ret_obs; // Note: Masked indices will be treated as missing;
+}
+transformed data {
+  int N = 0; // number of missing values
+  real T_quot = 1; // wlog fixed at 1
+  
+  for (t in 1:T)
+    if (miss_mask[t] == 1) N = N + 1;
+}
+parameters {
+  vector<lower=0, upper=1>[T + 1] x; // sentiment over time
+  real<lower=0> sigma_f;
+  real<lower=0> alpha;
+  real<lower=0> beta;
+  vector[N] eps_miss; // missing normalized return innovations
+}
+transformed parameters {
+  vector[T] ret;
+  
+  {
+    int idx = 1;
+    
+    for (t in 1:T) {
+      if (miss_mask[t] == 1) {
+        ret[t] = T_quot * (x[t + 1] - x[t]) + sigma_f * eps_miss[idx];
+        idx = idx + 1;
+      } else
+        ret[t] = ret_obs[t];
+    }
+  }
+}
+model {
+  sigma_f ~ normal(0, 1);
+  alpha ~ normal(0, 1);
+  beta ~ normal(0, 1);
+
+  // x[1] implicitly uniform
+  for (t in 2:(T+1))
+    x[t] ~ normal(x[t - 1] - 2.0 * alpha * x[t - 1],
+                  sqrt(2.0 * beta * (1 - square(x[t - 1]))));
+  
+  // Price likelihood
+  ret ~ normal(T_quot * (x[2:(T+1)] - x[1:T]), sigma_f);
+  // Jacobian correction for transformed innovations
+  for (t in 1:T) {
+    if (miss_mask[t] == 1)
+      target += log(sigma_f);
+  }
+}
+generated quantities {
+  vector[T] log_lik;
+  vector[T] sigma;
+  
+  for (t in 1:T) {
+    log_lik[t] = normal_lpdf(ret_obs[t] | T_quot * (x[t + 1] - x[t]), sigma_f);
+    sigma[t] = sqrt(square(T_quot * (x[t + 1] - x[t])) + square(sigma_f));
+  }
 }
 \end{lstlisting}
 
