@@ -396,12 +396,22 @@ Außerdem wurden die Pakete \textit{tidybayes} und \textit{tidyverse} genutzt, u
 \chapter{Die Modelle}
 \label{chap:models}
 In den letzten Jahren haben agentenbasierte Asset-Pricing-Modelle an Bedeutung gewonnen. Im Gegensatz zur Rationalitätsannahme des Homo oeconomicus, werden nur einfache heuristische Strategien über das Verhalten von Marktteilnehmern getroffen.
+In dieser Arbeit wurden zwei agentenbasierte Modelle auf Finanzmarktdaten des S\&P 500 Indexes simuliert. Zum einen das Modell nach Franke und Westerhoff (FW) in zwei Varianten, zum anderen das Modell nach Alfarano, Lux und Wagner (AL). Die zwei Varianten des FW-Modells unterscheiden sich in der Art der Simulation des Fundamentalpreises als gleitenden Durchschnitt(Moving Average) bzw. mittels zufällige Irrfahrt (Random Walk). Die Varianten sind im Kapitel~\ref{chap:FW} näher erläutert. Das AL-Modell wird im Detail in Kapitel~\ref{chap:AL} dokumentiert.
+Als Vergleichsmodell wurde ein klassisches GARCH(1,1)-Modell gewählt, das in Kapitel~\ref{chap:garch} näher beschrieben wird. 
+Die verwendeten Daten werden in Kapitel~\ref{chap:data} im Detail erläutert.
 
-Gemeinsamkeiten: readme.txt -> log returns, input, parameter, ....\\
-stan data und parameter block beschreiben - dann pro kapitel nur die abweichenden Code lines zeigen\\
-jacobian correction erklären\\
-agent-based + GARCH als Vergleich
-%tbd
+Alle Modelle wurden in der Sprache \textit{Stan} so modelliert, dass sie logarithmierte Erträge erwarten und vorhersagen. Des weiteren wird ein Vektor benötigt, der die Erträge als beobachtet bzw. fehlend(Missing) markiert. Die Anzahl der zu vorhersagenden Zeitpunkte entspricht der Anzahl der als \textit{Missing} markierten Erträge.
+Im \textit{Stan}-Code gilt dann entsprechend für jedes Modell der gleiche Input der im \verb|data|-Block formuliert wird (vgl. \textit{Stan}-Code~\ref{stan:header}).
+\begin{lstlisting}[style=custom, caption={Gemeinsamer \texttt{data}-Block der Modelle in \textit{Stan}},label={stan:header}]
+data {
+  int<lower=0> T; // time points (equally spaced)
+  int<lower=0, upper=1> miss_mask[T];
+  vector[T] ret_obs; // Note: Masked indices will be treated as missing;
+}
+\end{lstlisting}
+
+%tbd Gemeinsamkeiten: readme.txt -> log returns, input, parameter, ....\\
+%tbd jacobian correction erklären\\
 \section{Generalized Autoregressive Conditional Heteroscedasticity (GARCH)}
 \label{chap:garch}
 Generalisierte autoregressive bedingte Heteroskedastizitäts-Modelle sind stochastische Modelle zur Zeitreihenanalyse. 
