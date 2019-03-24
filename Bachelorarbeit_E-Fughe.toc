@@ -59,10 +59,6 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {C.1}Allgemeine Plots}{62}{subsection.Alph0.3.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {C.2}Preis-Vorhersagen}{66}{subsection.Alph0.3.2}% 
+\contentsline {chapter}{\nonumberline Literatur}{81}{chapter*.45}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {C.3}Traceplots}{74}{subsection.Alph0.3.3}% 
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline Literatur}{82}{chapter*.45}% 
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Eigenständigkeitserklärung}{84}{chapter*.46}% 
+\contentsline {chapter}{Eigenständigkeitserklärung}{83}{chapter*.46}% 

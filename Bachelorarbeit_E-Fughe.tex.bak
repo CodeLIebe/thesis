@@ -29,6 +29,7 @@
 \usepackage{tikz}
 %\usepackage{subfigure}
 %\RequirePackage{subfig}
+\usepackage[export]{adjustbox}
 \usepackage{subcaption}
 \usepackage{graphicx}
 
@@ -135,7 +136,18 @@ hypertexnames = true]{hyperref}
 \maketitle
 
 \chapter*{Zusammenfassung}
-%tbd
+In dieser Arbeit wurden drei verschiedene Modelle der Ökonophysik, die im Kapitel~\ref{chap:models} näher erläutert werden, auf realen Finanzmarktdaten simuliert. Das GARCH(1,1)-Modell wurde ebenfalls als Vergleichsmodell gewählt, da es eine in der Ökonometrie weitverbreitete Baseline darstellt.
+ 
+Die vier Modelle wurden auf zwei verschiedenen Zeitreihen simuliert, in denen starke Dynamiken an den Finanzmärkte charakteristisch waren: Die Dotcom-Blase 2000 und die globale Finanzkrise 2008. Der S\&P 500 Index diente als Datengrundlage, da die Modelle versuchen Dynamiken eines Marktes und nicht einer einzelne Aktie abzubilden. Die Daten und Ergebnisse sind in Kapitel~\ref{chap:sim} näher erläutert.
+
+Zur Simulation wurden Methoden der Bayesschen Statistik verwendet. Dazu wurden die Modelle wurden in die Sprache \textit{Stan} umgeschrieben, um unter Verwendung von Hamiltonian Monte Carlo Sampling möglichst effektiv Stichproben aus der a-posterior-Verteilung der Modelle zu generieren. Die verwendeten Methoden werden in Kapitel~\ref{chap:methoden} im Detail erläutert.
+
+Im Allgemeinen konnte keines der Modelle mit hohen Wahrscheinlichkeiten Dynamiken erkennen und das Modell nach Franke \& Westerhoff zeigte zusätzlich große Schwierigkeiten auf der Zeitreihe der Dotcom-Blase überhaupt gefittet zu werden. Einzelne Monate ließen Dynamiken mit geringen Wahrscheinlichkeiten erkennen, aber insgesamt ist kein Modell in der hier verwendeten Variante tatsächlich geeignet Dynamiken zuverlässig zu erkennen.
+%tbd: if loo ok
+% kein Modell konnte baseline GARCH(1,1) schlagen
+
+%tbd: not sure about this:
+Für weitere Untersuchungen wäre eine Anpassung des Modells von Franke \& Westerhoff eventuell interessant. Auch die Simulation des Modells nach Alfarano, Lux \& Wagner könnte bei einer Erhöhung der Anzahl der Iterationen des Samplers möglicherweise bessere Ergebnisse liefern.
 
 \tableofcontents
 \listoffigures
@@ -143,6 +155,7 @@ hypertexnames = true]{hyperref}
 
 \chapter{Einleitung}
 \label{chap:summary}
+
 %tbd
 
 \chapter{Verwendete Methoden}
@@ -1024,7 +1037,7 @@ Zum anderen, dass \textit{divergent Transitions} auftreten. Die Iterationen der 
 Als Fehlermeldung zum Modell werden dann zum Beispiel die Anzahl der divergent Transitions bzw. die Anzahl der Iterationen, welche die \verb|max_treedepth| überschritten haben zurückgemeldet.
 Es wird allerdings nur festgehalten welche der Iterationen eine divergent Transition war und es ist nicht klar nachvollziehbar in welchem Bereich der Verteilung oder zu welchem Zeitpunkt diese Transition tatsächlich abgelehnt wurde. Die Markov-Kette kann sich durch das Monte-Carlo-Sampling allerdings schnell und weit fortbewegen bzw. große Schritte Sprünge machen, sodass nicht eindeutig festgestellt werden kann, wo genau in der Verteilung die divergent Transitions auftreten.
 
-Eine allgemeine Übersicht der Ergebnisse der einzelnen Modelle auf den verschiedenen Daten und welche Parameter jeweils verwendet wurden befindet sich in Anhang~\ref{app:plots} in Abbildung \ref{fig:general_num-divergence} bis \ref{fig:general_adapt_delta}.  %tbd - check last plotnumber
+Eine allgemeine Übersicht der Ergebnisse der einzelnen Modelle auf den verschiedenen Daten und welche Parameter jeweils verwendet wurden befindet sich in Anhang~\ref{app:plots} in Abbildung \ref{fig:general_num-divergence} bis \ref{fig:general_time-in-min}.  %tbd - check last plotnumber
 
 Der Abbildung ist zu entnehmen, dass das FW-Modell, insbesondere die Variante mit dem gleitenden Durchschnitt (\texttt{FW\_DCA\_HPM\_ma\_CV}), auf den Daten der Dotcom-Blase extrem schwer zu simulieren war. 
 Auf den Daten der Finanzkrise hatte der Sampler mit beiden FW-Modell Varianten bei entsprechend hohem \verb|adapt_delta| Wert auf den ersten Blick weniger Probleme die a-posteriori-Verteilung zu erkennen. Auf den Daten der Dotcom-Blase war es für beide Varianten (\texttt{FW\_DCA\_HPM\_walk\_CV}) schon deutlich schwerer ohne eine hohe Anzahl divergenter Transitions das Sampling zu beenden. Die Erhöhung des \verb|adapt_delta| über 0.95 führte dazu, dass das Sampling überhaupt nicht beendet werden konnte bzw. so langsam wurde, dass auch mehrere Tage Laufzeit nicht ausreichend für den Sampler waren, d.h. auch mit sehr kleinen Schrittweiten konnte die Markov-Kette die a-posteriori-Verteilung nicht berechnen (vgl. Abbildung~\ref{fig:FW-dotcom-aug}).
@@ -2073,33 +2086,37 @@ general_all_models %>% ggplot() +
 \end{center}
 \end{figure}
 
-\begin{figure}
+\newpage
+
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=.7]{../all-final/general/general_exceed_max_treedepth}
+\includegraphics[scale=.65]{../all-final/general/general_exceed_max_treedepth}
 \caption{Übersicht über die Anzahl der Iterationen, die die \texttt{max\_treedepth} überschritten haben je Monat, Modell und Datensatz (eigene Darstellung)}
 \label{fig:general_exceed-max-treedepth}
 \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=.7]{../all-final/general/general_adapt_delta}
+\includegraphics[scale=.65]{../all-final/general/general_adapt_delta}
 \caption{Übersicht über den verwendeten Wert des Parameters \texttt{adapt\_delta} in der Simulation je Monat, Modell und Datensatz (eigene Darstellung)}
 \label{fig:general_adapt_delta}
 \end{center}
 \end{figure}
 
-\begin{figure}
+\newpage
+
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=.7]{../all-final/general/general_max_treedepth}
+\includegraphics[scale=.65]{../all-final/general/general_max_treedepth}
 \caption{Übersicht über den verwendeten Wert des Parameters \texttt{max\_treedepth} in der Simulation je Monat, Modell und Datensatz (eigene Darstellung)}
 \label{fig:general_max_treedepth}
 \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=.7]{../all-final/general/general_time_in_min}
+\includegraphics[scale=.65]{../all-final/general/general_time_in_min}
 \caption{Übersicht über die durchnittlich benötigte Zeit des Samplers zur Simulation je Monat, Modell und Datensatz (eigene Darstellung)}
 \label{fig:general_time-in-min}
 \end{center}
@@ -2107,10 +2124,9 @@ general_all_models %>% ggplot() +
 
 \newpage
 
-\subsection{Preis-Vorhersagen}
-\label{app:price}
 \begin{figure}[H]
 \centering
+% \begin{adjustbox}{minipage=\textheight,scale=0.75}
   \begin{subfigure}{.3\linewidth}
   \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Jan_price_prediction_GARCH_CV_dotcom}\hfill
   \caption{Jan}
@@ -2160,8 +2176,10 @@ general_all_models %>% ggplot() +
   \caption{Dec}
   \end{subfigure}
   \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Dotcom-Blase}
+ %\end{adjustbox} %close input
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2215,6 +2233,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Dotcom-Blase}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2268,6 +2287,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Dotcom-Blase}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2321,6 +2341,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des AL-Modells auf den Daten der Dotcom-Blase}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2374,6 +2395,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Finanzkrise}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2427,6 +2449,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Finanzkrise}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2480,6 +2503,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Finanzkrise}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2533,11 +2557,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des AL-Modells auf den Daten der Finanzkrise}
 \end{figure}
 
-
-
-
-
-\subsection{Traceplots}
+\newpage
 
 \begin{figure}[H]
 \centering
@@ -2592,6 +2612,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Dotcom-Blase}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2645,6 +2666,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Dotcom-Blase}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2698,6 +2720,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Dotcom-Blase}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2751,7 +2774,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des AL-Modells auf den Daten der Dotcom-Blase}
 \end{figure}
 
-
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2805,6 +2828,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Finanzkrise}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2858,6 +2882,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Finanzkrise}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
@@ -2911,6 +2936,7 @@ general_all_models %>% ggplot() +
   \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Finanzkrise}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
 \centering
   \begin{subfigure}{.3\linewidth}
