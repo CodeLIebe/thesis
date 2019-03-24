@@ -1995,3 +1995,150 @@
     <bcf:datasource type="file" datatype="bibtex">bib/bayes.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="7">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="8">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="9">hanson:2001</bcf:citekey>
+    <bcf:citekey order="10">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="11">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="12">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="13">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="14">typical_set</bcf:citekey>
+    <bcf:citekey order="15">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="16">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="17">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="18">hanson:2001</bcf:citekey>
+    <bcf:citekey order="19">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="20">hanson:2001</bcf:citekey>
+    <bcf:citekey order="21">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="22">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="23">simulated_annealing</bcf:citekey>
+    <bcf:citekey order="24">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="25">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="26">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="27">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="28">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="29">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="30">modus</bcf:citekey>
+    <bcf:citekey order="31">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="32">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="33">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="34">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="35">betancourt:2017</bcf:citekey>
+    <bcf:citekey order="36">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="37">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="38">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="39">stan:2017</bcf:citekey>
+    <bcf:citekey order="40">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="41">stan:2017</bcf:citekey>
+    <bcf:citekey order="42">engle:1982</bcf:citekey>
+    <bcf:citekey order="43">bollerslev:1986</bcf:citekey>
+    <bcf:citekey order="44">FW:2011</bcf:citekey>
+    <bcf:citekey order="45">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="45">FW:2011</bcf:citekey>
+    <bcf:citekey order="46">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="46">FW:2011</bcf:citekey>
+    <bcf:citekey order="47">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="48">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="49">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="49">FW:2011</bcf:citekey>
+    <bcf:citekey order="50">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="50">FW:2011</bcf:citekey>
+    <bcf:citekey order="51">logit</bcf:citekey>
+    <bcf:citekey order="52">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="53">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="54">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="55">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="56">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="57">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="58">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="59">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="60">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="60">FW:2011</bcf:citekey>
+    <bcf:citekey order="61">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="61">FW:2011</bcf:citekey>
+    <bcf:citekey order="62">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="62">FW:2011</bcf:citekey>
+    <bcf:citekey order="63">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="64">BrownianMotion</bcf:citekey>
+    <bcf:citekey order="65">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="65">FW:2011</bcf:citekey>
+    <bcf:citekey order="66">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="67">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="68">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="68">FW:2011</bcf:citekey>
+    <bcf:citekey order="69">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="69">FW:2011</bcf:citekey>
+    <bcf:citekey order="70">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="71">inversgamma</bcf:citekey>
+    <bcf:citekey order="72">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="72">FW:2011</bcf:citekey>
+    <bcf:citekey order="73">bertschinger:2018</bcf:citekey>
+    <bcf:citekey order="73">FW:2011</bcf:citekey>
+    <bcf:citekey order="74">AL:2008</bcf:citekey>
+    <bcf:citekey order="75">AL:2008</bcf:citekey>
+    <bcf:citekey order="76">kirman:1993</bcf:citekey>
+    <bcf:citekey order="77">AL:2008</bcf:citekey>
+    <bcf:citekey order="78">AL:2008</bcf:citekey>
+    <bcf:citekey order="79">AL:2008</bcf:citekey>
+    <bcf:citekey order="80">AL:2008</bcf:citekey>
+    <bcf:citekey order="81">AL:2008</bcf:citekey>
+    <bcf:citekey order="82">AL:2008</bcf:citekey>
+    <bcf:citekey order="83">AL:2008</bcf:citekey>
+    <bcf:citekey order="84">AL:2008</bcf:citekey>
+    <bcf:citekey order="85">FokkerPlanck</bcf:citekey>
+    <bcf:citekey order="86">MeanReversion</bcf:citekey>
+    <bcf:citekey order="87">AL:2008</bcf:citekey>
+    <bcf:citekey order="88">AL:2008</bcf:citekey>
+    <bcf:citekey order="89">AL:2008</bcf:citekey>
+    <bcf:citekey order="90">bertschinger:2019</bcf:citekey>
+    <bcf:citekey order="91">AL:2008</bcf:citekey>
+    <bcf:citekey order="92">bertschinger:2019</bcf:citekey>
+    <bcf:citekey order="92">AL:2008</bcf:citekey>
+    <bcf:citekey order="93">bertschinger:2019</bcf:citekey>
+    <bcf:citekey order="93">AL:2008</bcf:citekey>
+    <bcf:citekey order="94">bertschinger:2019</bcf:citekey>
+    <bcf:citekey order="94">AL:2008</bcf:citekey>
+    <bcf:citekey order="95">bertschinger:2019</bcf:citekey>
+    <bcf:citekey order="95">AL:2008</bcf:citekey>
+    <bcf:citekey order="96">AL:2008</bcf:citekey>
+  </bcf:section>
+  <!-- SORTING TEMPLATES -->
+  <bcf:sortingtemplate name="nty">
+    <bcf:sort order="1">
+      <bcf:sortitem order="1">presort</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="2" final="1">
+      <bcf:sortitem order="1">sortkey</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="3">
+      <bcf:sortitem order="1">sortname</bcf:sortitem>
+      <bcf:sortitem order="2">author</bcf:sortitem>
+      <bcf:sortitem order="3">editor</bcf:sortitem>
+      <bcf:sortitem order="4">translator</bcf:sortitem>
+      <bcf:sortitem order="5">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="6">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="4">
+      <bcf:sortitem order="1">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="2">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="5">
+      <bcf:sortitem order="1">sortyear</bcf:sortitem>
+      <bcf:sortitem order="2">year</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="6">
+      <bcf:sortitem order="1">volume</bcf:sortitem>
+      <bcf:sortitem order="2">0</bcf:sortitem>
+    </bcf:sort>
+  </bcf:sortingtemplate>
+  <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="nty/global//global/global"
+                type="entry"
+                sortingtemplatename="nty"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
+</bcf:controlfile>

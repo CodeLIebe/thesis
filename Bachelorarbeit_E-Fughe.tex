@@ -17,6 +17,8 @@
 %\PreviewEnvironment{equation}
 
 \usepackage{multirow}
+% include subsection number/letter in figure  - used in appendix C
+\usepackage{chngcntr}
 
 \usepackage{ amssymb }
 %\usepackage[captions=tableheadings]{booktabs}
@@ -25,7 +27,10 @@
 \usepackage{lstbayes} % add stan languge support to listing
 
 \usepackage{tikz}
-\usepackage{subfigure}
+%\usepackage{subfigure}
+%\RequirePackage{subfig}
+\usepackage{subcaption}
+\usepackage{graphicx}
 
 %define Listing name Listing -> Code
 \renewcommand\lstlistingname{\textit{Stan}-Code}
@@ -125,12 +130,12 @@ hypertexnames = true]{hyperref}
 \subtitle{Fitting von Markt-Modellen auf empirischen Daten mittels Bayesscher Statistik}
 \date{Abgabedatum: 16. April 2019}
 \publishers{FIAS - Frankfurt Institute for Advanced Studies\\Prof. Dr. Nils Bertschinger}
-%\\Ggf. Name des Zweitbetreuers}
+%\\Zweitgutachter Prof. Dr. J. Triesch}
 
 \maketitle
 
 \chapter*{Zusammenfassung}
-tbd
+%tbd
 
 \tableofcontents
 \listoffigures
@@ -138,7 +143,7 @@ tbd
 
 \chapter{Einleitung}
 \label{chap:summary}
-tbd
+%tbd
 
 \chapter{Verwendete Methoden}
 \label{chap:methoden}
@@ -173,7 +178,7 @@ Sei z.B. $p(\theta)$ die Ziel-Dichte und sei $t(\theta^{'}|\theta)$ die Übergan
 
 Stellt man sich die Markov-Kette als zufällig durch einen Parameterraum, also z.B. die a-posteriori-Verteilung, wandernden Punkt vor, so entspricht die $n$-te Komponente der Verteilung der relative Wahrscheinlichkeit, den Punkt im Zustand $n$ anzutreffen. 
 %insert figure from betancourt:2017
-\begin{figure}[h]
+\begin{figure}[]
 \begin{center}
 \includegraphics[scale=.9]{images/markov-chain-plain-betancourt-2017}
 \caption{Verhalten der Markov-Kette beim Ziehen von Stichproben \parencite{betancourt:2017}}
@@ -292,7 +297,7 @@ Theoretisch ist HMC Sampling unempfindlich bezüglich stark korrelierter Paramet
 
 \section{\textit{Stan} und \textit{R}}
 \label{chap:stan}
-\textit{Stan} ist eine Open-Source Plattform für statistische Modellierung und high-performance Berechnungen. 
+\textit{Stan} ist eine Open-Source Plattform für statistische Modellierung und High-Performance Berechnungen. 
 \textit{Stan} ist für alle in der Datenanalyse weit verbreiteten Sprachen (R, Python, shell MATLAB, Julia, Stata) verfügbar und läuft auf den gängigen Betriebssystem (Linux, Mac, Windows) \parencite{stan:2017}. \\
 
 \textit{Stan} ist eine höhere Programmiersprache und ermöglicht die Beschreibung der gemeinsamen Verteilung eines Modells auf einer hohen Abstraktionsebene. Die Sprache unterstützt viele Inferenz-Algorithmen, insbesondere Algorithmen, die das Gradientenabstiegsverfahren nutzen, um eine maximale a-posteriori-Schätzung zu erhalten, HMC Sampling sowie Bayessche Gradientenvariation (stochastic gradient variational Bayes). \textit{Stan} Code wird in C++ kompiliert und die hohe Abstraktionsebene der Sprache bietet dem Nutzer einige Vorteile, z.B. müssen bei der Nutzung von HMC Sampling die Gradienten nicht manuell implementiert werden. Benötigte Gradienten werden built-in mittels C++ Library für automatisches Differenzieren berechnet \parencite{bertschinger:2018}.\\
@@ -362,10 +367,9 @@ transformed parameters {
 \end{lstlisting}
 
 Zum Schluss kommt der \verb|model|-Block, der die Berechnungsvorschrift der Wahrscheinlichkeitsdichte des Modells enthält \parencite{stan:2017}.\\
-Hier die Annahme, dass \verb|mu| und \verb|sigma| standardnormalverteilt sind. Die Returns sind normalverteilt zu den Parametern des Modells (\verb|mu|, \verb|sigma|) wobei es sich, um die Standarabweichung in jedem Zeitpunkt \verb|T| handelt. Weitere Erläuterungen befinden sich im Kapitel~\ref{chap:garch} \\
+Hier die Annahme, dass \verb|mu| und \verb|sigma| standardnormalverteilt sind. Die Returns sind normalverteilt zu den Parametern des Modells (\verb|mu|, \verb|sigma|), wobei es sich um die Standardabweichung in jedem Zeitpunkt \verb|T| handelt. Weitere Erläuterungen befinden sich im Kapitel~\ref{chap:garch}. \\
 
-Anschließend daran können im \verb|generated quantities|-Block weitere Berechnungen definiert werden. 
-Hier z.B. die Berechnungsvorschrift der bedingten gemeinsamen Wahrscheinlichkeitsdichte.
+Anschließend daran können im \verb|generated quantities|-Block weitere Berechnungen definiert werden, hier z.B. die Berechnungsvorschrift der bedingten gemeinsamen Wahrscheinlichkeitsdichte.
 
 \begin{lstlisting}[style=custom]
 model {
@@ -388,10 +392,14 @@ generated quantities {
 
 \end{lstlisting}
 
-Der \textit{Stan}-Code der Modelle, die in dieser Arbeit genutzt wurden befindet sich im Anhang und wird im Kapitel~\ref{chap:models} näher erläutert.
+Der \textit{Stan}-Code der Modelle, die in dieser Arbeit genutzt wurden, befindet sich im Anhang~\ref{app:stan} und wird im Kapitel~\ref{chap:models} näher erläutert.
 
 Die Modelle wurden mittels \textit{Rstan} in \textit{R} gefittet. \textit{Rstan} ermöglicht es \textit{Stan}-Modelle in \textit{R} zu kompilieren, zu testen und zu analysieren. 
-Außerdem wurden die Pakete \textit{tidybayes} und \textit{tidyverse} genutzt, um die Plots zu generieren. Die tidy* Pakete zeichnen sich dadurch aus, dass sie der komplexen Datenstruktur des berechneten Fits, Informationen leicht entnehmen können und in einer Datenstruktur zur Verfügung stellen, die anschließend z.B. mittels \textit{ggplot}-Packet leicht in \textit{R} visualisiert werden kann.
+Außerdem wurden die Pakete \textit{tidybayes} und \textit{tidyverse} genutzt, um die Plots zu generieren. Die tidy* Pakete zeichnen sich dadurch aus, dass sie der komplexen Datenstruktur des berechneten Fits Informationen leicht entnehmen können und in einer Datenstruktur zur Verfügung stellen, die anschließend z.B. mittels \textit{ggplot}-Packet leicht in \textit{R} visualisiert werden kann.
+
+Zuerst werden die Daten von der CSV-Datei in eine geeignete Datenstruktur in \textit{R} eingelesen. Anschließend werden Ertrag sowie logarithmierter Ertrag für jeden Zeitpunkt berechnet. Zum Schluss werden Daten mit Dummy-Werten angelegt, die als Vorhersagen dienen und entsprechend als \textit{Missing Value} markiert werden. \verb|data| enthält nun geeignete Strukturen, die als Input für die \textit{Stan}-Modelle dienen können (vgl. \textit{R}-Skript~\ref{r:general} im Anhang~\ref{app:r}).
+
+Des Weiteren wurden verschiedene kleine \textit{R}-Skripte und - Funktionen geschrieben, um z.B. Stanfit-Objekte aus dem RStudio Workspace zu sichern und wieder zu importierten oder eigene Traceplots der Stanfit-Objekte zu erstellen bzw. Diagnose-Plots einer Liste von Stanfit-Objekten zu erstellen und zu speichern (siehe Anhang~\ref{app:r} \textit{R}-Skripte~\ref{r:priceplot}  bis~\ref{r:general-plot}).
 
 \chapter{Die Modelle}
 \label{chap:models}
@@ -400,8 +408,8 @@ In dieser Arbeit wurden zwei agentenbasierte Modelle auf Finanzmarktdaten des S\
 Als Vergleichsmodell wurde ein klassisches GARCH(1,1)-Modell gewählt, das in Kapitel~\ref{chap:garch} näher beschrieben wird. 
 Die verwendeten Daten werden in Kapitel~\ref{chap:data} im Detail erläutert.
 
-Alle Modelle wurden in der Sprache \textit{Stan} so modelliert, dass sie logarithmierte Erträge erwarten und vorhersagen. Des weiteren wird ein Vektor benötigt, der die Erträge als beobachtet bzw. fehlend(Missing) markiert. Die Anzahl der zu vorhersagenden Zeitpunkte entspricht der Anzahl der als \textit{Missing} markierten Erträge.
-Im \textit{Stan}-Code gilt dann entsprechend für jedes Modell der gleiche Input der im \verb|data|-Block formuliert wird (vgl. \textit{Stan}-Code~\ref{stan:header}).
+Alle Modelle wurden in der Sprache \textit{Stan} so modelliert, dass sie logarithmierte Erträge erwarten und vorhersagen. Des Weiteren wird ein Vektor benötigt, der die Erträge als beobachtet bzw. fehlend(Missing) markiert. Die Anzahl der zu vorhersagenden Zeitpunkte entspricht der Anzahl der als \textit{Missing} markierten Erträge.
+Im \textit{Stan}-Code gilt dann entsprechend für jedes Modell der gleiche Input, der im \verb|data|-Block formuliert wird (vgl. \textit{Stan}-Code~\ref{stan:header}).
 \begin{lstlisting}[style=custom, caption={Gemeinsamer \texttt{data}-Block der Modelle in \textit{Stan}},label={stan:header}]
 data {
   int<lower=0> T; // time points (equally spaced)
@@ -412,17 +420,18 @@ data {
 
 %tbd Gemeinsamkeiten: readme.txt -> log returns, input, parameter, ....\\
 %tbd jacobian correction erklären\\
+
 \section{Generalized Autoregressive Conditional Heteroscedasticity (GARCH)}
 \label{chap:garch}
 Generalisierte autoregressive bedingte Heteroskedastizitäts-Modelle sind stochastische Modelle zur Zeitreihenanalyse. 
 
 Autoregressive Modelle beschreiben Beobachtungen als Kombination linearer Abhängigkeit von sich selbst sowie einer Zufallsvariable z. B. zufällige Modellfehler. Die Zufallsvariable ist entsprechend nur unter Unsicherheit vorhersagbar. Mit Hilfe von autoregressiven Modellen wird also untersucht inwiefern Beobachtungen in einem Zeitpunkt von der Vergangenheit abhängen.
 
-Autoregressive bedingte Heteroskedastizitäts-Modelle kurz ARCH-Modelle wurden erstmals von Robert F. Engle im Jahr 1982 beschrieben. ARCH($i$)-Modelle treffen die Annahme, dass die bedingte Varianz der zufälligen Modellfehler im Zeitpunkt $t$ vom realisierten Zufallsfehler der letzten $i$ Vorperioden abhängt. Das heißt, dass große bzw. kleine Fehler dazu neigen in Clustern aufzutreten \parencite{engle:1982}.
+Autoregressive bedingte Heteroskedastizitäts-Modelle kurz ARCH-Modelle wurden erstmals von Robert F. Engle im Jahr 1982 beschrieben. ARCH($i$)-Modelle treffen die Annahme, dass die bedingte Varianz der zufälligen Modellfehler im Zeitpunkt $t$ vom realisierten Zufallsfehler der letzten $i$ Vorperioden abhängt, das heißt, dass große bzw. kleine Fehler dazu neigen in Clustern aufzutreten \parencite{engle:1982}.
 
-Heteroskedastizität ist ein Begriff der Statistik, der die Streuung innerhalb eines Datensatzes beschreibt. Heteroskedastizität liegt in einer Zeitreihe dann vor, wenn die Abweichung der Daten von einer Trendgeraden im Zeitverlauf zu bzw. abnimmt oder auch einfach nicht in jedem Zeitpunkt gleich ist (vgl. Abbildung~\ref{fig:heteroscedasticity}). Im Gegensatz dazu bedeutet Homoskedastizität entsprechend, dass die Abweichung der Daten von der Trendgeraden in jedem Zeitpunkt gleich ist.
+Heteroskedastizität ist ein Begriff der Statistik, der die Streuung innerhalb eines Datensatzes beschreibt. Heteroskedastizität liegt in einer Zeitreihe dann vor, wenn die Abweichung der Daten von einer Trendgeraden im Zeitverlauf zu- bzw. abnimmt oder auch einfach nicht in jedem Zeitpunkt gleich ist (vgl. Abbildung~\ref{fig:heteroscedasticity}). Entsprechend bedeutet Homoskedastizität entsprechend, dass die Abweichung der Daten von der Trendgeraden in jedem Zeitpunkt gleich ist.
 
-\begin{figure}[h]
+\begin{figure}[]
 \begin{center}
 \includegraphics[scale=.6]{images/heteroscedasticity-own-ref}
 \caption{Die Daten weisen im Zeitverlauf unterschiedliche Abweichung zur Trendgerade auf, d.h. die Residuen/Störterme sind nicht konstant im Zeitverlauf und es liegt Heteroskedastizität vor (Eigene Darstellung).}
@@ -443,7 +452,7 @@ sowohl von Werten der eigenen Vergangenheit als auch von der Vergangenheit der g
 
 In der Ökonometrie werden autoregressive Modelle z.B. für die Modellierung und Prognose von Finanzmarktdaten genutzt. Kurse an Finanzmärkten unterliegen in der Regel keiner gleichmäßigen Volatilität. Phasen mit geringen Schwankungen alternieren mit Phasen starker Schwankungen. Die Zeitreihenanalyse und insbesondere GARCH-Modelle dienen der Identifikation und Beschreibung dieser Volatilitätscluster. 
 
-In dieser Arbeit wurde das GARCH(1,1)-Modell als Vergleichsmodell und Baseline berücksichtigt, da es ein in der Ökonometrie weitverbreitetes und genutztes Modell ist.
+In dieser Arbeit wurde das GARCH(1,1)-Modell als Vergleichsmodell und Baseline berücksichtigt, da es ein in der Ökonometrie weitverbreitet genutztes Modell ist.
 
 Beim GARCH(1,1)-Modell hängt die bedingte Varianz nur vom vorherigen Zeitpunkt ab und somit gilt 
 \[\sigma_t^2 = VAR(d_t|d_{t-1})\]
@@ -528,10 +537,10 @@ Der vollständige \textit{Stan}-Code des GARCH(1,1)-Modells befindet sich im Anh
 
 \section{Franke \& Westerhoff (FW)}
 \label{chap:FW}
-R. Franke und F. Westerhoff haben ein Modell entwickelt, dass den Markt durch zwei Agentengruppen bzw. Handelsstrategien beschreibt: Fundamental\footnote{\textbf{Fundamental-Trader} treffen Kauf bzw. Verkaufsentscheidung auf Basis vorhandener betriebswirtschaftlicher- und Kapitalmarktinformationen wie z.B. Jahresabschlüsse, Inflation, politische Informationen etc.. Für Fundamental-Trader gilt die Annahme, dass Märkte vorhersagbar sind und auf bestimmte Vorfälle vorhersagbares Verhalten zeigen. Durch Informationen über eben diese Vorfälle, kann der Händler informierte Vorhersagen über die Preise am Finanzmarkt treffen.}- und Chartist\footnote{\textbf{Chartist-Trader} treffen Handelsentscheidungen auf Basis historischer Preise und Volumen des Marktes. Chartist-Trader analysieren graphische Repräsentationen der historischen Daten und mathematische Indikatoren, um ihre Handelsstrategie zu optimieren.}-Trader. Händler können täglich die Strategie ändern, da im Modell ein Mechanismus modelliert wurde, der Herdenverhalten abbildet \parencite{FW:2011}\\
+R. Franke und F. Westerhoff haben ein Modell entwickelt, das den Markt durch zwei Agentengruppen bzw. Handelsstrategien beschreibt: Fundamental\footnote{\textbf{Fundamental-Trader} treffen Kauf bzw. Verkaufsentscheidung auf Basis vorhandener betriebswirtschaftlicher- und Kapitalmarktinformationen wie z.B. Jahresabschlüsse, Inflation, politische Informationen etc.. Für Fundamental-Trader gilt die Annahme, dass Märkte vorhersagbar sind und auf bestimmte Vorfälle vorhersagbares Verhalten zeigen. Durch Informationen über eben diese Vorfälle, kann der Händler informierte Vorhersagen über die Preise am Finanzmarkt treffen.}- und Chartist\footnote{\textbf{Chartist-Trader} treffen Handelsentscheidungen auf Basis historischer Preise und Volumen des Marktes. Chartist-Trader analysieren graphische Repräsentationen der historischen Daten und mathematische Indikatoren, um ihre Handelsstrategie zu optimieren.}-Trader. Händler können täglich die Strategie ändern, da im Modell ein Mechanismus modelliert wurde, der Herdenverhalten abbildet \parencite{FW:2011}.\\
 Der Anteil der Fundamental-Trader zum Zeitpunkt $t$ sei \[
 n_t^f\in [0,1] \]
-Dann gilt für den Anteil der Chartist-Trader entsprechend
+dann gilt für den Anteil der Chartist-Trader entsprechend
 \[n_t^c = 1-n_t^f\]
 da nur zwei Handelsstrategien am Markt existieren\parencite{bertschinger:2018,FW:2011}.
 
@@ -539,7 +548,7 @@ Der logarithmierte Preis $p_t$ im Zeitpunkt $t$ hängt vom vorherigen Preis sowi
 \begin{align}
 p_t = p_{t-1} + \mu (n_{t-1}^f\cdot d_{t-1}^f + n_{t-1}^c\cdot d_{t-1}^c)
 \end{align}
-Fundamental-Trader reagieren auf fehlerhafte Preise z.B. wenn der Marktpreis vom (bekannten) Fundamentalpreis\footnote{Der \textbf{Fundamentalpreis} ist der Preis, der rein auf Basis vorhandener Informationen berechnet wurde} $p^*$ des Vermögenswertes abweicht. Chartist-Trader reagieren im Gegensatz dazu auf Preisbewegungen der Vergangenheit z.B. $p_t-p_{t-1}$.
+Fundamental-Trader reagieren auf fehlerhafte Preise, z.B. wenn der Marktpreis vom (bekannten) Fundamentalpreis\footnote{Der \textbf{Fundamentalpreis} ist der Preis, der rein auf Basis vorhandener Informationen berechnet wurde} $p^*$ des Vermögenswertes abweicht. Chartist-Trader reagieren im Gegensatz dazu auf Preisbewegungen der Vergangenheit z.B. $p_t-p_{t-1}$.
 Die Nachfrage selbst ist keine beobachtbare Größe und nur ihre gewichtete Summe beeinflusst die Preise. Sie wird von \parencite{bertschinger:2018,FW:2011} mittels folgender Dynamiken definiert:
 \begin{align}
 d_t^f &= \phi (p^*-p_t)+\epsilon_t^f & &\text{mit }\epsilon_t^f\sim \mathcal{N}(0,\sigma^2_f)\nonumber \\
@@ -568,7 +577,7 @@ und
 \label{eq:FW-vol}
 \sigma_t^2 &= \mu^2((n_{t-1}^f)^2\sigma_f^2 + (n_{t-1}^c)^2\sigma_c^2)
 \end{align}
-Die Volatilität $\sigma_t$ hängt somit von der Größe der einzelnen Trader-Gruppen ab und ändert sich mit der Zeitreihe. Um den Wechsel der Händler von einer Gruppe zur Anderen zu beschreiben, wird zu jedem Zeitpunkt $t$ deren Anteil am Gesamtmarkt  $n_t^f$ bzw. $n_t^c$ neu berechnet.
+Die Volatilität $\sigma_t$ hängt somit von der Größe der einzelnen Trader-Gruppen ab und ändert sich mit der Zeitreihe. Um den Wechsel der Händler von einer Gruppe zur anderen zu beschreiben, wird zu jedem Zeitpunkt $t$ deren Anteil am Gesamtmarkt  $n_t^f$ bzw. $n_t^c$ neu berechnet.
 Der Aktualisierungs-Quotient in Formel~\ref{eq:FW-update} entspricht der DCA\footnote{\textbf{Discrete Choice Approach}(DCA) nach Formel~\ref{eq:FW-update} \parencite{bertschinger:2018}}-HPM\footnote{\textbf{Herding, Predisposition, Missalignment}(HPM) Spezifikation für Attraktivität der Fundamental-Strategie gegenüber der Chartist-Strategie\parencite{bertschinger:2018}.} Spezifikation nach \parencite{bertschinger:2018, FW:2011}.\\
 
 Sei $a_t$ die relative Attraktivität der Fundamental-Strategie gegenüber der Chartist-Strategie. Nach \parencite{bertschinger:2018, FW:2011} wird die Attraktivtät mittels drei beeinflussender Faktoren modelliert (vgl. Formel~\ref{eq:FW-att}). 
@@ -659,11 +668,11 @@ transformed parameters {
 }
 \end{lstlisting}
 
-Die Parameter $\beta$ und $\mu$ sind redundante Parameter werden konstant gehalten, da sie nur die Größenordnung der Parameter $\alpha_0,\alpha_n,\alpha_p, f, g, \sigma_f$ und $\sigma_c$ beeinflussen. \\
+Die Parameter $\beta$ und $\mu$ sind redundante Parameter und werden konstant gehalten, da sie nur die Größenordnung der Parameter $\alpha_0,\alpha_n,\alpha_p, f, g, \sigma_f$ und $\sigma_c$ beeinflussen. \\
 Es gilt
 \[\beta = 1\]
 \[\mu = 0.01\]
-Die Definition der Parameter wird im \textit{Stan}-Code im \verb|transformed data|-Block angelegt. Also enthält dieser neben der Berechnungsvorschrift der \textit{Missing Values} auch die Vorschrift für $\sigma_t$, $\mu$ und $\beta$.
+Die Definition der Parameter wird im \textit{Stan}-Code im \verb|transformed data|-Block angelegt. Also enthält dieser neben der Berechnungsvorschrift der \textit{Missing Values} auch die Vorschriften für $\sigma_t$, $\mu$ und $\beta$.
 \begin{lstlisting}[style=custom]
 transformed data {
   int N = 0; // number of missing values
@@ -713,7 +722,7 @@ generated quantities {
 }
 \end{lstlisting}
 
-Außerdem wird angenommen, dass der Fundamentalpreis unbekannt und nicht beobachtbar ist, das wird durch den logarithmierte Fundamentalpreis $p^*=0$ modelliert \parencite{bertschinger:2018, FW:2011}. Bei der Simulation des Modells auf realen Aktienmarktpreisen bzw. -erträgen, wird angenommen, dass sich der Fundamentalpreis im Zeitverlauf ändert.
+Außerdem wird angenommen, dass der Fundamentalpreis unbekannt und nicht beobachtbar ist. Das wird durch den logarithmierte Fundamentalpreis $p^*=0$ modelliert \parencite{bertschinger:2018, FW:2011}. Bei der Simulation des Modells auf realen Aktienmarktpreisen bzw. -erträgen, wird angenommen, dass sich der Fundamentalpreis im Zeitverlauf ändert.
 
 Des Weiteren gilt, dass die Volatilität $\sigma_t$ in Formel~\ref{eq:FW-vol} über den Marktanteil der Fundamental-Trader $n_{t-1}^f$ von der Attraktivität $a_{t-2}$ in Formel~\ref{eq:FW-att} abhängt. Die Attraktivität wiederum wird vom logarithmierten Fundamentalpreis $p_{t-2}^*$ beeinflusst. \\ 
 
@@ -778,10 +787,10 @@ Der vollständige \textit{Stan}-Code der ersten Variante befindet sich im Anhang
 
 In Variante 2 wird die Veränderung des logarithmierten Fundamentalpreises durch einen gleitenden Durchschnitt modelliert. Es wird angenommen, dass der Fundamentalpreis von aktuellen sowie vergangenen Werten eines unbekannten stochastischen Terms (Zufallsfehler) abhängt. Auch für diese Variante gilt somit, dass es sich um ein stochastisches Volatilitätsmodell handelt \parencite{bertschinger:2018}. 
 
-Umgesetzt wird die Variante indem $p^*$ einer Mischverteilung folgt. Mischverteilungen repräsentieren die Wahrscheinlichkeitsverteilung der Beobachtungen einer Gesamtpopulation die aus mehreren Sub-Populationen besteht. Der Vorteil der Mischverteilung ist, dass ein Datensatz einzelne Beobachtungen nicht tatsächlich einer Gruppe innerhalb der Gesamtpopulation zuordnen muss.
+Umgesetzt wird die Variante, indem $p^*$ einer Mischverteilung folgt. Mischverteilungen repräsentieren die Wahrscheinlichkeitsverteilung der Beobachtungen einer Gesamtpopulation, die aus mehreren Sub-Populationen besteht. Der Vorteil der Mischverteilung ist, dass ein Datensatz einzelne Beobachtungen nicht tatsächlich einer Gruppe innerhalb der Gesamtpopulation zuordnen muss.
 Der Fundamentalpreis wird wie folgt modelliert:
 \[p_t^* = P(p_t^*|\tau,p_{t-1}^*,p_t)\]
-also gilt
+Also gilt
 \begin{align}
 p_t^*\sim\text{mix}(\tau,p_{t-1}^*,p_t)\nonumber
 \end{align}
@@ -830,7 +839,7 @@ Der vollständige \text{Stan}-Code befindet sich im Anhang~\ref{stan:FWma}.\\
 \label{chap:AL}
 Simulationen von  Modellen, die komplexe Annahmen voraussetzten, weisen häufig stilisierte Fakten von Finanzmärkten, wie schwere Ränder der Verteilung der Erträge oder Volatilitätscluster auf.  Allerdings können die Simulationen oft nicht mathematisch analysiert werden, da die Annahmen über die Marktdynamiken zu streng sind \parencite{AL:2008}. Das Modell nach Alfarano, Lux und Wagner \parencite{AL:2008} versucht Herdenverhalten in ein einfaches Gleichgewichtspreis-Modell zu integrieren, um strenge Annahmen bzgl. des Verhaltens der Händler oder der Handelsstrategie zu vermeiden und so beobachtete Muster auch für eine große Anzahl heterogener Agenten analytisch erklären zu können. Das Herdenverhalten wird in Form einer einfachen Variante des Herding-Modells nach Kirman~\parencite{kirman:1993} integriert.\\
 
-Kirman hat 1993 auf Basis makroskopischer Muster aus entomologischen Experimenten mit Ameisenkolonien ein Modell für Informationsaustausch stochastisch formalisiert \parencite{AL:2008}. Das Experiment beobachtet eine Ameisenkolonie, der in der Nähe ihres Nests zwei identische Nahrungsquellen zur Verfügung stehen. Es zeigt sich, dass einzelne Ameisen sind in der Regel auf eine Nahrungsquelle konzentrieren, aber dennoch gelegentlich zur anderen Nahrungsquelle wechseln.
+Kirman hat 1993 auf Basis makroskopischer Muster aus entomologischen Experimenten mit Ameisenkolonien ein Modell für Informationsaustausch stochastisch formalisiert \parencite{AL:2008}. Das Experiment beobachtet eine Ameisenkolonie, der in der Nähe ihres Nests zwei identische Nahrungsquellen zur Verfügung stehen. Es zeigt sich, dass einzelne Ameisen sich in der Regel auf eine Nahrungsquelle konzentrieren, aber dennoch gelegentlich zur anderen Nahrungsquelle wechseln.
 Betrachtet man den Mittelwert im Zeitverlauf ergibt sich eine bimodale\footnote{Eine Wahrscheinlichkeitsverteilung heißt \textbf{bimodal}, wenn ihre Dichte zwei Modi aufweist.} Verteilung  der Häufigkeit der Ameisen, die die eine bzw. andere Nahrungsquelle aufsuchen \parencite{AL:2008}.\\
 
 Alfarano, Lux und Wagner nutzen diesen Mechanismus, um Veränderungen im Verhalten der Händler zu formalisieren. Die binäre Auswahlmöglichkeit der Nahrungsquellen der Ameisen, gilt analog zur Entscheidung von Agenten des Finanzmarktes bzgl. einer bestimmten Regel zur Bildung ihrer Erwartung \parencite{AL:2008}. Auch in diesem Modell können Agenten am Markt zwischen Fundamental- und Chartist-Strategie entscheiden. Der Herding-Mechanismus bestimmt die Verteilung der Agenten auf diese beiden Handelsstrategien, sodass sich Phasen abwechseln in denen die Fundamental- bzw. Chartist-Strategie dominant ist. Wobei vor allem ein Markt mit vielen Chartist-Tradern zu Spekulationsblasen neigt \parencite{AL:2008}.
@@ -847,7 +856,7 @@ Die Wechsel bzw. Übergänge der Agenten von einer zur anderen Handelsstrategie 
 \pi_x^{\pm} (x \rightarrow x \pm 2/N) = (1\pm x)(2a/N + b(1\pm x)) 
 \end{align}
 Diese Übergänge hängen nicht vom relativen Anteil der Agenten einer Strategie bezogen auf die Gesamtpopulation ab, sondern kleinere Nachbarschaften/Subpopulationen beeinflussen die Entscheidung einzelner Agenten ihre Strategie zu wechseln. So werden sowohl zufällige Wechsel als auch Wechsel aufgrund von Herdenverhalten wie z.B. Gruppenzwang berücksichtigt, da z.B. eine große Anzahl aller Agenten der Gesamtpopulation der anderen Strategie folgen.
-Die Gleichgewichtsverteilung der Konzentration der Agenten $\omega(x)$ weißt eine zentrale Tendenz auf, die z.B. durch den Mittelwert definiert sein kein kann.
+Die Gleichgewichtsverteilung der Konzentration der Agenten $\omega(x)$ weißt eine zentrale Tendenz auf, die z.B. durch den Mittelwert definiert sein kann.
 Somit können die Veränderungen des Systems vernachlässigt werden und die Dynamiken sind mittels deterministischer Differentialgleichung modellierbar.
 
 So zeigen \parencite{AL:2008}, dass $x$ der Fokker-Planck-Gleichung\footnote{Die \textbf{Fokker-Planck-Gleichung} beschreibt die zeitliche Entwicklung einer Wahrscheinlichkeitsdichte $P(x)$ unter der Wirkung von Drift $A(x,t)$ und Diffusion $B(x,t)$ \parencite{FokkerPlanck}.} mit Wahrscheinlichkeitsdichte $w_x(x,t)$ folgt. 
@@ -868,16 +877,16 @@ und Diffusion $D(x)$
 D(x)&= \pi_x^++\pi_x^- \nonumber \\
 &= 2b(1-x^2)+\frac{4q}{N}
 \end{align}
-Die Dynamiken werden also durch eine lineare Drift mit Mean-Reversion\footnote{Der \textbf{Mean-Reversion-Effekt} beschreibt die Annahme in der Kapitalmarkttheorie, dass Märkte zu Übertreibungen neigen, die sich im Zeitverlauf nicht zufällig korrigieren, sondern dass mittels Gedächtnis vorherige Trends umkehrt werden. So folgt aus einem Anstieg der Preise fallende Kurse und umgekehrt \parencite{MeanReversion}.}-Effekt Richtung des unbedingten Erwartungswerts $E[x]=0)$.
+Die Dynamiken werden also durch eine lineare Drift mit Mean-Reversion\footnote{Der \textbf{Mean-Reversion-Effekt} beschreibt die Annahme in der Kapitalmarkttheorie, dass Märkte zu Übertreibungen neigen, die sich im Zeitverlauf nicht zufällig korrigieren, sondern dass mittels Gedächtnis vorherige Trends umkehrt werden. So folgt aus einem Anstieg der Preise fallende Kurse und umgekehrt \parencite{MeanReversion}.}-Effekt Richtung des unbedingten Erwartungswerts $E[x]=0)$ modelliert.
 Außerdem besteht die Diffusion aus zwei Komponenten. 
 Die erste Komponente ist eine symmetrische, quadratische Funktion von $x$, die unabhängig von der Gesamtpopulationsgröße $N$ ist. Sie repräsentiert das Herdenverhalten aufgrund der Interaktion zwischen den Agenten. 
 Die zweite Komponente hängt von $N$ ab und repräsentiert die intrinsische Granularität des Modells. Sie wird für große $N$ gegen 0 streben und ist somit zu vernachlässigen \parencite{AL:2008}.
 
-Befindet sich man nicht nah an den Rändern $x\pm 1$ dominiert der Herding-Mechanismus und die Veränderungen werden vom quadratischen Term repräsentiert, sodass der von $N$ abhängige Term vernachlässigt werden kann. 
+Befindet man sich nicht nah an den Rändern $x\pm 1$ dominiert der Herding-Mechanismus und die Veränderungen werden vom quadratischen Term repräsentiert, sodass der von $N$ abhängige Term vernachlässigt werden kann. 
 Befindet man sich allerdings an den Rändern, sind beide Effekte gleichgroß und gleichbedeutend \parencite{AL:2008}. 
 Es gilt, durch das kollektive Verhalten der Agenten und der nicht extensiv definierten Übergänge, dass die Größe der Schwankungen unabhängig von der Gesamtanzahl der Agenten $N$ am Markt ist \parencite{AL:2008}.\\
 
-Die Fokker-Planck-Gleich kann, ohne den von $N$ abhängigen Term, in die Form einer klassischen stochastische Differentialgleichung $dX_t$ umformuliert werden.
+Die Fokker-Planck-Gleich kann ohne den von $N$ abhängigen Term, in die Form einer klassischen stochastische Differentialgleichung $dX_t$ umformuliert werden.
 \[dX_t =\mu(X_t,t)dt +\sigma(X_t,t)dW_t\]
 Für die Fokker-Planck-Gleichung der Wahrscheinlichkeitsdichte $p(x,t)$ gilt dann
 \begin{align}
@@ -907,7 +916,7 @@ Wobei
 und 
 \[\sigma^2 = \sqrt{2b(1-x(t+\Delta t)^2)}\]
 
-Betrachtet man keine marginalen Zeitschritte, sondern wie in dieser Arbeit tägliche Änderungen der Preise und Zeitpunkte erhält man die Beschreibung der Erträge:
+Betrachtet man keine marginalen Zeitschritte, sondern, wie in dieser Arbeit, tägliche Änderungen der Preise und Zeitpunkte, erhält man die Beschreibung der Erträge:
 \begin{align}
 r_t & = (x_{t+1}-x_t)+\sigma_f\epsilon \nonumber \\
 r(x,t) &\sim \mathcal{N}\left(\sum_{i=2}^{T+1} x_{t+1}-\sum_{i=1}^T x_t\right),\sigma_f)\nonumber 
@@ -970,7 +979,7 @@ model {
 
 \end{lstlisting}
 
-Anschließend wird wie bei den anderen Modellen im \verb|generated quantities|-Block in \textit{Stan}-Code~\ref{stan:AL-gen} die a-posteriori-Verteilung in Zeile~\ref{stan:AL-post} und die Standardabweichung für jeden Zeitpunkt $\sigma_t$ in Zeile~\ref{stan:AL-sigma} modelliert.
+Anschließend wird, wie bei den anderen Modellen im \verb|generated quantities|-Block in \textit{Stan}-Code~\ref{stan:AL-gen}, die a-posteriori-Verteilung in Zeile~\ref{stan:AL-post} und die Standardabweichung für jeden Zeitpunkt $\sigma_t$ in Zeile~\ref{stan:AL-sigma} modelliert.
 \begin{lstlisting}[style=custom, escapechar=/,caption={Teil-Modell nach \parencite{bertschinger:2019, AL:2008}}, label= {stan:AL-gen}]
 generated quantities {
   vector[T] log_lik;
@@ -987,23 +996,145 @@ Der vollständige \textit{Stan}-Code befindet sich im Anhang~\ref{stan:AL}.
 
 \chapter{Simulationen}
 \label{chap:sim}
-tbd
+Im folgenden Kapitel werden die Ergebnisse der Simulationen näher beschrieben. Kapitel~\ref{chap:data} erläutert die verwendete Datenquelle bzw. die Zeitreihen und die Art der Vorhersagen. Im Kapitel~\ref{chap:results} werden anschließend die Ergebnisse vorgestellt und mit Hilfe verschiedener Diagnose-Plots diskutiert.
 
 \section{Daten \& Vorhersagen}
 \label{chap:data}
-S\&P 500 data in USD from finance.yahhoo: \\ 
--daily prices - calculated into return and finally into log return as models expect log return as inputs\\
--exporting data with dates like Jan 1 2000 to Jan 1 2008 yahoo automatically uses last working day at stock exchange\\
-- always used 30 Predictions - inaccurate as days per month change\\
-=> this all leads to inaccurancy which is ok as the goal is to see the tendency in which way predictions are shifting \\\\
-monthly prediction during a year in which a major crisis happend: bank crisis 2008 \& dotcom 2000?\\
-used 8 years to predict the year 2008 on a monthly basis: e.g. data from Jan 1 2000 to Jan 1 2008 used to predict Jan 2008
+Um Dynamiken an Finanzmärkten zu erkennen, wurden zwei Zeitpunkte in der Vergangenheit gewählt, in denen starke Dynamiken zu beobachten warten. Zum einen die globale Finanzkrise mit Höhepunkt im September 2008 und zum anderen die Dotcom-Blase mit Höhepunkt im März 2000.
+
+Alle vier Modelle wurden auf beiden Zeitreihen simuliert, indem jeder Monat des Jahres 2000 bzw. 2008 auf Basis der Daten der vorherigen acht Jahre simuliert wurde. Als Daten wurden tägliche Preise des Aktienindexes \textit{S\&P 500}\footnote{Datenquelle: YAHOO! FINANCE \url{https://finance.yahoo.com/quote/\%5EGSPC}} genutzt, so dass ein Monat annähernd durch 30 Vorhersage-Zeitpunkte abgebildet werden konnte.
+
+Die Datensätze von YAHOO! FINANCE enthalten jeweils sowohl den Eröffnungs- als auch den Schlusskurs pro Tag. Daraus wurden die logarithmierten Erträge berechnet, die als Input für die Modelle genutzt werden können. In \textit{R} kann dazu mit Hilfe des Pakets \verb|tidyverse| der Dataframe \verb|data| um eine berechnete Spalte erweitert werden:
+\verb| data <- data %>% mutate(LogRet = log(Close)-log(Open))|. Wobei \verb|log| hier für den natürlichen Logarithmus steht.
+
+In der Finanzmathematik ist es üblich mit logarithmierten Erträge zu arbeiten, insbesondere wenn die Berechnung von Volatilitäten im Vordergrund steht. Logarithmierte Erträge sind stetige Erträge und auf der gesamten Menge der reellen Zahlen definiert. Diskrete Erträge sind häufig nur auf den positiven Zahlen definiert bzw. auf 100\% Verlust begrenzt. Durch die Verwendung stetiger Erträge kann die empirische Verteilung der Renditen besser durch stochastische Verteilungen approximiert werden. 
+
+Mit Hilfe der a-posteriori-Verteilung werden dann logarithmierte Erträge für 30 Tage berechnet. Diese Vorhersagen wurden für alle vier Chains in einem Plot visualisiert. Dazu wurden die logarithmierten Erträge wieder in Preise umgerechnet und anschließend die Konfidenzintervalle 0.95, 0.8 und 0.5 des Medians der Preise als Streuungsbreite eines Linienplots der tatsächlichen Preise gezeichnet. Die exakte Berechnung des Plots befindet sich im \textit{R}-Skript~\ref{r:priceplot} in Anhang~\ref{app:r}.
 
 \section{Ergebnisse}
 \label{chap:results}
-tbd
 
-\includegraphics[scale=.6]{../plots/bank-crisis/AL_walk/01_AL_walk_Jan_low_info_depth-13_delta_9}
+Um die Modelle möglichst gut auf den Daten fitten zu können, können dem Sampler/der Markov-Kette bestimmte Parameter übergeben werden. In dieser Arbeit wurden dazu teilweise der \verb|max_treedepth|- sowie der \verb|adapt_delta|-Parameter verwendet.
+Die Parameter wirken zwei aufgetretenen Problemen entgegen: 
+
+Zum einen, dass die Berechnungen einer Iteration des Samplers die max. Tiefe des Baums, der in einer Iteration evaluiert werden soll, überschritten hat. Dabei handelt es sich um ein Effizienzproblem, dass durch den \verb|max_treedepth| Parameter die Tiefe der vom Sampler aufgebauten Bäume kontrolliert.
+
+Zum anderen, dass \textit{divergent Transitions} auftreten. Die Iterationen der Markov-Kette, die an den geometrisch schwierigen Bereichen hängen bleiben oder diese nicht erreiche können und schließlich vom Sampler abgelehnt werden, bezeichnet man als divergent Transitions. Der Parameter \verb|adapt_delta| legt die Schrittweite fest, um so auch aus schwierigen Bereichen der Ziel-Verteilung Stichproben zu generieren ohne divergent Transitions zu verursachen. Je näher der Wert an 1 gewählt wird, desto kleiner werden die Schrittweiten gewählt. Das führt wiederum auch dazu, dass die Bäume, die in einer Iteration evaluiert werden müssen, tiefer werden und eventuell muss auch der Parameter \verb|max_treedepth| angepasst werden. 
+
+Als Fehlermeldung zum Modell werden dann zum Beispiel die Anzahl der divergent Transitions bzw. die Anzahl der Iterationen, welche die \verb|max_treedepth| überschritten haben zurückgemeldet.
+Es wird allerdings nur festgehalten welche der Iterationen eine divergent Transition war und es ist nicht klar nachvollziehbar in welchem Bereich der Verteilung oder zu welchem Zeitpunkt diese Transition tatsächlich abgelehnt wurde. Die Markov-Kette kann sich durch das Monte-Carlo-Sampling allerdings schnell und weit fortbewegen bzw. große Schritte Sprünge machen, sodass nicht eindeutig festgestellt werden kann, wo genau in der Verteilung die divergent Transitions auftreten.
+
+Eine allgemeine Übersicht der Ergebnisse der einzelnen Modelle auf den verschiedenen Daten und welche Parameter jeweils verwendet wurden befindet sich in Anhang~\ref{app:plots} in Abbildung \ref{fig:general_num-divergence} bis \ref{fig:general_adapt_delta}.  %tbd - check last plotnumber
+
+Der Abbildung ist zu entnehmen, dass das FW-Modell, insbesondere die Variante mit dem gleitenden Durchschnitt (\texttt{FW\_DCA\_HPM\_ma\_CV}), auf den Daten der Dotcom-Blase extrem schwer zu simulieren war. 
+Auf den Daten der Finanzkrise hatte der Sampler mit beiden FW-Modell Varianten bei entsprechend hohem \verb|adapt_delta| Wert auf den ersten Blick weniger Probleme die a-posteriori-Verteilung zu erkennen. Auf den Daten der Dotcom-Blase war es für beide Varianten (\texttt{FW\_DCA\_HPM\_walk\_CV}) schon deutlich schwerer ohne eine hohe Anzahl divergenter Transitions das Sampling zu beenden. Die Erhöhung des \verb|adapt_delta| über 0.95 führte dazu, dass das Sampling überhaupt nicht beendet werden konnte bzw. so langsam wurde, dass auch mehrere Tage Laufzeit nicht ausreichend für den Sampler waren, d.h. auch mit sehr kleinen Schrittweiten konnte die Markov-Kette die a-posteriori-Verteilung nicht berechnen (vgl. Abbildung~\ref{fig:FW-dotcom-aug}).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=.5]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Apr_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}
+\caption{Traceplots der Chains des FW-Modells(ma) auf den Daten der Dotcom-Blase für August 2008 mit 381 divergent Transitions und 8 Transitions über \texttt{max\_treedepth  = 18} wobei \texttt{adapt\_delta = 0.9} (eigene Darstellung)}
+\label{fig:FW-dotcom-aug}
+\end{center}
+\end{figure}
+
+Auf den Daten der Finanzkrise hatte das FW-Modell ebenfalls Probleme. Oft hatte eine der Chains eine deutlich geringere Wahrscheinlichkeit als die anderen oder die Schätzungen der einzelnen Chains liegen für einzelne Parameter sehr weit auseinander, obwohl alle Chains ähnliche Wahrscheinlichkeit haben (vgl. Abbildung~\ref{fig:FW-finance-jul-traces} sowie Abbildung~\ref{fig:FW-finance-nov-traces} und~\ref{fig:FW-finance-nov-parcoord}). 
+
+\begin{figure}[h]%
+    \begin{center}
+    \includegraphics[scale=.4]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Jul_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}
+    \caption{Traceplots der Chains des FW-Modells (ma) auf den Daten der Finanzkrise für Juli 2008 mit 0 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 18} wobei \texttt{adapt\_delta = 0.99} (eigene Darstellung)}%
+    \label{fig:FW-finance-jul-traces}%
+\end{center}
+\end{figure}
+
+\begin{figure}[h]%
+    \begin{center}
+    \includegraphics[scale=.4]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Nov_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}
+    \caption{Traceplots der Chains des FW-Modells (ma) auf den Daten der Finanzkrise für November 2008 mit 0 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 29} wobei \texttt{adapt\_delta = 0.99} (eigene Darstellung)}%
+    \label{fig:FW-finance-nov-traces}%
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.4]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Nov_parcoord_FW_DCA_HPM_ma_CV_finance} 
+\caption{Parallele-Koordinaten-Plot der Chains des FW-Modells (ma) auf den Daten der Finanzkrise für November 2008 mit 0 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 29} wobei \texttt{adapt\_delta = 0.99} (eigene Darstellung)}
+\label{fig:FW-finance-nov-parcoord}
+\end{center}
+\end{figure}
+
+Auch das FW-Modell mit der Irrfahrt zeigt nur sehr breit gestreute Vorhersagen und die stärker gebündelten Vorhersagen einzelner Chains zeigen eine geringere Wahrscheinlichkeit (vgl. Abbildung~\ref{fig:FW-finance-dec-traces-all-chains} und~\ref{fig:FW-finance-dec-price}).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=.4]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Dec_traces_FW_DCA_HPM_walk_CV_finance} 
+\caption{Traceplot der Chains des FW-Modells (walk) auf den Daten der Finanzkrise für Dezember 2008 mit 0 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 128} wobei \texttt{adapt\_delta = 0.99} (eigene Darstellung)}
+\label{fig:FW-finance-dec-traces-all-chains}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=.5]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Dec_price_prediction_FW_DCA_HPM_walk_CV_finance}
+\caption{Preis-Vorhersage der Chains des FW-Modells (walk) auf den Daten der Finanzkrise für Dezember 2008 mit 0 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 128} wobei \texttt{adapt\_delta = 0.99} (eigene Darstellung)}
+\label{fig:FW-finance-dec-price}
+\end{center}
+\end{figure}
+
+Die Ergebnisse lassen vermuten, dass das FW-Modell die a-posteriori-Verteilung der Finanzmarkt-Daten in extremen Krisen nicht ausreichend erfassen kann. Eine Änderung des Modells könnte die Performance verbessern.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=.5]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Sep_price_prediction_AL_herd_walk_CV_dotcom}
+\caption{Preis-Vorhersage der Chains des AL-Modells auf den Daten der Dotcom-Blase für September 2000 mit 2 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 16} wobei \texttt{adapt\_delta = 0.92} (eigene Darstellung)}
+\label{fig:AL-dotcom-sep}
+\end{center}
+\end{figure}
+
+Das AL-Modell zeigt z.B. im September 2000 eher eine Tendenz zu fallenden Preisen (vgl. Abbildung~\ref{fig:AL-dotcom-sep}). Alle Chains zeigen eine ähnlich hohe Wahrscheinlichkeit. Nur Chain 3 zeigt zu Beginn starke Abweichungen, die sich im Verlauf des Samplings, dann allerdings wieder stark an die Werte der anderen Chains annähern. Die Dynamik ist der Abbildung~\ref{fig:AL-dotcom-sep-trace} zu entnehmen. Das erklärt mitunter die breitere Streuung der Vorhersagen von Chain 3 im Vergleich zu den anderen Chains in Abbildung~\ref{fig:AL-dotcom-sep}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=.5]{../all-final/dotcom/AL_herd_walk_CV/plots/Sep_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}
+\caption{Traceplots der Chains des AL-Modells auf den Daten der Dotcom-Blase für September 2000 mit 2 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 16} wobei \texttt{adapt\_delta = 0.92} (eigene Darstellung)}
+\label{fig:AL-dotcom-sep-trace}
+\end{center}
+\end{figure}
+
+Es scheint auf den ersten Blick, dass das AL-Modell leichter und mit weniger Problemen auf beiden Datensätzen zu fitten ist. Die genauere Betrachtung offenbart allerdings, dass auch dieses Modell nur breit gestreute Vorhersagen liefert. Außerdem zeigt insbesondere der Parameter $\beta$ konstant hohe Autokorrelation auf beiden Datensätzen, was bedeutet, dass sich die Chains zwischen Iterationen nicht viel bewegt haben sondern im gleichen Bereich geblieben sind. Im besten Fall strebt die Autokorrelation sehr schnell gegen 0 oder hat negative Werte, was bedeutet, dass sich der Durchschnittswert des Parameters der Stichprobe seinem wahren Wert annähert (vgl. Abbildung~\ref{fig:AL-dotcom-jun-auto} und~\ref{fig:AL-finance-dec-auto}). Eventuell kann das Ergebnis durch eine Erhöhung der Anzahl der Iterationen oder eine Änderung des Parameters $\beta$ verbessert werden.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.3]{../all-final/dotcom/AL_herd_walk_CV/plots/Jun_autocorrelation_AL_herd_walk_CV_dotcom}
+\caption{Autokorrelation der Modell-Parameter innerhalb der Chains des AL-Modells auf den Daten der Dotcom-Blase für Juni 2000 mit 1 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 16} wobei \texttt{adapt\_delta = 0.9} (eigene Darstellung)}
+\label{fig:AL-dotcom-jun-auto}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.3]{../all-final/finance/AL_herd_walk_CV/plots/Dec_autocorrelation_AL_herd_walk_CV_finance}
+\caption{Autokorrelation der Modell-Parameter innerhalb der Chains des AL-Modells auf den Daten der Finanzkrise für Dezember 2008 mit 4 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 13} wobei \texttt{adapt\_delta = 0.85} (eigene Darstellung)}
+\label{fig:AL-finance-dec-auto}
+\end{center}
+\end{figure}
+
+Das GARCH-Modell läuft ebenfalls auf beiden Datensätzen ohne Fehlermeldung bei Verwendung der Standardwerte für die Parameter \verb|max_treedepth| und \verb|adapt_delta|. Die Vorhersagen sind breit gestreut und lassen teilweise auf den Daten der Dotcom-Blase mit sehr geringer Wahrscheinlichkeit eine Tendenz zu steigenden Preisen vermuten (vgl. Abbildung~\ref{fig:GARCH-dotcom-jan-price}). Grundsätzlich sind die Vorhersagen aber sehr breit gestreut und es sind keine Dynamiken erkennbar.
+
+Die Autokorrelation der Parameter strebt für alle Monate und jede Zeitreihe, genau wie für beide Varianten des FW-Modells, schnell gegen 0 und ist teilweise negativ. (vgl. Abbildung~\ref{app:general-auto}) Die Wahrscheinlichkeiten der Chains liegen immer sehr nah beieinander und es gibt keine Ausreißer. Das liegt daran, dass das GARCH-Modell wenige Parameter nutzt und diese nicht von den Daten selbst abhängen. Das führt auch dazu, dass die Ergebnisse auf beiden Zeitreihen keine Unterschiede zeigen.
+ %tbd \ref autocorrelation general plot..
+ 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=.5]{../all-final/dotcom/GARCH_CV/plots/price/Jan_price_prediction_GARCH_CV_dotcom}
+\caption{Preis-Vorhersage der Chains des GARCH-Modells auf den Daten der Dotcom-Blase für Januar 2000 mit 0 divergent Transitions und 0 Transitions über \texttt{max\_treedepth  = 10} wobei \texttt{adapt\_delta = 0.8} (eigene Darstellung)}
+\label{fig:GARCH-dotcom-jan-price}
+\end{center}
+\end{figure}
+
+Im Allgemeinen konnte keins der vier Modelle realistische Dynamiken erkennen. Die Vorhersagen mit hohen Wahrscheinlichkeiten waren weitestgehend breit gestreut und es war nicht klar erkennbar, ob die Preise eher steigen oder fallen würden. Vorhersagen mit geringer Sicherheit konnten teilweise Dynamiken zeigen.
+
+%tbd model comparison 
 
 %\printbibliography
 %\listoffigures
@@ -1018,6 +1149,7 @@ tbd
 \renewcommand{\thesection}{\Alph{section}}
 
 \section{\textit{Stan} Code}
+\label{app:stan}
 \subsection{GARCH-Modell}
 \label{stan:GARCH}
 \begin{lstlisting}[style=custom]
@@ -1376,19 +1508,1462 @@ generated quantities {
 \end{lstlisting}
 
 \section{\textit{R} Code}
-\begin{lstlisting}[style=custom]
-data {
-  int<lower=0> T;
-  int<lower=0, upper=1> miss_mask[T];
-  real ret_obs[T]; // Note: Masked indices treated as missing
-}
-transformed data {
-  int N = 0; // number of missing values
-  for (t in 1:T)
-    if (miss_mask[t] == 1) N = N + 1;
+\label{app:r}
+\subsection{Erstellen der Preis-Plots}
+\begin{lstlisting}[style=custom, caption={\textit{R}-Script zur Visualisierung der Preis-Vorhersagen},label={r:priceplot}]
+
+#libraries
+library(rstan)
+library(tidybayes)
+library(tidyverse)
+
+stanfitmodels <- c(AL_herd_Jun, AL_herd_Jul)
+
+
+priceplot(stanfitmodels, 6, "dotcom", "png", "plots/")
+
+priceplot <- function(fits, start_month, data, save_as, path){
+  m <- start_month
+
+  for (fit in fits){
+    
+    month <- month.abb[m]
+    
+    #get spread draws of fit in tidy structure
+    fit_draws <- spread_draws(fit, ret[t]) %>% 
+      group_by(.chain, .iteration) %>% 
+      arrange(t) %>% 
+      #calculate prices from log return
+      mutate(price = exp(cumsum(ret[t]))) %>% 
+      group_by(t,.chain) %>% 
+      #get intervals
+      median_qi(price, .width = c(.5,.8,.95)) 
+    
+    #plot lineribbon of prices
+    
+    assign(paste0(month, "_price_prediction"), fit_draws %>% filter(t > 1900) %>% ggplot(aes(x = t, y = price)) +
+             geom_lineribbon() +
+             facet_wrap(nrow = 2,~.chain), envir = .GlobalEnv)
+    
+    # save plot
+    ggsave(paste0(month,"_price_prediction_", fit@model_name,"_", data, ".", save_as),device = save_as, path = path)
+    
+    #next month
+    m <- m + 1
+  }
 }
 
 \end{lstlisting}
+
+\subsection{Import/Export der Stanfit Objekte}
+
+\begin{lstlisting}[style=custom, caption={\textit{R}-Script zum Speichern und Importieren der Stanfit-Objekte aus bzw. in den aktuellen Workspace}, label={r:save-load}]
+
+library(tidyverse)
+
+stanfitmodels <- c(AL_herd_Jan, AL_herd_Feb, AL_herd_Mar, AL_herd_Apr, AL_herd_May, AL_herd_Jun, AL_herd_Jul)
+
+import <- c("AL_herd_Jan", "AL_herd_Feb")
+  
+  
+save_fits(stanfitmodels, 1, "dotcom", "stanfit/")
+
+load_fits("AL_herd_Mar", 1,"AL_herd_walk_CV", "dotcom", "dotcom/AL_herd/stanfit/")
+
+
+save_fits <- function(fits, start_month, data, path){
+  m <- start_month
+  
+  for (fit in fits){
+    month <- month.abb[m]
+    write_rds(fit, paste0(path, month, "_fit_", data, "_", fit@model_name , ".rds"))
+    m <- m + 1
+  }
+}
+
+load_fits <- function(fits, start_month,model_name, data, path){
+  m <- start_month
+  
+  for (fit in fits){
+    month <- month.abb[m]
+    assign(paste0(month, "_AL_", data), read_rds(paste0(path, month, "_fit_", data, "_", model_name , ".rds")), envir = .GlobalEnv)
+    m <- m + 1
+  }
+}
+
+\end{lstlisting}
+
+\subsection{Erstellen der Traceplots inkl. divergent Transitions für einzelne Chains}
+\begin{lstlisting}[style=custom, caption={},label={r:trace}]
+
+# load libraries
+library(rstan)
+library(tidyverse)
+library(tidybayes)
+library(bayesplot)
+library(grid)
+library(gridExtra)
+
+#example call
+custom_trace_each_chain_overlay(AL_herd_Feb, "Feb", "dotcom", 4, "png", "plots/")
+
+#definition
+custom_trace_each_chain_overlay <- function(fit, month,data, chains, save_as, path){
+  
+  #get div trans for each iteration
+  divtrans <- get_divergent_iterations(fit)
+  #get lp__ for each iteration
+  lp <- as.data.frame(fit)$lp__
+  
+  #set chain for each iteration (sequential)
+  chain <- c()
+  t <- c()
+  #set counter for 1 to 500 post warm up iterations for each chain
+  c <- 1
+  for (i in 1:length(lp)){
+    if(i<= 500){
+      chain <- c(chain, 1)
+    }
+    if(i>500 & i <= 1000){
+      chain <- c(chain, 2)
+    }
+    if(i>1000 & i <= 1500){
+      chain <- c(chain, 3)
+    }
+    if(i>1500){
+      chain <- c(chain, 4)
+    }
+    if (c == 501){
+      c <- 1
+    }
+    t <- c(t, c) 
+    c <- c + 1
+  }
+  
+  #convert to data frame
+  divergence <- as.data.frame(t)
+  divergence[".chain"] <- chain
+  divergence["lp__"] <- lp
+  divergence["div"] <- as.numeric(divtrans)
+  
+  plots <- list()
+  for (i in 1:chains){
+    plots[[i]] <- ggplot() +
+      geom_point(data = divergence %>% filter(.chain != i), aes(x=t, y = lp__), color = "gray", size = 1) +
+      geom_point(data = divergence %>% filter(.chain == i), aes(x=t, y = lp__), color = "blue", size = 1) +
+      geom_vline(data = divergence %>% filter(div == 1, .chain == i) ,aes(xintercept= t), color = "red")  +
+      ylim(min(divergence$lp__),max(divergence$lp__)) +
+      xlab("Post Warmup Iteration") +
+      ggtitle(i) +
+      theme(plot.title = element_text(hjust = 0.5, size = 10))
+  }
+  
+  
+  #generate plot grid 
+  plot_grid <- grid.arrange(grobs = plots, nrow = 2)
+  #save plot
+  ggsave(paste0(month, "_trace_all_chains_custom_overlay_", fit@model_name,"_", data, ".", save_as), plot = arrangeGrob(grobs = plots, ncol = 2), device = save_as , path = path)
+  
+  
+  return(plot_grid)
+}
+
+
+\end{lstlisting}
+
+\subsection{Erstellen der Diagnose-Plots für mehrere Stanfit-Objekte}
+\begin{lstlisting}[style=custom, caption={\textit{R}-Script zur Erstellung verschiedener Diagnose-Plots},label={r:all-plots}]
+
+# load libraries
+library(rstan)
+library(tidyverse)
+library(tidybayes)
+library(bayesplot)
+library(grid)
+library(gridExtra)
+
+#function to standardize over values of parameter of whole model
+standard <- function(x) {(x - mean(x)) / sd(x)}
+
+#specify parameter of model to be used in plots
+param <-  c( "sigma_f","alpha", "beta", "lp__")
+
+#specifiy stanfit models to be plotted
+stanfitmodels <- c(AL_herd_Jan, AL_herd_Feb, AL_herd_Mar, AL_herd_Apr )
+
+#example call - generate all plots for each fit
+generate_plots(stanfitmodels, 1, param, "mix-brightblue-gray", "dotcom", "png", "plots/")
+
+#example call - trace of single chain per plot (line chart)
+custom_trace_each_chain(AL_herd_Apr, "Apr", "pdf")
+#example call - one highlighted chain per plot (point chart)
+custom_trace_each_chain_overlay(AL_herd_Feb, "Feb", "dotcom", 4, "png", "plots/")
+
+
+#definition:
+generate_plots <- function(fits, start_month, parameter, color_scheme,data, save_as, path){
+
+  #set color scheme
+  color_scheme_set(color_scheme)
+  
+  #set lp var as last elem of input parameter vector par
+  lp <- tail(parameter, n=1)
+  
+  #generate plots for each fit/month
+  month <- c()
+  m <- start_month
+  for (fit in fits){
+    #generate month names to be used for plot objects and store month abbreviation in a vector
+
+    month <- month.abb[m]
+    # START: standard trace plot
+      assign(paste0(month, "_trace"), mcmc_trace(as.array(fit), pars = lp, np = nuts_params(fit)) + xlab("Post Warmup Iterations"), envir = .GlobalEnv)
+      #save plot
+      ggsave(paste0(month, "_traces_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+    
+      
+    # END: standard trace plot
+    
+    # START: custom trace plot for each chain
+    #assign(paste0(month[m], "_trace_chains_custom"), custom_trace_each_chain(fit, month[m],data, save_as, path), envir = .GlobalEnv)
+    
+    # no need to save - handled by function which creates plot
+    
+    # custom trace plot: chain overlay
+    assign(paste0(month, "_trace_all_chains_overlay"), custom_trace_each_chain_overlay(fit, month, data , 4, save_as, path), envir = .GlobalEnv)
+    
+    # END: custom trace plot for each chain
+    
+    # START: pairs plot
+    
+    assign(paste0(month, "_pairs"), mcmc_pairs(as.array(fit), pars = parameter, np = nuts_params(fit)), envir = .GlobalEnv)
+    #save plot
+    dev.copy2pdf(file = paste0(path, month, "_pairs_", fit@model_name,"_", data, ".pdf"))
+    dev.off()
+    
+    # ggsave not working-- prints only last plot
+    #ggsave(paste0(month, "_pairs_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+    # END: pairs plot
+    
+    # START: parcoord plot
+    assign(paste0(month, "_parcoord"), mcmc_parcoord(as.array(fit), pars = parameter, np = nuts_params(fit),transform = standard), envir = .GlobalEnv)
+    #save plot
+    ggsave(paste0(month, "_parcoord_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+    # END: parcoord plot
+    
+    # START: visualize posterior with and without divergent transitions
+    assign(paste0(month, "_div"), mcmc_nuts_divergence(nuts_params(fit),log_posterior(fit)), envir = .GlobalEnv)
+    #save plot
+    ggsave(paste0(month, "_div_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+    for (j in 1:4) {
+      assign(paste0(month, "_div_chain", j), mcmc_nuts_divergence(nuts_params(fit),log_posterior(fit),chain=j), envir = .GlobalEnv)
+      #save plot
+      ggsave(paste0(month, "_div_chain", j, "_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+    }
+    
+    # START: autocorrelation
+    assign(paste0(month, "_autocorrelaton"), mcmc_acf(as.array(fit),pars = parameter), envir = .GlobalEnv) 
+    #save plot
+    ggsave(paste0(month, "_autocorrelation_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+    # END: autocorrelation
+    
+    # START: energy level / bfmi low error - distribution on energy level during mcmc sampling
+    assign(paste0(month, "_energy"), mcmc_nuts_energy(nuts_params(fit),binwidth = 5), envir = .GlobalEnv)
+    #save plot
+    ggsave(paste0(month, "_energy_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+    # END_ energy level
+
+    
+    #next month
+    print(paste(month, "done"))
+    m <- m + 1
+  }
+  
+}
+
+#custom traceplot if each chain has 500 post warmup iterations
+custom_trace_each_chain <- function(fit, month,data, save_as, path){
+  
+  #get div trans for each iteration
+  divtrans <- get_divergent_iterations(fit)
+  #get lp__ for each iteration
+  lp <- as.data.frame(fit)$lp__
+  
+  #set chain for each iteration (sequential)
+  chain <- c()
+  t <- c()
+  #set counter for 1 to 500 post warm up iterations for each chain
+  c <- 1
+  for (i in 1:length(lp)){
+    if(i<= 500){
+      chain <- c(chain, 1)
+    }
+    if(i>500 & i <= 1000){
+      chain <- c(chain, 2)
+    }
+    if(i>1000 & i <= 1500){
+      chain <- c(chain, 3)
+    }
+    if(i>1500){
+      chain <- c(chain, 4)
+    }
+    if (c == 501){
+      c <- 1
+    }
+    t <- c(t, c) 
+    c <- c + 1
+  }
+  
+  #convert to data frame
+  divergence <- as.data.frame(t)
+  divergence[".chain"] <- chain
+  divergence["lp__"] <- lp
+  divergence["div"] <- as.numeric(divtrans)
+  
+  #draw line plot + vertical line for each divergent transition
+  plot <- ggplot() + 
+    geom_line(data = divergence, aes(x=t, y = lp__), color = "blue") +
+    geom_vline(data = divergence %>% filter(div == 1) ,aes(xintercept= t), color = "red")  +
+    ylim(min(divergence$lp__),max(divergence$lp__)) +
+    xlab("Post Warmup Iteration") +
+    facet_wrap(~.chain)
+  
+  #save plot
+  ggsave(paste0(month, "_trace_all_chains_custom_", fit@model_name,"_", data, ".", save_as), device = save_as , path = path)
+  
+  return(plot)
+}
+
+custom_trace_each_chain_overlay <- function(fit, month,data, chains, save_as, path){
+  
+  #get div trans for each iteration
+  divtrans <- get_divergent_iterations(fit)
+  #get lp__ for each iteration
+  lp <- as.data.frame(fit)$lp__
+  
+  #set chain for each iteration (sequential)
+  chain <- c()
+  t <- c()
+  #set counter for 1 to 500 post warm up iterations for each chain
+  c <- 1
+  for (i in 1:length(lp)){
+    if(i<= 500){
+      chain <- c(chain, 1)
+    }
+    if(i>500 & i <= 1000){
+      chain <- c(chain, 2)
+    }
+    if(i>1000 & i <= 1500){
+      chain <- c(chain, 3)
+    }
+    if(i>1500){
+      chain <- c(chain, 4)
+    }
+    if (c == 501){
+      c <- 1
+    }
+    t <- c(t, c) 
+    c <- c + 1
+  }
+  
+  #convert to data frame
+  divergence <- as.data.frame(t)
+  divergence[".chain"] <- chain
+  divergence["lp__"] <- lp
+  divergence["div"] <- as.numeric(divtrans)
+  
+  plots <- list()
+  for (i in 1:chains){
+    plots[[i]] <- ggplot() +
+      geom_point(data = divergence %>% filter(.chain != i), aes(x=t, y = lp__), color = "gray", size = 1) +
+      geom_point(data = divergence %>% filter(.chain == i), aes(x=t, y = lp__), color = "blue", size = 1) +
+      geom_vline(data = divergence %>% filter(div == 1, .chain == i) ,aes(xintercept= t), color = "red")  +
+      ylim(min(divergence$lp__),max(divergence$lp__)) +
+      xlab("Post Warmup Iteration") +
+      ggtitle(i) +
+      theme(plot.title = element_text(hjust = 0.5, size = 10))
+  }
+  
+  
+  #generate plot grid 
+  plot_grid <- grid.arrange(grobs = plots, nrow = 2)
+  #save plot
+  ggsave(paste0(month, "_trace_all_chains_custom_overlay_", fit@model_name,"_", data, ".", save_as), plot = arrangeGrob(grobs = plots, ncol = 2), device = save_as , path = path)
+  
+  
+  return(plot_grid)
+}
+\end{lstlisting}
+
+\subsection{Ausführung der \textit{Stan}-Modelle in \textit{R}}
+\begin{lstlisting}[style=custom, caption={\textit{R}-Script zum Import von Daten aus einer CSV-Datei und Erstellen der Stanfit Objekte},label={r:general}]
+library(tidyverse)
+
+#import data from CSV
+data <- read_csv("../../data/dot-com/Dec_1992-2000_SP500_USD.csv",
+                 col_types = cols(
+                   Date = col_date(),
+                   Open = col_double(),
+                   High = col_double(), 
+                   Low = col_double(),
+                   Close = col_double(),
+                   'Adj Close' = col_double(),
+                   Volume = col_number()
+                 ))
+
+#calculate returns
+data <- data %>% mutate(Ret = Close - Open)
+data <- data %>% mutate(LogRet = log(Close)-log(Open))
+
+#mark imported data as not missing
+data <- data %>% mutate(Missing = 0)
+
+
+# add predictions
+date <- as.Date(tail(data$Date, 1))
+for (x in 0:29) {
+  date <- date + 1
+  data <- add_row(data, Date = date , Ret = 0,LogRet = 0, Missing = 1)
+}
+
+# Load Rstan package
+library(rstan)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+
+#set parameter and safe stanfit model as 'AL_herd_Dec'
+AL_herd_Dec <- stan(control = list(max_treedepth = 16, adapt_delta=.99),
+                    file="../../models/AL_herd_walk_CV.stan",
+             data = list(T=nrow(data), miss_mask = data$Missing, 
+                         ret_obs = data$LogRet), 
+             iter = 1000, 
+             chains = 4)
+\end{lstlisting}
+
+\subsection{Erstellen der Allgemeinen Plots zur Übersicht der Parameter der Modelle}
+\begin{lstlisting}[style=custom, caption={\textit{R}-Script zur Erstellung von Übersichten der Parameter innerhalb einer Zeitreihe}, label={r:general-plot}]
+#load libraries
+library(tidyverse)
+library(rstan)
+
+#define data and exakt model names that match .rds file names
+data <- c("dotcom", "finance")
+model_name <- c("AL_herd_walk_CV", "FW_DCA_HPM_ma_CV", "FW_DCA_HPM_walk_CV","GARCH_CV")
+
+#define function that returns a list of all .rds files (file structur sensitiv)
+generate_import_incl_path <- function (data, model_name){
+  fit_vec <- c()
+  data_vec <- c()
+  model_vec <- c()
+  
+  for (model in model_name){
+    for (d in data){
+      path <- paste0(d, "/",model, "/stanfit/")
+      for (i in 1:12){
+        fit <- c(paste0(path, month.abb[i], "_fit_",d,"_",model))
+        fit_vec <- c(fit_vec, fit)
+        data_vec <- c(data_vec, d)
+        model_vec <- c(model_vec, model)
+      }
+    }
+  }
+  return(list(fit_vec, data_vec, model_vec))
+}
+
+
+#define function that loads all .rds files and extracts data, returns data frame
+run <- function(fits, data, model){
+  
+  month <- c()
+  month_abb <- c()
+  num_div <- c()
+  num_tree <- c()
+  adapt_delta <- c()
+  max_treedepth <- c()
+  time <- c()
+  d <- c()
+  m <- c()
+  
+  i <- 1
+  j <- 1
+  
+  for (elem in fits){
+    #load to workspace
+    fit <- read_rds(paste0(elem, ".rds"))
+    
+    #add month
+    month <- c(month, i)
+    month_abb <- c(month_abb, month.abb[i])
+    
+    #add data
+    d <- c(d, data[j])
+    
+    #add model
+    m <- c(m, model[j])
+    
+    # get model spec
+    #add number divergent transitions
+    num_div <- c(num_div, get_num_divergent(fit))
+   
+    #add number transitions exceeding max treedepth
+    num_tree <- c(num_tree, get_num_max_treedepth(fit))
+    
+    #add elapsed time
+    time <- c(time, mean(get_elapsed_time(fit)))
+    
+    #get delta 
+    adapt_delta <- c(adapt_delta, attr(fit@sim$samples[[1]], "args")$control[[1]])
+    
+    #get max treedepth
+    max_treedepth <- c(max_treedepth, attr(fit@sim$samples[[1]], "args")$control[[9]])
+    
+    if(i == 12){
+      i <- 1
+    } else {
+      i <- i + 1
+    }
+    # counter to access data and model name from fits
+    j <- j + 1
+  }
+  #convert to dataframe
+  general <- as.data.frame(month)
+  general['month_abb'] <- month_abb
+  general['num_divergence'] <- num_div
+  general['exceed_max_treedepth'] <- num_tree
+  general['elapsed_time'] <- time
+  general['adapt_delta'] <- adapt_delta
+  general['max_treedepth'] <- max_treedepth
+  general['data'] <- d
+  general['model'] <- m
+  
+  return(general)
+}
+
+# generate import list
+import <- generate_import_incl_path(data, model_name)
+
+#save data frame on disk
+write_rds( run(import[[1]], import[[2]], import[[3]]), paste0("general_all_models.rds"))
+
+#load data frame
+general_all_models <- read_rds("general_all_models.rds")
+
+# accessing data from data frame "general_all_models to check specification from model run
+general_all_models %>% filter(data == data[1]) %>% filter(model == model_name[1]) %>% filter(month == 9)
+
+# example plot of general information
+
+general_all_models %>% ggplot() +
+  geom_line(aes(x=month, y = num_divergence)) +
+  geom_text(aes(label = num_divergence,x = month, y = num_divergence), size = 3, vjust = -1) +
+  scale_x_continuous(name="month", breaks = 1:12) +
+  facet_wrap(model ~ data, ncol = 2)
+
+\end{lstlisting}
+
+\section{Weitere Abbildungen}
+\label{app:plots}
+\counterwithin{figure}{subsection}
+\subsection{Allgemeine Plots}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=.7]{../all-final/general/general_num_divergence}
+\caption{Übersicht über die Anzahl der divergent Transitions je Monat aller Modelle auf den verschiedenen Daten (eigene Darstellung)}
+\label{fig:general_num-divergence}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.7]{../all-final/general/general_exceed_max_treedepth}
+\caption{Übersicht über die Anzahl der Iterationen, die die \texttt{max\_treedepth} überschritten haben je Monat, Modell und Datensatz (eigene Darstellung)}
+\label{fig:general_exceed-max-treedepth}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.7]{../all-final/general/general_adapt_delta}
+\caption{Übersicht über den verwendeten Wert des Parameters \texttt{adapt\_delta} in der Simulation je Monat, Modell und Datensatz (eigene Darstellung)}
+\label{fig:general_adapt_delta}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.7]{../all-final/general/general_max_treedepth}
+\caption{Übersicht über den verwendeten Wert des Parameters \texttt{max\_treedepth} in der Simulation je Monat, Modell und Datensatz (eigene Darstellung)}
+\label{fig:general_max_treedepth}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.7]{../all-final/general/general_time_in_min}
+\caption{Übersicht über die durchnittlich benötigte Zeit des Samplers zur Simulation je Monat, Modell und Datensatz (eigene Darstellung)}
+\label{fig:general_time-in-min}
+\end{center}
+\end{figure}
+
+\newpage
+
+\subsection{Preis-Vorhersagen}
+\label{app:price}
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Jan_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Feb_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Mar_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Apr_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/May_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Jun_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Jul_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Aug_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Sep_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Oct_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Nov_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/price/Dec_price_prediction_GARCH_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Dotcom-Blase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Jan_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Feb_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Mar_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Apr_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/May_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Jun_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Jul_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Aug_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Sep_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Oct_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Nov_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/price/Dec_price_prediction_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Dotcom-Blase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Jan_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Feb_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Mar_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Apr_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/May_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Jun_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Jul_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Aug_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Sep_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Oct_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Nov_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/price/Dec_price_prediction_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Dotcom-Blase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Jan_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Feb_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Mar_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Apr_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/May_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Jun_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Jul_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Aug_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Sep_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Oct_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Nov_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/price/Dec_price_prediction_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des AL-Modells auf den Daten der Dotcom-Blase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Jan_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Feb_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Mar_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Apr_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/May_price_prediction_GARCH_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Jun_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Jul_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Aug_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Sep_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Oct_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Nov_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/price/Dec_price_prediction_GARCH_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Finanzkrise}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Jan_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Feb_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Mar_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Apr_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/May_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Jun_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Jul_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Aug_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Sep_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Oct_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Nov_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/price/Dec_price_prediction_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Finanzkrise}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Jan_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Feb_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Mar_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Apr_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/May_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Jun_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Jul_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Aug_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Sep_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Oct_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Nov_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Dec_price_prediction_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Finanzkrise}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Jan_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Feb_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Mar_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Apr_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/May_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Jun_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Jul_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Aug_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Sep_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Oct_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Nov_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/price/Dec_price_prediction_AL_herd_walk_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des AL-Modells auf den Daten der Finanzkrise}
+\end{figure}
+
+
+
+
+
+\subsection{Traceplots}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Jan_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Feb_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Mar_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Apr_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/May_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Jun_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Jul_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Aug_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Sep_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Oct_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Nov_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/GARCH_CV/plots/Dec_trace_all_chains_custom_overlay_GARCH_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Dotcom-Blase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Jan_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Feb_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Mar_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Apr_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/May_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Jun_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Jul_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Aug_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Sep_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Oct_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Nov_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_ma_CV/plots/Dec_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Dotcom-Blase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Jan_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Feb_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Mar_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Apr_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/May_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Jun_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Jul_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Aug_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Sep_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Oct_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Nov_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/FW_DCA_HPM_walk_CV/plots/Dec_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Dotcom-Blase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Jan_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Feb_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Mar_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Apr_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/May_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Jun_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Jul_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Aug_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Sep_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Oct_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Nov_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/dotcom/AL_herd_walk_CV/plots/Dec_trace_all_chains_custom_overlay_AL_herd_walk_CV_dotcom}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des AL-Modells auf den Daten der Dotcom-Blase}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Jan_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Feb_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Mar_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Apr_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/May_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Jun_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Jul_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Aug_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Sep_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Oct_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Nov_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/GARCH_CV/plots/Dec_trace_all_chains_custom_overlay_GARCH_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des GARCH-Modells auf den Daten der Finanzkrise}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Jan_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Feb_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Mar_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Apr_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/May_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Jun_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Jul_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Aug_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Sep_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Oct_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Nov_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_ma_CV/plots/Dec_trace_all_chains_custom_overlay_FW_DCA_HPM_ma_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Finanzkrise}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Jan_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Feb_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Mar_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Apr_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/May_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Jun_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Jul_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Aug_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Sep_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Oct_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Nov_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/FW_DCA_HPM_walk_CV/plots/Dec_trace_all_chains_custom_overlay_FW_DCA_HPM_walk_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Finanzkrise}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Jan_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Jan}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Feb_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Feb}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Mar_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Mar}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Apr_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Apr}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/May_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{May}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Jun_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Jun}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Jul_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Jul}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Aug_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Aug}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Sep_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Sep}
+  \end{subfigure}\par\medskip
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Oct_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Oct}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Nov_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Nov}
+  \end{subfigure}
+  \begin{subfigure}{.3\linewidth}
+  \includegraphics[width=1\linewidth]{../all-final/finance/AL_herd_walk_CV/plots/Dec_trace_all_chains_custom_overlay_AL_herd_walk_CV_finance}\hfill
+  \caption{Dec}
+  \end{subfigure}
+  \caption{Preis-Vorhersagen des AL-Modells auf den Daten der Finanzkrise}
+\end{figure}
+
 
 \printbibliography
 

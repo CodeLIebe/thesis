@@ -1,0 +1,92 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {ngerman}{}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Verhalten der Markov-Kette beim Ziehen von Stichproben \parencite {betancourt:2017}\relax }}{8}{figure.caption.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Konzentration der Markov-Kette auf die typische Menge einer Verteilung \parencite {betancourt:2017}\relax }}{9}{figure.caption.5}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Starke Krümmungen (grün) der typischen Menge einer Verteilung führen zu verzerrten MCMC-Schätzern \parencite {betancourt:2017}\relax }}{10}{figure.caption.6}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Mit Hilfe eines Vektorfeldes das an der typischen Menge ausgerichtet ist, kann die Ziel-Verteilung leichter abgetastet werden \parencite {betancourt:2017}.\relax }}{11}{figure.caption.7}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Die Richtung des Gradienten zeigt immer von der typischen Menge in Richtung parameter-sensitiver Bereiche(grüner Pfeil), wie z.B. dem Modus der Verteilung. Folgt der Sampler diesen Richtungen, kann er die typische Menge nicht erkunden \parencite {betancourt:2017}.\relax }}{12}{figure.caption.8}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Analoges System der klassischen Physik \parencite {betancourt:2017}.\relax }}{13}{figure.caption.9}% 
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Die Daten weisen im Zeitverlauf unterschiedliche Abweichung zur Trendgerade auf, d.h. die Residuen/Störterme sind nicht konstant im Zeitverlauf und es liegt Heteroskedastizität vor (Eigene Darstellung).\relax }}{19}{figure.caption.10}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Die Studentsche t-Verteilung mit 5 Freiheitsgraden, dem Erwartungswert 0 skaliert um den Faktor 1 (Eigene Darstellung).\relax }}{26}{figure.caption.11}% 
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Traceplots der Chains des FW-Modells(ma) auf den Daten der Dotcom-Blase für August 2008 mit 381 divergent Transitions und 8 Transitions über \texttt {max\_treedepth = 18} wobei \texttt {adapt\_delta = 0.9} (eigene Darstellung)\relax }}{37}{figure.caption.12}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Traceplots der Chains des FW-Modells (ma) auf den Daten der Finanzkrise für Juli 2008 mit 0 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 18} wobei \texttt {adapt\_delta = 0.99} (eigene Darstellung)\relax }}{37}{figure.caption.13}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Traceplots der Chains des FW-Modells (ma) auf den Daten der Finanzkrise für November 2008 mit 0 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 29} wobei \texttt {adapt\_delta = 0.99} (eigene Darstellung)\relax }}{38}{figure.caption.14}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Traceplot der Chains des FW-Modells (walk) auf den Daten der Finanzkrise für Dezember 2008 mit 0 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 128} wobei \texttt {adapt\_delta = 0.99} (eigene Darstellung)\relax }}{38}{figure.caption.16}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Parallele-Koordinaten-Plot der Chains des FW-Modells (ma) auf den Daten der Finanzkrise für November 2008 mit 0 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 29} wobei \texttt {adapt\_delta = 0.99} (eigene Darstellung)\relax }}{39}{figure.caption.15}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Preis-Vorhersage der Chains des FW-Modells (walk) auf den Daten der Finanzkrise für Dezember 2008 mit 0 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 128} wobei \texttt {adapt\_delta = 0.99} (eigene Darstellung)\relax }}{39}{figure.caption.17}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Preis-Vorhersage der Chains des AL-Modells auf den Daten der Dotcom-Blase für September 2000 mit 2 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 16} wobei \texttt {adapt\_delta = 0.92} (eigene Darstellung)\relax }}{40}{figure.caption.18}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Traceplots der Chains des AL-Modells auf den Daten der Dotcom-Blase für September 2000 mit 2 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 16} wobei \texttt {adapt\_delta = 0.92} (eigene Darstellung)\relax }}{41}{figure.caption.19}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Autokorrelation der Modell-Parameter innerhalb der Chains des AL-Modells auf den Daten der Dotcom-Blase für Juni 2000 mit 1 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 16} wobei \texttt {adapt\_delta = 0.9} (eigene Darstellung)\relax }}{42}{figure.caption.20}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Autokorrelation der Modell-Parameter innerhalb der Chains des AL-Modells auf den Daten der Finanzkrise für Dezember 2008 mit 4 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 13} wobei \texttt {adapt\_delta = 0.85} (eigene Darstellung)\relax }}{42}{figure.caption.21}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Preis-Vorhersage der Chains des GARCH-Modells auf den Daten der Dotcom-Blase für Januar 2000 mit 0 divergent Transitions und 0 Transitions über \texttt {max\_treedepth = 10} wobei \texttt {adapt\_delta = 0.8} (eigene Darstellung)\relax }}{42}{figure.caption.22}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.1.1}{\ignorespaces Übersicht über die Anzahl der divergent Transitions je Monat aller Modelle auf den verschiedenen Daten (eigene Darstellung)\relax }}{62}{figure.caption.24}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.1.2}{\ignorespaces Übersicht über die Anzahl der Iterationen, die die \texttt {max\_treedepth} überschritten haben je Monat, Modell und Datensatz (eigene Darstellung)\relax }}{63}{figure.caption.25}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.1.3}{\ignorespaces Übersicht über den verwendeten Wert des Parameters \texttt {adapt\_delta} in der Simulation je Monat, Modell und Datensatz (eigene Darstellung)\relax }}{63}{figure.caption.26}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.1.4}{\ignorespaces Übersicht über den verwendeten Wert des Parameters \texttt {max\_treedepth} in der Simulation je Monat, Modell und Datensatz (eigene Darstellung)\relax }}{64}{figure.caption.27}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.1.5}{\ignorespaces Übersicht über die durchnittlich benötigte Zeit des Samplers zur Simulation je Monat, Modell und Datensatz (eigene Darstellung)\relax }}{64}{figure.caption.28}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.1}{\ignorespaces Preis-Vorhersagen des GARCH-Modells auf den Daten der Dotcom-Blase\relax }}{66}{figure.caption.29}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.2}{\ignorespaces Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Dotcom-Blase\relax }}{67}{figure.caption.30}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.3}{\ignorespaces Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Dotcom-Blase\relax }}{68}{figure.caption.31}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.4}{\ignorespaces Preis-Vorhersagen des AL-Modells auf den Daten der Dotcom-Blase\relax }}{69}{figure.caption.32}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.5}{\ignorespaces Preis-Vorhersagen des GARCH-Modells auf den Daten der Finanzkrise\relax }}{70}{figure.caption.33}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.6}{\ignorespaces Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Finanzkrise\relax }}{71}{figure.caption.34}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.7}{\ignorespaces Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Finanzkrise\relax }}{72}{figure.caption.35}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2.8}{\ignorespaces Preis-Vorhersagen des AL-Modells auf den Daten der Finanzkrise\relax }}{73}{figure.caption.36}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.1}{\ignorespaces Preis-Vorhersagen des GARCH-Modells auf den Daten der Dotcom-Blase\relax }}{74}{figure.caption.37}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.2}{\ignorespaces Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Dotcom-Blase\relax }}{75}{figure.caption.38}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.3}{\ignorespaces Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Dotcom-Blase\relax }}{76}{figure.caption.39}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.4}{\ignorespaces Preis-Vorhersagen des AL-Modells auf den Daten der Dotcom-Blase\relax }}{77}{figure.caption.40}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.5}{\ignorespaces Preis-Vorhersagen des GARCH-Modells auf den Daten der Finanzkrise\relax }}{78}{figure.caption.41}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.6}{\ignorespaces Preis-Vorhersagen des FW-Modells (ma) auf den Daten der Finanzkrise\relax }}{79}{figure.caption.42}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.7}{\ignorespaces Preis-Vorhersagen des FW-Modells (walk) auf den Daten der Finanzkrise\relax }}{80}{figure.caption.43}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3.8}{\ignorespaces Preis-Vorhersagen des AL-Modells auf den Daten der Finanzkrise\relax }}{81}{figure.caption.44}% 
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }

@@ -1,0 +1,68 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {ngerman}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung}{6}{chapter.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Verwendete Methoden}{7}{chapter.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Bayessche Modellierung}{7}{section.2.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Markov Chain Monte Carlo (MCMC)}{8}{section.2.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Hamiltonian Monte Carlo Sampling (HMC)}{11}{section.2.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}\textit {Stan} und \textit {R}}{14}{section.2.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Die Modelle}{18}{chapter.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Generalized Autoregressive Conditional Heteroscedasticity (GARCH)}{18}{section.3.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Franke \& Westerhoff (FW)}{22}{section.3.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Alfarano, Lux \& Wagner (AL)}{29}{section.3.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Simulationen}{35}{chapter.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Daten \& Vorhersagen}{35}{section.4.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Ergebnisse}{36}{section.4.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Anhang}{44}{chapter*.23}% 
+\defcounter {refsection}{0}\relax 
+\setcounter {tocdepth}{1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A}\textit {Stan} Code}{44}{section.Alph0.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1}GARCH-Modell}{44}{subsection.Alph0.1.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.2}Modell von Franke \& Westerhoff (Random Walk)}{45}{subsection.Alph0.1.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.3}Modell von Franke \& Westerhoff (Moving Average)}{47}{subsection.Alph0.1.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.4}Modell von Alfarano, Lux \& Wagner (AL)}{49}{subsection.Alph0.1.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B}\textit {R} Code}{51}{section.Alph0.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {B.1}Erstellen der Preis-Plots}{51}{subsection.Alph0.2.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {B.2}Import/Export der Stanfit Objekte}{52}{subsection.Alph0.2.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {B.3}Erstellen der Traceplots inkl. divergent Transitions für einzelne Chains}{52}{subsection.Alph0.2.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {B.4}Erstellen der Diagnose-Plots für mehrere Stanfit-Objekte}{54}{subsection.Alph0.2.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {B.5}Ausführung der \textit {Stan}-Modelle in \textit {R}}{59}{subsection.Alph0.2.5}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {B.6}Erstellen der Allgemeinen Plots zur Übersicht der Parameter der Modelle}{60}{subsection.Alph0.2.6}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C}Weitere Abbildungen}{62}{section.Alph0.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.1}Allgemeine Plots}{62}{subsection.Alph0.3.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.2}Preis-Vorhersagen}{66}{subsection.Alph0.3.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.3}Traceplots}{74}{subsection.Alph0.3.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline Literatur}{82}{chapter*.45}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Eigenständigkeitserklärung}{84}{chapter*.46}% 
