@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  24 MAR 2019 17:55
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  24 MAR 2019 18:05
 entering extended mode
 **./Bachelorarbeit_E-Fughe.tex
 (Bachelorarbeit_E-Fughe.tex
@@ -3043,12 +3043,6 @@ Package rerunfilecheck Info: File `Bachelorarbeit_E-Fughe.out' has not changed.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package biblatex Warning: Please rerun LaTeX.
-
 Package logreq Info: Writing requests to 'Bachelorarbeit_E-Fughe.run.xml'.
 \openout1 = `Bachelorarbeit_E-Fughe.run.xml'.
 
@@ -3056,7 +3050,7 @@ Package logreq Info: Writing requests to 'Bachelorarbeit_E-Fughe.run.xml'.
 Here is how much of TeX's memory you used:
  45953 strings out of 427748
  936744 string characters out of 3145877
- 1621787 words of memory out of 3000000
+ 1622318 words of memory out of 3000000
  49206 multiletter control sequences out of 15000+200000
  542576 words of font info for 118 fonts, out of 3000000 for 9000
  1330 hyphenation exceptions out of 8191
