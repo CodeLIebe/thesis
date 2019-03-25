@@ -137,26 +137,29 @@ hypertexnames = true]{hyperref}
 
 \chapter*{Zusammenfassung}
 In dieser Arbeit wurden drei verschiedene Modelle der Ökonophysik, die im Kapitel~\ref{chap:models} näher erläutert werden, auf realen Finanzmarktdaten simuliert. Das GARCH(1,1)-Modell wurde ebenfalls als Vergleichsmodell gewählt, da es eine in der Ökonometrie weitverbreitete Baseline darstellt.
- 
+
 Die vier Modelle wurden auf zwei verschiedenen Zeitreihen simuliert, in denen starke Dynamiken an den Finanzmärkte charakteristisch waren: Die Dotcom-Blase 2000 und die globale Finanzkrise 2008. Der S\&P 500 Index diente als Datengrundlage, da die Modelle versuchen Dynamiken eines Marktes und nicht einer einzelne Aktie abzubilden. Die Daten und Ergebnisse sind in Kapitel~\ref{chap:sim} näher erläutert.
 
-Zur Simulation wurden Methoden der Bayesschen Statistik verwendet. Dazu wurden die Modelle wurden in die Sprache \textit{Stan} umgeschrieben, um unter Verwendung von Hamiltonian Monte Carlo Sampling möglichst effektiv Stichproben aus der a-posterior-Verteilung der Modelle zu generieren. Die verwendeten Methoden werden in Kapitel~\ref{chap:methoden} im Detail erläutert.
+Zur Simulation wurden Methoden der Bayesschen Statistik verwendet. Dazu wurden die Modelle wurden von \textcite{bertschinger:2018} in die Sprache \textit{Stan} umgeschrieben, um unter Verwendung von Hamiltonian Monte Carlo Sampling möglichst effektiv Stichproben aus der a-posterior-Verteilung der Modelle zu generieren. Die verwendeten Methoden werden in Kapitel~\ref{chap:methoden} im Detail erläutert.
 
 Im Allgemeinen konnte keines der Modelle mit hohen Wahrscheinlichkeiten Dynamiken erkennen und das Modell nach Franke \& Westerhoff zeigte zusätzlich große Schwierigkeiten auf der Zeitreihe der Dotcom-Blase überhaupt gefittet zu werden. Einzelne Monate ließen Dynamiken mit geringen Wahrscheinlichkeiten erkennen, aber insgesamt ist kein Modell in der hier verwendeten Variante tatsächlich geeignet Dynamiken zuverlässig zu erkennen.
-%tbd: if loo ok
-% kein Modell konnte baseline GARCH(1,1) schlagen
 
-%tbd: not sure about this:
 Für weitere Untersuchungen wäre eine Anpassung des Modells von Franke \& Westerhoff eventuell interessant. Auch die Simulation des Modells nach Alfarano, Lux \& Wagner könnte bei einer Erhöhung der Anzahl der Iterationen des Samplers möglicherweise bessere Ergebnisse liefern.
 
+
 \tableofcontents
+
 \listoffigures
+
 %\listoftables
 
 \chapter{Einleitung}
 \label{chap:summary}
+Mit der Zunahme frei verfügbarer wirtschaftswissenschaftlicher Daten hat sich die Forschungsrichtung der Ökonophysik entwickelt, die unter Berücksichtigung naturwissenschaftlicher Erkenntnisse die Ökonomie erforscht. Diese Arbeit legt den Fokus auf Modelle der Ökonophysik, die Dynamiken an Finanzmärkten modellieren. Insbesondere das Verhalten der Agenten an Finanzmärkten bzw. die Entscheidung für bzw. gegen eine Handelsstrategie wird von den Modellen mit Hilfe naturwissenschaftlicher Erkenntnisse modelliert. Diese Modelle werden auf realen Zeitreihen simuliert, mit dem Ziel tatsächlich Dynamiken in den realen Daten zu erkennen. Als Vergleichsmodell wurde das in der Ökonometrie häufig verwendete GARCH(1,1)-Modell gewählt.
 
-%tbd
+Die Modelle wurden von \textcite{bertschinger:2018} in \textit{Stan} umgeschrieben und standardisiert, sodass alle Modelle den gleichen Dateninput erwarten und somit leicht in \textit{R} mittels \textit{rstan} Bibliothek simuliert werden konnten. Unter Verwendung verschiedener Pakete konnten die Ergebnisse in \textit{R} anschließend visualisiert und exportiert werden.
+
+Die verwendeten Methoden werden in Kapitel~\ref{chap:methoden} näher erläutert und die Modelle sind in Kapitel~\ref{chap:models} beschrieben. Die verwendeten Daten und  Ergebnisse werden anschließend in Kapitel~\ref{chap:data} und~\ref{chap:results} diskutiert. Der Code der Modelle befindet sich in Anhang~\ref{app:stan} und die verwendeten \textit{R}-Skripte befinden sich in Anhang~\ref{app:r}. Zusätzlich befinden sich im Anhang~\ref{app:plots} weitere Abbildungen und Plots, die die Ergebnisse zusammenfassen.
 
 \chapter{Verwendete Methoden}
 \label{chap:methoden}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  24 MAR 2019 23:09
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.1.27)  25 MAR 2019 11:21
 entering extended mode
 **./Bachelorarbeit_E-Fughe.tex
 (Bachelorarbeit_E-Fughe.tex
@@ -1891,6 +1891,110 @@ Overfull \hbox (3.91196pt too wide) detected at line 74
 \TU/LinuxLibertineO(0)/m/n/12 C.1.13. 
  []
 
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 76.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 76
+\TU/LinuxLibertineO(0)/m/n/12 C.1.14. 
+ []
+
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 78.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 78
+\TU/LinuxLibertineO(0)/m/n/12 C.1.15. 
+ []
+
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 80.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 80
+\TU/LinuxLibertineO(0)/m/n/12 C.1.16. 
+ []
+
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 82.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 82
+\TU/LinuxLibertineO(0)/m/n/12 C.1.17. 
+ []
+
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 84.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 84
+\TU/LinuxLibertineO(0)/m/n/12 C.1.18. 
+ []
+
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 86.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 86
+\TU/LinuxLibertineO(0)/m/n/12 C.1.19. 
+ []
+
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 88.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 88
+\TU/LinuxLibertineO(0)/m/n/12 C.1.20. 
+ []
+
+
+Package tocbasic Warning: number width of figure toc entries should be increase
+d!
+(tocbasic)                Currently used number width = 31.512pt,
+(tocbasic)                Wanted number separation    = 4.79993pt,
+(tocbasic)                Reserved number width       = 27.60004pt on input lin
+e 90.
+
+
+Overfull \hbox (3.91196pt too wide) detected at line 90
+\TU/LinuxLibertineO(0)/m/n/12 C.1.21. 
+ []
+
 )
 \tf@lof=\write7
 \openout7 = `Bachelorarbeit_E-Fughe.lof'.
@@ -1912,12 +2016,18 @@ Class scrreprt Warning: \float@addtolists detected!
 (scrreprt)              a package that still implements the
 (scrreprt)              deprecated \float@addtolist interface .
 
+
+Overfull \hbox (7.94905pt too wide) in paragraph at lines 158--159
+\TU/LinuxLibertineO(0)/m/n/12 Mit der Zunahme frei verfügbarer wirtschaftswisse
+nschaftlicher Daten hat sich die Forschungs-
+ []
+
 [6
 
 ]
 chapter 2.
 
-Overfull \hbox (3.53539pt too wide) in paragraph at lines 172--175
+Overfull \hbox (3.53539pt too wide) in paragraph at lines 175--178
 \TU/LinuxLibertineO(0)/m/n/12 Datensatz $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OM
 L/cmm/m/it/12 x\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 ^^R\OT1/cmr/m/n/12 )$ \TU/Lin
 uxLibertineO(0)/m/n/12 berechnet werden. Mit Hilfe des Satzes von Bayes kann da
@@ -1927,13 +2037,13 @@ nn die a-posteriori-
 [7
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 186--187
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
 
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 194.
+               Default added (so using `tbp') on input line 197.
 
 File: images/markov-chain-plain-betancourt-2017.png Graphic file (type bmp)
 <images/markov-chain-plain-betancourt-2017.png>
@@ -1978,24 +2088,24 @@ ext;"
 File: images/markov-chain-curve-betancourt-2017.png Graphic file (type bmp)
 <images/markov-chain-curve-betancourt-2017.png>
  [9]
-Underfull \hbox (badness 10000) in paragraph at lines 237--241
+Underfull \hbox (badness 10000) in paragraph at lines 240--244
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 249--251
+Underfull \hbox (badness 10000) in paragraph at lines 252--254
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 252--253
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
 
  []
 
 File: images/vector-field-plain-betancourt-2017.png Graphic file (type bmp)
 <images/vector-field-plain-betancourt-2017.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--263
+Underfull \hbox (badness 10000) in paragraph at lines 265--266
 
  []
 
@@ -2003,12 +2113,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 262--263
 File: images/vector-field-grad-betancourt-2017.png Graphic file (type bmp)
 <images/vector-field-grad-betancourt-2017.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 274--276
+Underfull \hbox (badness 10000) in paragraph at lines 277--279
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 277--279
+Underfull \hbox (badness 10000) in paragraph at lines 280--282
 
  []
 
@@ -2016,32 +2126,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 277--279
 File: images/vector-field-sat-betancourt-2017.png Graphic file (type bmp)
 <images/vector-field-sat-betancourt-2017.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 288--289
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 306--308
+Underfull \hbox (badness 10000) in paragraph at lines 309--311
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 313--315
+Underfull \hbox (badness 10000) in paragraph at lines 316--318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 318--320
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
 
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 321--323
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 324--326
 
  []
 
@@ -2059,14 +2169,14 @@ misc.sty"
 File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `TU/DejaVuSansMono(0)/m/n' will be
-(Font)              scaled to size 7.84454pt on input line 326.
+(Font)              scaled to size 7.84454pt on input line 329.
 
-Underfull \hbox (badness 10000) in paragraph at lines 340--341
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 382--384
+Underfull \hbox (badness 10000) in paragraph at lines 385--387
 
  []
 
@@ -2077,36 +2187,36 @@ chapter 3.
 ]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 447.
+               Default added (so using `tbp') on input line 450.
 
 File: images/heteroscedasticity-own-ref.jpeg Graphic file (type bmp)
 <images/heteroscedasticity-own-ref.jpeg>
 [19] [20]
-Underfull \hbox (badness 10000) in paragraph at lines 553--553
+Underfull \hbox (badness 10000) in paragraph at lines 556--556
   [][][]\TU/LinuxLibertineO(0)/bx/n/10 Fundamental-Trader \TU/LinuxLibertineO(0
 )/m/n/10 treffen Kauf bzw. Verkaufsentscheidung auf Basis vorhandener
  []
 
 
-Underfull \hbox (badness 3375) in paragraph at lines 553--553
+Underfull \hbox (badness 3375) in paragraph at lines 556--556
  \TU/LinuxLibertineO(0)/m/n/10 betriebswirtschaftlicher- und Kapitalmarktinform
 ationen wie z.B. Jahresabschlüsse, Inflation, politi-
  []
 
 [21] [22]
-Underfull \hbox (badness 10000) in paragraph at lines 592--595
+Underfull \hbox (badness 10000) in paragraph at lines 595--598
 
  []
 
 
-Overfull \hbox (1.28654pt too wide) in paragraph at lines 596--599
+Overfull \hbox (1.28654pt too wide) in paragraph at lines 599--602
 []\TU/LinuxLibertineO(0)/m/n/12 Sei $\OML/cmm/m/it/12 a[]$ \TU/LinuxLibertineO(
 0)/m/n/12 die relative Attraktivität der Fundamental-Strategie gegenüber der Ch
 artist-Strategie.
  []
 
 
-Overfull \hbox (7.43631pt too wide) in paragraph at lines 609--611
+Overfull \hbox (7.43631pt too wide) in paragraph at lines 612--614
 \TU/LinuxLibertineO(0)/m/n/12 Im \TU/LinuxLibertineO(0)/m/it/12 Stan\TU/LinuxLi
 bertineO(0)/m/n/12 -Code werden die Paramter entsprechend im [][]\TU/DejaVuSans
 Mono(0)/m/n/12 parameter[]\TU/LinuxLibertineO(0)/m/n/12 - bzw. [][]\TU/DejaVuSa
@@ -2117,29 +2227,29 @@ nsMono(0)/m/n/12 transformed parameter[]\TU/LinuxLibertineO(0)/m/n/12 -
 File: images/student_t.png Graphic file (type bmp)
 <images/student_t.png>
  [25]
-Overfull \hbox (5.76198pt too wide) in paragraph at lines 740--741
+Overfull \hbox (5.76198pt too wide) in paragraph at lines 743--744
 []\TU/LinuxLibertineO(0)/m/n/12 Des Weiteren gilt, dass die Volatilität $\OML/c
 mm/m/it/12 ^^[[]$ \TU/LinuxLibertineO(0)/m/n/12 in Formel []3.6[] über den Mark
 tanteil der Fundamental-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 740--741
+Underfull \hbox (badness 10000) in paragraph at lines 743--744
 
  []
 
 [26]
-Underfull \hbox (badness 10000) in paragraph at lines 753--754
+Underfull \hbox (badness 10000) in paragraph at lines 756--757
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 759--761
+Underfull \hbox (badness 10000) in paragraph at lines 762--764
 
  []
 
 
-Overfull \hbox (1.35435pt too wide) in paragraph at lines 762--763
+Overfull \hbox (1.35435pt too wide) in paragraph at lines 765--766
 \TU/LinuxLibertineO(0)/m/n/12 Im \TU/LinuxLibertineO(0)/m/it/12 Stan\TU/LinuxLi
 bertineO(0)/m/n/12 -Code []3.3[] ist diese Variante entsprechend im [][]\TU/Dej
 aVuSansMono(0)/m/n/12 parameter[]\TU/LinuxLibertineO(0)/m/n/12 - und [][]\TU/De
@@ -2147,32 +2257,32 @@ jaVuSansMono(0)/m/n/12 transformed parameter[]\TU/LinuxLibertineO(0)/m/n/12 -
  []
 
 [27]
-Underfull \hbox (badness 10000) in paragraph at lines 799--800
+Underfull \hbox (badness 10000) in paragraph at lines 802--803
 
  []
 
 [28]
-Underfull \hbox (badness 10000) in paragraph at lines 848--850
+Underfull \hbox (badness 10000) in paragraph at lines 851--853
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 853--854
+Underfull \hbox (badness 10000) in paragraph at lines 856--857
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 855--857
+Underfull \hbox (badness 10000) in paragraph at lines 858--860
 
  []
 
 [29]
-Underfull \hbox (badness 10000) in paragraph at lines 860--861
+Underfull \hbox (badness 10000) in paragraph at lines 863--864
 
  []
 
 [30]
-Overfull \hbox (0.31175pt too wide) in paragraph at lines 875--876
+Overfull \hbox (0.31175pt too wide) in paragraph at lines 878--879
 []\TU/LinuxLibertineO(0)/m/n/12 So zeigen [[]1[]], dass $\OML/cmm/m/it/12 x$ \T
 U/LinuxLibertineO(0)/m/n/12 der Fokker-Planck-Gleichung[][][] mit Wahrscheinlic
 hkeitsdichte $\OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; t\OT1/cm
@@ -2180,20 +2290,20 @@ r/m/n/12 )$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 898--901
+Underfull \hbox (badness 10000) in paragraph at lines 901--904
 
  []
 
 [31] [32] [33] [34]
 chapter 4.
 
-Overfull \hbox (5.38907pt too wide) in paragraph at lines 1012--1013
+Overfull \hbox (5.38907pt too wide) in paragraph at lines 1015--1016
 \TU/LinuxLibertineO(0)/m/n/12 pitel []4.2[] werden anschließend die Ergebnisse 
 vorgestellt und mit Hilfe verschiedener Diagnose-
  []
 
 
-Overfull \hbox (160.60727pt too wide) in paragraph at lines 1020--1022
+Overfull \hbox (160.60727pt too wide) in paragraph at lines 1023--1025
 \TU/LinuxLibertineO(0)/m/n/12 Dataframe [][]\TU/DejaVuSansMono(0)/m/n/12 data [
 ]\TU/LinuxLibertineO(0)/m/n/12 um eine berechnete Spalte erweitert werden: [] [
 ]\TU/DejaVuSansMono(0)/m/n/12 data <- data %>% mutate(LogRet = log(Close)-log(O
@@ -2203,7 +2313,7 @@ pen))[]\TU/LinuxLibertineO(0)/m/n/12 .
 [35
 
 ]
-Overfull \hbox (1.35909pt too wide) in paragraph at lines 1042--1044
+Overfull \hbox (1.35909pt too wide) in paragraph at lines 1045--1047
 \TU/LinuxLibertineO(0)/m/n/12 gleitenden Durchschnitt (\TU/DejaVuSansMono(0)/m/
 n/12 FW_DCA_HPM_ma_CV\TU/LinuxLibertineO(0)/m/n/12 ), auf den Daten der Dotcom-
 Blase extrem schwer
@@ -2243,7 +2353,7 @@ FW_DCA_HPM_walk_CV_finance.png Graphic file (type bmp)
 <../all-final/finance/FW_DCA_HPM_walk_CV/plots/price/Dec_price_prediction_FW_DC
 A_HPM_walk_CV_finance.png>
  [38]
-Overfull \hbox (32.25008pt too wide) in paragraph at lines 1097--1098
+Overfull \hbox (32.25008pt too wide) in paragraph at lines 1100--1101
 []\TU/LinuxLibertineO(0)/m/n/12 Die Ergebnisse lassen vermuten, dass das FW-Mod
 ell die a-posteriori-Verteilung der Finanzmarkt-
  []
@@ -2275,14 +2385,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: Reference `app:general-auto' on page 41 undefined on input line 
-1137.
+1140.
 
 File: ../all-final/dotcom/GARCH_CV/plots/price/Jan_price_prediction_GARCH_CV_do
 tcom.png Graphic file (type bmp)
 <../all-final/dotcom/GARCH_CV/plots/price/Jan_price_prediction_GARCH_CV_dotcom.
 png>
 
-Underfull \hbox (badness 1960) in paragraph at lines 1143--1143
+Underfull \hbox (badness 1960) in paragraph at lines 1146--1146
 [][][]|\TU/LinuxLibertineO(0)/m/n/12 Preis-Vorhersage der Chains des GARCH-Mode
 lls auf den Daten der
  []
@@ -3127,13 +3237,13 @@ _AL_herd_walk_CV_finance.png>
  [80]
 chapter without number
 
-Overfull \hbox (4.66902pt too wide) in paragraph at lines 2995--2995
+Overfull \hbox (4.66902pt too wide) in paragraph at lines 2998--2998
 []\TU/LinuxLibertineO(0)/m/n/12 N. Bertschinger, I. Mozzhorin und S. Sinha. „  
 Reality-check for Econophysics: Likelihood-
  []
 
 
-Overfull \hbox (13.09203pt too wide) in paragraph at lines 2995--2995
+Overfull \hbox (13.09203pt too wide) in paragraph at lines 2998--2998
 \TU/LinuxLibertineO(0)/m/n/12 based fitting of physics-inspired market models t
 o empirical data“. In: \TU/LinuxLibertineO(0)/m/it/12 CoRR \TU/LinuxLibertineO(
 0)/m/n/12 abs/1803.03861
@@ -3142,18 +3252,18 @@ o empirical data“. In: \TU/LinuxLibertineO(0)/m/it/12 CoRR \TU/LinuxLibertineO
 [81
 
 ] [82]
-Overfull \hbox (12.0pt too wide) in paragraph at lines 3003--3013
+Overfull \hbox (12.0pt too wide) in paragraph at lines 3006--3016
 []$[]$ 
  []
 
 [83
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3014.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3014.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3017.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3017.
  (Bachelorarbeit_E-Fughe.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3014.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3014.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3017.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3017.
 
 Package rerunfilecheck Info: File `Bachelorarbeit_E-Fughe.out' has not changed.
 
@@ -3169,7 +3279,7 @@ Package logreq Info: Writing requests to 'Bachelorarbeit_E-Fughe.run.xml'.
 Here is how much of TeX's memory you used:
  46963 strings out of 427748
  952900 string characters out of 3145877
- 1641314 words of memory out of 3000000
+ 1641395 words of memory out of 3000000
  50188 multiletter control sequences out of 15000+200000
  542576 words of font info for 118 fonts, out of 3000000 for 9000
  1330 hyphenation exceptions out of 8191
